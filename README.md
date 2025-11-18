@@ -1,0 +1,1 @@
+# lukaszczapiewski-static-ruby
