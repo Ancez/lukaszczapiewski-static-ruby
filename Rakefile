@@ -104,12 +104,64 @@ namespace :dev do
     watcher_code = %q{watched = ['app', 'config']; exts = ['.erb', '.rb', '.js']; mtimes = {}; loop do; changed = false; watched.each do |dir|; Dir.glob(File.join(dir, '**', '*')).each do |f|; next unless File.file?(f) && exts.any? { |e| f.end_with?(e) }; next if f.end_with?('.css'); mtime = File.mtime(f); if mtimes[f] != mtime; mtimes[f] = mtime; changed = true; end; end; end; if changed; system('rake build:html > /dev/null 2>&1 && rake build:css > /dev/null 2>&1'); end; sleep 0.5; end}
     watcher_pid = spawn("ruby", "-e", watcher_code, :err => File::NULL)
 
-    # Start web server
+    # Start web server with custom handler for clean URLs
     server = WEBrick::HTTPServer.new(
       Port: port,
-      DocumentRoot: dist_dir.to_s,
       BindAddress: "127.0.0.1"
     )
+
+    # Mount assets directory normally
+    server.mount('/assets', WEBrick::HTTPServlet::FileHandler, File.join(dist_dir.to_s, 'assets'))
+    server.mount('/images', WEBrick::HTTPServlet::FileHandler, File.join(dist_dir.to_s, 'images'))
+
+    # Custom handler for HTML pages (supports clean URLs)
+    server.mount_proc('/') do |req, res|
+      path = req.path
+      
+      # Handle root path
+      if path == '/'
+        index_path = File.join(dist_dir.to_s, 'index.html')
+        if File.exist?(index_path)
+          res.status = 200
+          res['Content-Type'] = 'text/html'
+          res.body = File.read(index_path)
+          next
+        end
+      end
+      
+      # Handle paths without extension (try adding .html)
+      if !path.include?('.') && !path.end_with?('/')
+        html_path = File.join(dist_dir.to_s, "#{path}.html")
+        if File.exist?(html_path)
+          res.status = 200
+          res['Content-Type'] = 'text/html'
+          res.body = File.read(html_path)
+          next
+        end
+      end
+      
+      # Try direct file path
+      file_path = File.join(dist_dir.to_s, path)
+      if File.directory?(file_path)
+        index_path = File.join(file_path, 'index.html')
+        if File.exist?(index_path)
+          res.status = 200
+          res['Content-Type'] = 'text/html'
+          res.body = File.read(index_path)
+          next
+        end
+      elsif File.exist?(file_path) && File.file?(file_path)
+        res.status = 200
+        res['Content-Type'] = WEBrick::HTTPUtils.mime_type(file_path, WEBrick::HTTPUtils::DefaultMimeTypes)
+        res.body = File.read(file_path)
+        next
+      end
+      
+      # Not found
+      res.status = 404
+      res['Content-Type'] = 'text/html'
+      res.body = "Not Found\n'#{req.path}' not found.\n"
+    end
 
     trap("INT") do
       puts "\n\nShutting down..."
