@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= frontmatter['title'] || 'Site' %></title>
+  <link rel="stylesheet" href="/assets/stylesheets/application.css">
+</head>
+<body>
+  <main>
+    <%= page_content %>
+  </main>
+
+  <script type="importmap">
+<%= importmap_json %>
+</script>
+
+  <% if js_modules && !js_modules.empty? %>
+  <% js_modules.each do |module_name| %>
+    <script type="module">import "<%= module_name %>";</script>
+  <% end %>
+<% else %>
+  <script type="module">import "application";</script>
+<% end %>
+
+</body>
+</html>

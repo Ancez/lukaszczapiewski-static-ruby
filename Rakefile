@@ -1,0 +1,126 @@
+# frozen_string_literal: true
+
+require_relative "lib/site_builder"
+require "fileutils"
+require "pathname"
+require "json"
+
+namespace :build do
+  desc "Build everything (HTML + CSS)"
+  task :all => [:html, :css] do
+    puts "\n✓ Build complete!"
+  end
+
+  desc "Build JavaScript assets"
+  task :assets do
+    if File.exist?("package.json")
+      package_json = JSON.parse(File.read("package.json"))
+      build_script = package_json.dig("scripts", "build")
+      # Only run if build script exists and doesn't include CSS (CSS handled separately)
+      if build_script && !build_script.include?("build:css") && build_script != "echo 'No JS bundling needed'"
+        sh "npm run build"
+      end
+    end
+  end
+
+  desc "Compile all pages to static HTML"
+  task :html => [:assets] do
+    load "lib/site_builder.rb"
+  end
+
+  desc "Build CSS (runs after HTML so dist directory exists)"
+  task :css do
+    if File.exist?("package.json")
+      package_json = JSON.parse(File.read("package.json"))
+      if package_json.dig("scripts", "build:css")
+        # Always build CSS to ensure it's processed
+        sh "npm run build:css"
+      end
+    elsif File.exist?("tailwind.config.js")
+      # Build CSS even if no package.json (standalone Tailwind)
+      if system("which tailwindcss > /dev/null 2>&1")
+        FileUtils.mkdir_p("dist/assets/stylesheets")
+        sh "tailwindcss -i ./app/assets/stylesheets/application.css -o ./dist/assets/stylesheets/application.css --minify"
+      end
+    end
+  end
+
+  desc "Clean dist directory"
+  task :clean do
+    dist_dir = Pathname.new(Dir.pwd).join("dist")
+    FileUtils.rm_rf(dist_dir) if dist_dir.exist?
+    puts "Cleaned #{dist_dir}"
+  end
+end
+
+namespace :dev do
+  desc "Start development server with auto-rebuild and live reload"
+  task :server do
+    require "webrick"
+    require "fileutils"
+    require "static_site_builder/websocket_server"
+    require "json"
+
+    port = ENV["PORT"] || 3000
+    ws_port = ENV["WS_PORT"] || 3001
+    dist_dir = Pathname.new(Dir.pwd).join("dist")
+    reload_file = Pathname.new(Dir.pwd).join(".reload")
+
+    # Start WebSocket server for live reload (before first build)
+    ws_server = StaticSiteBuilder::WebSocketServer.new(port: ws_port, reload_file: reload_file)
+    ws_server.start
+
+    # Build once before starting (with live reload enabled)
+    ENV["LIVE_RELOAD"] = "true"
+    ENV["WS_PORT"] = ws_port.to_s
+    Rake::Task["build:all"].invoke
+
+    # Check if we need to run Tailwind CSS watch (after initial build)
+    tailwind_pid = nil
+    package_json_path = Pathname.new(Dir.pwd).join("package.json")
+    if package_json_path.exist?
+      package_json = JSON.parse(File.read(package_json_path))
+      if package_json.dig("scripts", "watch:css")
+        puts "🎨 Starting Tailwind CSS watch mode..."
+        tailwind_pid = spawn("npm", "run", "watch:css", :err => File::NULL, :out => File::NULL)
+        # Touch the source file to trigger Tailwind watch to process CSS immediately
+        css_source = Pathname.new(Dir.pwd).join("app", "assets", "stylesheets", "application.css")
+        if css_source.exist?
+          FileUtils.touch(css_source)
+        end
+        # Give Tailwind a moment to process CSS
+        sleep 1.5
+      end
+    end
+
+    puts "\n🚀 Starting development server at http://localhost:#{port}"
+    puts "📡 WebSocket server at ws://localhost:#{ws_port}"
+    puts "📝 Watching for changes... (Ctrl+C to stop)"
+    puts "🔄 Live reload enabled - pages will auto-refresh on changes\n"
+
+    # Simple file watcher - rebuild HTML when non-CSS files change
+    # CSS changes are handled by Tailwind watch, so we skip rebuild for CSS files
+    # When HTML rebuilds, it cleans dist, so we need to rebuild CSS immediately after
+    watcher_code = %q{watched = ['app', 'config']; exts = ['.erb', '.rb', '.js']; mtimes = {}; loop do; changed = false; watched.each do |dir|; Dir.glob(File.join(dir, '**', '*')).each do |f|; next unless File.file?(f) && exts.any? { |e| f.end_with?(e) }; next if f.end_with?('.css'); mtime = File.mtime(f); if mtimes[f] != mtime; mtimes[f] = mtime; changed = true; end; end; end; if changed; system('rake build:html > /dev/null 2>&1 && rake build:css > /dev/null 2>&1'); end; sleep 0.5; end}
+    watcher_pid = spawn("ruby", "-e", watcher_code, :err => File::NULL)
+
+    # Start web server
+    server = WEBrick::HTTPServer.new(
+      Port: port,
+      DocumentRoot: dist_dir.to_s,
+      BindAddress: "127.0.0.1"
+    )
+
+    trap("INT") do
+      puts "\n\nShutting down..."
+      Process.kill("TERM", watcher_pid) if watcher_pid
+      Process.kill("TERM", tailwind_pid) if tailwind_pid
+      ws_server.stop
+      server.shutdown
+    end
+
+    server.start
+  end
+end
+
+task default: "build:all"
