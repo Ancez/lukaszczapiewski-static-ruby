@@ -1,12 +1,3 @@
-PATH
-  specs:
-    static-site-builder (0.1.3)
-      actionview (~> 8.0)
-      base64 (~> 0.1)
-      rake (~> 13.0)
-      tty-prompt (~> 0.23)
-      websocket (~> 1.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -125,6 +116,12 @@ GEM
     securerandom (0.4.1)
     sitemap_generator (6.3.0)
       builder (~> 3.0)
+    static-site-builder (0.1.3)
+      actionview (~> 8.0)
+      base64 (~> 0.1)
+      rake (~> 13.0)
+      tty-prompt (~> 0.23)
+      websocket (~> 1.2)
     stringio (3.1.8)
     thor (1.4.0)
     tsort (0.2.0)
@@ -160,8 +157,8 @@ PLATFORMS
 DEPENDENCIES
   importmap-rails
   rake
-  static-site-builder
   sitemap_generator
+  static-site-builder
   webrick
 
 BUNDLED WITH
