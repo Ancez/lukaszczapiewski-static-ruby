@@ -3,6 +3,7 @@ import SmoothScrollController from "controllers/smooth_scroll"
 import TypingController from "controllers/typing"
 import ParticlesController from "controllers/particles"
 import TooltipController from "controllers/tooltip"
+import MobileMenuController from "controllers/mobile_menu"
 
 window.Stimulus = Application.start()
 
@@ -11,3 +12,4 @@ Stimulus.register("smooth-scroll", SmoothScrollController)
 Stimulus.register("typing", TypingController)
 Stimulus.register("particles", ParticlesController)
 Stimulus.register("tooltip", TooltipController)
+Stimulus.register("mobile-menu", MobileMenuController)

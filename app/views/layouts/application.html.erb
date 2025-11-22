@@ -3,25 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= frontmatter['title'] || 'Site' %></title>
+  
+  <!-- Primary Meta Tags -->
+  <title><%= @title || 'Lukasz Czapiewski - Full Stack Developer' %></title>
+  <meta name="title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
+  <meta name="description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= @url || 'https://lukaszczapiewski.com' %>">
+  <meta property="og:title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
+  <meta property="og:description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
+  <meta property="og:image" content="<%= @image || 'https://lukaszczapiewski.com/images/profile.jpeg' %>">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="<%= @url || 'https://lukaszczapiewski.com' %>">
+  <meta property="twitter:title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
+  <meta property="twitter:description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
+  <meta property="twitter:image" content="<%= @image || 'https://lukaszczapiewski.com/images/profile.jpeg' %>">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="<%= @url || 'https://lukaszczapiewski.com' %>">
+  
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="/assets/stylesheets/application.css">
 </head>
 <body>
   <main>
+    <%= render 'shared/header' %>
     <%= page_content %>
+    <%= render 'shared/footer' %>
   </main>
 
-  <script type="importmap">
-<%= importmap_json %>
-</script>
-
-  <% if js_modules && !js_modules.empty? %>
-  <% js_modules.each do |module_name| %>
-    <script type="module">import "<%= module_name %>";</script>
+  <% if importmap_json %>
+    <script type="importmap">
+      <%= raw importmap_json %>
+    </script>
   <% end %>
-<% else %>
-  <script type="module">import "application";</script>
-<% end %>
 
+  <% if @js_modules && !@js_modules.empty? %>
+    <% @js_modules.each do |module_name| %>
+      <script type="module">import "<%= module_name %>";</script>
+    <% end %>
+  <% end %>
+  <script type="module">import "application";</script>
 </body>
 </html>

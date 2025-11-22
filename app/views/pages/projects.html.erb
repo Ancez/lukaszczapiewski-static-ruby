@@ -1,7 +1,4 @@
----
-title: Projects - Lukasz Czapiewski
-js: application
----
+<% @js_modules = ['application'] %>
 
 <div class="min-h-screen bg-slate-950 text-white relative overflow-hidden">
   <!-- Animated Background -->
@@ -10,29 +7,6 @@ js: application
   <!-- Gradient Orbs -->
   <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
   <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-
-  <!-- Navigation -->
-  <nav class="fixed top-0 w-full bg-slate-900/50 backdrop-blur-xl border-b border-slate-800/50 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">LC</a>
-        <div class="hidden md:flex space-x-8">
-          <a href="/#about" class="text-slate-300 hover:text-white transition-colors relative group">
-            About
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="/projects" class="text-white relative group">
-            Projects
-            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-400"></span>
-          </a>
-          <a href="/#contact" class="text-slate-300 hover:text-white transition-colors relative group">
-            Contact
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
 
   <!-- Projects Section -->
   <section class="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-32 pb-20">
@@ -140,12 +114,5 @@ js: application
       </div>
     </div>
   </section>
-
-  <!-- Footer -->
-  <footer class="bg-slate-950 border-t border-slate-800 text-slate-500 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto text-center">
-      <p>&copy; <%= Time.now.year %> Lukasz Czapiewski. All rights reserved.</p>
-    </div>
-  </footer>
 </div>
 
