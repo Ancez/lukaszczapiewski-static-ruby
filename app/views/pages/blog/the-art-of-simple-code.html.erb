@@ -1,70 +1,38 @@
 <% @js_modules = ['application'] %>
 
-<div class="min-h-screen bg-slate-950 text-white relative overflow-hidden">
-  <!-- Animated Background -->
-  <canvas data-controller="particles" class="fixed inset-0 w-full h-full opacity-30"></canvas>
-  
-  <!-- Gradient Orbs -->
-  <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
-  <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+<%# Define blog post variables %>
+<% @blog_title = 'The Art of Simple Code' %>
+<% @blog_tags = ['Programming', 'Best Practices', 'Code Quality'] %>
+<% @blog_date = Date.today %>
+<% @blog_external_links = [] %>
 
-  <!-- Blog Post -->
-  <article class="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-    <div class="max-w-4xl mx-auto w-full">
-      <a href="/blog" class="inline-flex items-center text-slate-400 hover:text-indigo-400 mb-12 transition-colors group">
-        <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        Back to Blog
-      </a>
-
-      <header class="mb-12">
-        <div class="flex flex-wrap gap-2 mb-6">
-          <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Programming</span>
-          <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Best Practices</span>
-          <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Code Quality</span>
-        </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-          <span class="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">
-            The Art of Simple Code
-          </span>
-        </h1>
-        <p class="text-slate-400 text-lg flex items-center">
-          <svg class="w-5 h-5 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          <%= Date.today.strftime('%B %d, %Y') %>
-        </p>
-      </header>
-
-      <div class="space-y-8">
-        <div class="apple-glass p-8 md:p-10">
-          <p class="text-xl text-slate-300 leading-relaxed mb-6">
-            In a world where complexity is often mistaken for sophistication, writing simple code is both an art and a discipline. The best code isn't the cleverest—it's the code that your future self will thank you for.
-          </p>
-        </div>
-
-        <div class="apple-glass p-8 md:p-10">
-          <h2 class="text-2xl font-bold text-white mb-4">Simplicity Over Cleverness</h2>
-          <p class="text-slate-300 leading-relaxed mb-4">
-            Clever code might impress in code reviews, but simple code wins in production. When debugging at 2 AM or onboarding a new team member, clarity always trumps cleverness.
-          </p>
-        </div>
-
-        <div class="apple-glass p-8 md:p-10">
-          <h2 class="text-2xl font-bold text-white mb-4">Principles of Simple Code</h2>
-          <p class="text-slate-300 leading-relaxed mb-4">
-            Readability first: code is read far more often than it's written. Write for humans, not machines. Avoid premature abstraction—don't abstract until you have at least three concrete examples. Make your intentions explicit; magic is for fantasy novels, not codebases. Keep functions small and focused: if the function name doesn't clearly describe what it does, it's probably too complex.
-          </p>
-        </div>
-
-        <div class="apple-glass p-8 md:p-10">
-          <h2 class="text-2xl font-bold text-white mb-4">The Future Self Test</h2>
-          <p class="text-slate-300 leading-relaxed mb-4">
-            Before committing code, ask yourself: "Will I understand this in six months?" If the answer is no, simplify. Your future self—and your teammates—will thank you. Remember: simplicity is not about dumbing things down. It's about removing unnecessary complexity and focusing on what truly matters. The most elegant solutions are often the simplest ones.
-          </p>
-        </div>
-      </div>
+<%= render layout: 'shared/blog/layout' do %>
+  <div class="space-y-8">
+    <div class="apple-glass p-8 md:p-10">
+      <p class="text-xl text-slate-300 leading-relaxed mb-6">
+        In a world where complexity is often mistaken for sophistication, writing simple code is both an art and a discipline. The best code isn't the cleverest—it's the code that your future self will thank you for.
+      </p>
     </div>
-  </article>
-</div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold text-white mb-4">Simplicity Over Cleverness</h2>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        Clever code might impress in code reviews, but simple code wins in production. When debugging at 2 AM or onboarding a new team member, clarity always trumps cleverness.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold text-white mb-4">Principles of Simple Code</h2>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        Readability first: code is read far more often than it's written. Write for humans, not machines. Avoid premature abstraction—don't abstract until you have at least three concrete examples. Make your intentions explicit; magic is for fantasy novels, not codebases. Keep functions small and focused: if the function name doesn't clearly describe what it does, it's probably too complex.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold text-white mb-4">The Future Self Test</h2>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        Before committing code, ask yourself: "Will I understand this in six months?" If the answer is no, simplify. Your future self—and your teammates—will thank you. Remember: simplicity is not about dumbing things down. It's about removing unnecessary complexity and focusing on what truly matters. The most elegant solutions are often the simplest ones.
+      </p>
+    </div>
+  </div>
+<% end %>

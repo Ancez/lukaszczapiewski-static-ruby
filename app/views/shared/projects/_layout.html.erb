@@ -45,10 +45,8 @@
         <% end %>
       </header>
 
-      <%# Render project-specific content partial %>
-      <% if defined?(content_partial) && content_partial %>
-        <%= render partial: content_partial %>
-      <% end %>
+      <%# Yield to block for project-specific content %>
+      <%= yield %>
     </div>
   </article>
 </div>

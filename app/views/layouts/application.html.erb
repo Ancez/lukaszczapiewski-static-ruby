@@ -30,15 +30,7 @@
   <link rel="stylesheet" href="/assets/stylesheets/application.css">
 </head>
 <body>
-  <% 
-    # Automatically set @current_page from @url if not already set
-    @current_page ||= if @url
-      uri = URI.parse(@url)
-      uri.path
-    else
-      '/'
-    end
-  %>
+  <% @current_page ||= '/' %>
   <main>
     <%= render 'shared/header' %>
     <%= page_content %>
