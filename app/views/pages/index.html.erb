@@ -1,6 +1,6 @@
 <% @js_modules = ['application'] %>
 
-<div class="min-h-screen bg-slate-950 text-white relative overflow-hidden">
+<div class="min-h-screen bg-slate-950 text-white relative overflow-hidden mt-4">
   <!-- Animated Background -->
   <canvas data-controller="particles" class="fixed inset-0 w-full h-full opacity-30"></canvas>
   
@@ -29,11 +29,11 @@
         </span>
       </h1>
       
-      <div class="text-3xl md:text-5xl font-bold mb-8 h-16 animate-fade-in-up" style="animation-delay: 0.2s;">
+      <div class="text-3xl md:text-5xl font-bold mb-8 animate-fade-in-up leading-tight" style="animation-delay: 0.2s;">
         <span class="text-slate-400">I build </span>
         <span data-controller="typing" 
               data-typing-strings-value='["beautiful web experiences", "scalable systems", "developer tools", "robust applications"]'
-              class="text-indigo-400 inline-block"></span>
+              class="text-indigo-400" style="display: inline;"></span>
       </div>
       
       <p class="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.3s;">
