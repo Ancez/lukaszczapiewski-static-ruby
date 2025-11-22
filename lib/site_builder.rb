@@ -1,4 +1,8 @@
 # frozen_string_literal: true
+# encoding: utf-8
+
+# Ensure UTF-8 encoding
+Encoding.default_external = Encoding::UTF_8 if defined?(Encoding)
 
 require "static_site_builder"
 
