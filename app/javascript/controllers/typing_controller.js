@@ -34,17 +34,13 @@ export default class extends Controller {
     const currentString = this.strings[this.currentStringIndex]
     
     if (this.isDeleting) {
-      if (this.element.contains(this.cursor)) {
-        this.element.removeChild(this.cursor)
-      }
+      this.element.removeChild(this.cursor)
       this.element.textContent = currentString.substring(0, this.currentCharIndex - 1)
       this.element.appendChild(this.cursor)
       this.currentCharIndex--
       this.speed = 50
     } else {
-      if (this.element.contains(this.cursor)) {
-        this.element.removeChild(this.cursor)
-      }
+      this.element.removeChild(this.cursor)
       const textToShow = currentString.substring(0, this.currentCharIndex + 1)
       this.element.textContent = textToShow
       this.element.appendChild(this.cursor)
