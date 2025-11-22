@@ -1,13 +1,13 @@
 <% current_page = @current_page || '' %>
 <!-- Navigation -->
-<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-2xl shadow-xl z-50" data-controller="mobile-menu">
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-2xl shadow-xl z-50" data-controller="mobile-menu <%= current_page == '/' ? 'scroll-tracker' : '' %>">
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">LC</a>
       
       <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-8">
-        <a href="/" class="<%= current_page == '/' ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors relative group">
+        <a href="/" data-scroll-tracker-target="navItem" class="<%= current_page == '/' ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors relative group">
           Home
           <% if current_page == '/' %>
             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-400"></span>
@@ -15,7 +15,7 @@
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
           <% end %>
         </a>
-        <a href="/#about" class="text-slate-300 hover:text-white transition-colors relative group">
+        <a href="/#about" data-scroll-tracker-target="navItem" class="text-slate-300 hover:text-white transition-colors relative group">
           About
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
         </a>
@@ -35,7 +35,7 @@
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
           <% end %>
         </a>
-        <a href="/#contact" class="text-slate-300 hover:text-white transition-colors relative group">
+        <a href="/#contact" data-scroll-tracker-target="navItem" class="text-slate-300 hover:text-white transition-colors relative group">
           Contact
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
         </a>
@@ -67,6 +67,7 @@
       <div class="flex flex-col grow gap-4">
         <a 
           href="/" 
+          data-scroll-tracker-target="navItem"
           class="mobile-menu-item <%= current_page == '/' ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors py-2"
           data-action="click->mobile-menu#close"
         >
@@ -74,6 +75,7 @@
         </a>
         <a 
           href="/#about" 
+          data-scroll-tracker-target="navItem"
           class="mobile-menu-item text-slate-300 hover:text-white transition-colors py-2"
           data-action="click->mobile-menu#close"
         >
@@ -95,6 +97,7 @@
         </a>
         <a 
           href="/#contact" 
+          data-scroll-tracker-target="navItem"
           class="mobile-menu-item text-slate-300 hover:text-white transition-colors py-2"
           data-action="click->mobile-menu#close"
         >
