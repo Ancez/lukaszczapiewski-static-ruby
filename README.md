@@ -25,13 +25,13 @@ app/
     application.js        # Main JavaScript entry point
     controllers/          # Stimulus controllers
   views/
-    layouts/              # layout templates
-    pages/                # Page templates (index, blog, projects)
-      blog/              # Individual blog post templates
-      projects/          # Individual project page templates
-    shared/              # Shared partials (header, footer)
-      blog/              # Blog-specific layout partials
-      projects/          # Project-specific layout partials
+    layouts/
+    pages/
+      blog/
+      projects/
+    shared/
+      blog/
+      projects/
 
 config/
   importmap.rb            # JavaScript module mapping
