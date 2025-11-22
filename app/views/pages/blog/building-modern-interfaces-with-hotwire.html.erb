@@ -1,7 +1,4 @@
----
-title: Building Modern Interfaces with Hotwire - Lukasz Czapiewski
-js: application
----
+<% @js_modules = ['application'] %>
 
 <div class="min-h-screen bg-slate-950 text-white relative overflow-hidden">
   <!-- Animated Background -->
@@ -11,108 +8,63 @@ js: application
   <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
   <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
 
-  <!-- Navigation -->
-  <nav class="fixed top-0 w-full bg-slate-900/50 backdrop-blur-xl border-b border-slate-800/50 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">LC</a>
-        <div class="hidden md:flex space-x-8">
-          <a href="/#about" class="text-slate-300 hover:text-white transition-colors relative group">
-            About
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="/projects" class="text-slate-300 hover:text-white transition-colors relative group">
-            Projects
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="/blog" class="text-white relative group">
-            Blog
-            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-400"></span>
-          </a>
-          <a href="/#contact" class="text-slate-300 hover:text-white transition-colors relative group">
-            Contact
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
   <!-- Blog Post -->
-  <article class="relative min-h-screen flex items-start px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-    <div class="max-w-3xl mx-auto w-full">
-      <a href="/blog" class="inline-flex items-center text-slate-400 hover:text-indigo-400 mb-8 transition-colors">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <article class="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+    <div class="max-w-4xl mx-auto w-full">
+      <a href="/blog" class="inline-flex items-center text-slate-400 hover:text-indigo-400 mb-12 transition-colors group">
+        <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
         Back to Blog
       </a>
 
       <header class="mb-12">
-        <div class="flex flex-wrap gap-2 mb-4">
+        <div class="flex flex-wrap gap-2 mb-6">
           <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Rails</span>
           <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Hotwire</span>
           <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Stimulus</span>
         </div>
-        <h1 class="text-5xl md:text-6xl font-bold mb-4">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
           <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
             Building Modern Interfaces with Hotwire
           </span>
         </h1>
-        <p class="text-slate-400 text-lg">
-          <%= Date.new(2024, 1, 8).strftime('%B %d, %Y') %>
+        <p class="text-slate-400 text-lg flex items-center">
+          <svg class="w-5 h-5 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <%= Date.today.strftime('%B %d, %Y') %>
         </p>
       </header>
 
-      <div class="apple-glass p-8 prose prose-invert prose-lg max-w-none">
-        <p class="text-xl text-slate-300 leading-relaxed mb-6">
-          Hotwire represents a paradigm shift in Rails development. Instead of building separate API endpoints and JavaScript applications, Hotwire brings modern interactivity directly to your server-rendered HTML.
-        </p>
+      <div class="space-y-8">
+        <div class="apple-glass p-8 md:p-10">
+          <p class="text-xl text-slate-300 leading-relaxed mb-6">
+            Hotwire represents a paradigm shift in Rails development. Instead of building separate API endpoints and JavaScript applications, Hotwire brings modern interactivity directly to your server-rendered HTML.
+          </p>
+        </div>
 
-        <h2 class="text-3xl font-bold text-white mt-12 mb-6">What is Hotwire?</h2>
-        <p class="text-slate-300 leading-relaxed mb-6">
-          Hotwire is an umbrella term for Turbo and Stimulus—two complementary technologies that work together:
-        </p>
-        <ul class="text-slate-300 space-y-3 mb-8 list-disc list-inside">
-          <li><strong class="text-white">Turbo</strong>: Handles page updates, form submissions, and navigation without full page reloads</li>
-          <li><strong class="text-white">Stimulus</strong>: Adds JavaScript behaviour to HTML elements with minimal code</li>
-        </ul>
+        <div class="apple-glass p-8 md:p-10">
+          <h2 class="text-2xl font-bold text-white mb-4">What is Hotwire?</h2>
+          <p class="text-slate-300 leading-relaxed mb-4">
+            Hotwire is an umbrella term for Turbo and Stimulus—two complementary technologies that work together. Turbo handles page updates, form submissions, and navigation without full page reloads, while Stimulus adds JavaScript behaviour to HTML elements with minimal code.
+          </p>
+        </div>
 
-        <h2 class="text-3xl font-bold text-white mt-12 mb-6">The Benefits</h2>
-        <p class="text-slate-300 leading-relaxed mb-6">
-          Using Hotwire means:
-        </p>
-        <ul class="text-slate-300 space-y-3 mb-8 list-disc list-inside">
-          <li>Less JavaScript to write and maintain</li>
-          <li>Faster development cycles</li>
-          <li>Better SEO (content is server-rendered)</li>
-          <li>Simpler architecture</li>
-          <li>Progressive enhancement by default</li>
-        </ul>
+        <div class="apple-glass p-8 md:p-10">
+          <h2 class="text-2xl font-bold text-white mb-4">The Benefits</h2>
+          <p class="text-slate-300 leading-relaxed mb-4">
+            Using Hotwire means less JavaScript to write and maintain, faster development cycles, better SEO with server-rendered content, simpler architecture, and progressive enhancement by default. You get modern interactivity without the complexity of heavy JavaScript frameworks.
+          </p>
+        </div>
 
-        <h2 class="text-3xl font-bold text-white mt-12 mb-6">Real-World Applications</h2>
-        <p class="text-slate-300 leading-relaxed mb-6">
-          Hotwire excels at building interactive features that feel modern without the complexity:
-        </p>
-        <ul class="text-slate-300 space-y-3 mb-8 list-disc list-inside">
-          <li>Real-time form validation</li>
-          <li>Infinite scroll and pagination</li>
-          <li>Search with instant results</li>
-          <li>Modal dialogs and overlays</li>
-          <li>Live updates via Turbo Streams</li>
-        </ul>
-
-        <p class="text-slate-300 leading-relaxed mb-8">
-          Hotwire proves that you don't need heavy JavaScript frameworks to build modern, interactive web applications. Sometimes, the best solution is the simplest one.
-        </p>
+        <div class="apple-glass p-8 md:p-10">
+          <h2 class="text-2xl font-bold text-white mb-4">Real-World Applications</h2>
+          <p class="text-slate-300 leading-relaxed mb-4">
+            Hotwire excels at building interactive features that feel modern without the complexity: real-time form validation, infinite scroll and pagination, search with instant results, modal dialogs and overlays, and live updates via Turbo Streams. Hotwire proves that you don't need heavy JavaScript frameworks to build modern, interactive web applications. Sometimes, the best solution is the simplest one.
+          </p>
+        </div>
       </div>
     </div>
   </article>
-
-  <!-- Footer -->
-  <footer class="bg-slate-950 border-t border-slate-800 text-slate-500 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto text-center">
-      <p>&copy; <%= Time.now.year %> Lukasz Czapiewski. All rights reserved.</p>
-    </div>
-  </footer>
 </div>
