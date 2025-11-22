@@ -122,9 +122,6 @@ Add project pages by:
 
 - GitHub: [@Ancez](https://github.com/Ancez)
 - Twitter: [@lc_ancez](https://twitter.com/lc_ancez)
-- Website: [mmtm.io](https://mmtm.io)
-- Location: Cheltenham, UK
-- Company: mmtm
 
 ## Copyright
 
