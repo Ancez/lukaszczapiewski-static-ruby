@@ -1,0 +1,131 @@
+---
+title: Blog - Lukasz Czapiewski
+js: application
+---
+
+<div class="min-h-screen bg-slate-950 text-white relative overflow-hidden">
+  <!-- Animated Background -->
+  <canvas data-controller="particles" class="fixed inset-0 w-full h-full opacity-30"></canvas>
+  
+  <!-- Gradient Orbs -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
+  <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-slate-900/50 backdrop-blur-xl border-b border-slate-800/50 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">LC</a>
+        <div class="hidden md:flex space-x-8">
+          <a href="/#about" class="text-slate-300 hover:text-white transition-colors relative group">
+            About
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="/projects" class="text-slate-300 hover:text-white transition-colors relative group">
+            Projects
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+          </a>
+          <a href="/blog" class="text-white relative group">
+            Blog
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-400"></span>
+          </a>
+          <a href="/#contact" class="text-slate-300 hover:text-white transition-colors relative group">
+            Contact
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Blog Section -->
+  <section class="relative min-h-screen flex items-start px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+    <div class="max-w-4xl mx-auto w-full">
+      <div class="text-center mb-16">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6">
+          <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            Blog
+          </span>
+        </h1>
+        <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+          Thoughts, tutorials, and insights on development, technology, and building things.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <!-- Blog Post 1 -->
+        <a href="/blog/getting-started-with-static-site-builders" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                Getting Started with Static Site Builders
+              </h2>
+              <p class="text-slate-400 text-sm mb-4">
+                <%= Date.new(2024, 1, 15).strftime('%B %d, %Y') %>
+              </p>
+            </div>
+          </div>
+          <p class="text-slate-300 mb-4 leading-relaxed">
+            Exploring the benefits of static site generators and how they can simplify your development workflow. From Jekyll to custom Ruby solutions, we'll cover the landscape of static site building tools.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Ruby</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Static Sites</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Web Development</span>
+          </div>
+        </a>
+
+        <!-- Blog Post 2 -->
+        <a href="/blog/building-modern-interfaces-with-hotwire" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                Building Modern Interfaces with Hotwire
+              </h2>
+              <p class="text-slate-400 text-sm mb-4">
+                <%= Date.new(2024, 1, 8).strftime('%B %d, %Y') %>
+              </p>
+            </div>
+          </div>
+          <p class="text-slate-300 mb-4 leading-relaxed">
+            How Hotwire revolutionises Rails development by bringing modern interactivity without the complexity of heavy JavaScript frameworks. Learn how Turbo and Stimulus work together to create seamless user experiences.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Rails</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Hotwire</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Stimulus</span>
+          </div>
+        </a>
+
+        <!-- Blog Post 3 -->
+        <a href="/blog/the-art-of-simple-code" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex-1">
+              <h2 class="text-3xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+                The Art of Simple Code
+              </h2>
+              <p class="text-slate-400 text-sm mb-4">
+                <%= Date.new(2023, 12, 20).strftime('%B %d, %Y') %>
+              </p>
+            </div>
+          </div>
+          <p class="text-slate-300 mb-4 leading-relaxed">
+            Why simplicity beats cleverness every time. A reflection on writing code that your future self will thank you for, with practical examples and principles for maintaining readable, maintainable codebases.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Programming</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Best Practices</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Code Quality</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-800 text-slate-500 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto text-center">
+      <p>&copy; <%= Time.now.year %> Lukasz Czapiewski. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
