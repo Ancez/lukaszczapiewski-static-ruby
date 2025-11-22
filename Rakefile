@@ -51,6 +51,12 @@ namespace :build do
     FileUtils.rm_rf(dist_dir) if dist_dir.exist?
     puts "Cleaned #{dist_dir}"
   end
+
+  desc "Build for production/release (cleans dist directory first)"
+  task :production do
+    ENV["PRODUCTION"] = "true"
+    Rake::Task["build:all"].invoke
+  end
 end
 
 namespace :dev do

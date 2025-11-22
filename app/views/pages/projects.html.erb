@@ -44,17 +44,98 @@ js: application
           </span>
         </h1>
         <p class="text-xl text-slate-400 max-w-2xl mx-auto">
-          A collection of things I've built. More projects coming soon.
+          A collection of things I've built.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Project cards will be added here -->
-        <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:border-indigo-500/50 transition-all">
-          <div class="text-slate-400 text-center py-12">
-            <p class="text-lg">Projects coming soon...</p>
-            <p class="text-sm mt-2 text-slate-500">Check back later for updates</p>
+        <!-- static-site-builder -->
+        <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <h3 class="text-2xl font-bold text-white">Static Site Builder</h3>
+            <div class="text-slate-400 group-hover:text-indigo-400 transition-colors" aria-label="GitHub">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </div>
           </div>
+          <p class="text-slate-300 mb-6 leading-relaxed">
+            A Ruby gem for building static HTML sites. Choose your stack: ERB or Phlex, Importmap or ESBuild/Webpack/Vite, TailwindCSS or shadcn, Stimulus or React/Vue/Alpine.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Ruby</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">ERB/Phlex</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Importmap</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">TailwindCSS</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Stimulus</span>
+          </div>
+        </a>
+
+        <!-- yt-music-focus-like-chrome -->
+        <a href="https://github.com/Ancez/yt-music-focus-like-chrome" target="_blank" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <h3 class="text-2xl font-bold text-white">YouTube Music Auto Like</h3>
+            <div class="text-slate-400 group-hover:text-indigo-400 transition-colors" aria-label="GitHub">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </div>
+          </div>
+          <p class="text-slate-300 mb-6 leading-relaxed">
+            Chrome extension that automatically likes YouTube Music songs when the browser window gains focus, with keyboard shortcuts and smart duplicate prevention. Built for myself to use on my Omarchy setup.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">JavaScript</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Chrome Extension</span>
+          </div>
+        </a>
+
+        <!-- lukaszczapiewski-static-ruby -->
+        <a href="https://github.com/Ancez/lukaszczapiewski-static-ruby" target="_blank" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer">
+          <div class="flex items-start justify-between mb-4">
+            <h3 class="text-2xl font-bold text-white">Portfolio Website</h3>
+            <div class="text-slate-400 group-hover:text-indigo-400 transition-colors" aria-label="GitHub">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </div>
+          </div>
+          <p class="text-slate-300 mb-6 leading-relaxed">
+            Personal portfolio website built with the static-site-builder gem and Cursor. Features animated particles, smooth scrolling, and a modern glassmorphic design.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Ruby</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">ERB</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Importmap</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">TailwindCSS</span>
+            <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Stimulus</span>
+          </div>
+        </a>
+
+        <!-- mmtm.io Projects -->
+        <div class="md:col-span-2 lg:col-span-3 flex justify-center">
+          <a href="https://mmtm.io" target="_blank" class="apple-glass p-8 hover:border-indigo-500/50 transition-all w-full max-w-2xl block cursor-pointer">
+            <div class="flex items-start justify-between mb-4">
+              <h3 class="text-2xl font-bold text-white">mmtm Projects</h3>
+              <div class="text-slate-400 hover:opacity-80 transition-opacity" aria-label="mmtm.io">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="150 200 500 150" class="h-6 w-auto fill-current" style="color: rgba(237,64,26,1);"><desc>mmtm logo</desc> <g><path fill="currentColor" d="M650.72,230.46,600.34,335H582l50.43-104.65Z"></path> <path fill="currentColor" d="M245.94,230.46,195.56,335h-18.3l50.42-104.65Z"></path> <path d="M308.81,251.54c-6.39,0-16,2.93-20.76,12-3.59-7.59-10.78-12-20-12-6.92,0-15.71,4.12-17.57,12.64V253.13h-6.1l-11.34,23.53v38.5h17.44V282.81c0-11.18,6.39-14.1,12.64-14.1,5.86,0,10.91,3.86,10.91,13.57v32.88h17.44V282.28c.4-9.32,5.32-13.71,12.25-13.57,6.12,0,11.17,4,11.17,13.7v32.75H332.5V281.08C332.5,262.45,324.38,251.54,308.81,251.54Z"></path> <path d="M416.7,251.54c-6.39,0-16,2.93-20.76,12-3.59-7.59-10.78-12-20-12-6.92,0-15.71,4.12-17.57,12.64V253.13H341v62h17.44V282.81c0-11.18,6.39-14.1,12.64-14.1,5.86,0,10.92,3.86,10.92,13.57v32.88H399.4V282.28c.4-9.32,5.32-13.71,12.25-13.57,6.12,0,11.18,4,11.18,13.7v32.75h17.56V281.08C440.39,262.45,432.27,251.54,416.7,251.54Z"></path> <polygon points="466.3 251.54 466.3 230.38 448.87 230.38 448.87 253.13 448.87 266.58 448.87 315.16 466.3 315.16 466.3 268.79 477.84 268.79 486.15 251.54 466.3 251.54"></polygon> <path d="M570.58,251.54c-6.38,0-16,2.93-20.76,12-3.59-7.59-10.78-12-20-12-6.92,0-15.71,4.12-17.57,12.64v-1.25a11.41,11.41,0,0,0-11.38-11.38h-5.35l-8.31,17.24h6.59a1,1,0,0,1,1,1v45.36h17.44V282.81c0-11.18,6.39-14.1,12.64-14.1,5.86,0,10.92,3.86,10.92,13.57v32.88h17.43V282.28c.4-9.32,5.33-13.71,12.25-13.57,6.12,0,11.18,4,11.18,13.7v32.75h5.5l12.06-25v-9C594.27,262.45,586.16,251.54,570.58,251.54Z"></path></g></svg>
+              </div>
+            </div>
+            <p class="text-slate-300 mb-6 leading-relaxed">
+              A diverse portfolio of projects from 7+ years at mmtm.io, spanning infrastructure management, data centre operations, and bespoke web/mobile applications. Projects include certificate management systems, asset management platforms, corporate innovation programmes, interactive videos, VR server infrastructure, and many more.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Ruby on Rails</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Hotwire</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Sidekiq</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">StimulusJS</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Turbo Rails</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">React</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">VueJs</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">InertiaJs</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Redux</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">RabbitMQ</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">ElasticSearch</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Kubernetes</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">Microservices</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">IoT</span>
+              <span class="px-3 py-1 bg-indigo-500/20 border border-indigo-500/30 rounded-full text-xs text-indigo-300">&amp; more</span>
+            </div>
+          </a>
         </div>
       </div>
     </div>
