@@ -147,10 +147,10 @@
 }
 
 [data-controller="typing"] {
-  display: inline;
-  white-space: normal;
-  word-break: normal;
-  overflow-wrap: break-word;
+  display: inline !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
 }
 
 .typing-cursor {
