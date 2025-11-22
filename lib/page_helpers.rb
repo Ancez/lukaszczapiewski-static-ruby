@@ -25,10 +25,10 @@ module PageHelpers
   BLOG_POSTS = [
     {
       slug: 'getting-started-with-static-site-builders',
-      title: 'Getting Started with Static Site Builders',
+      title: 'Getting Started with Static Site Builder',
       date: Date.new(2025, 11, 22),
-      description: 'Exploring the benefits of static site generators and how they can simplify your development workflow. From Jekyll to custom Ruby solutions, we\'ll cover the landscape of static site building tools.',
-      tags: ['Ruby', 'Static Sites', 'Web Development']
+      description: 'A comprehensive guide to building static sites with the static-site-builder gem. Learn installation, configuration, creating pages, working with layouts, JavaScript integration, styling, and deployment.',
+      tags: ['Ruby', 'Static Sites', 'Web Development', 'Tutorial']
     },
     {
       slug: 'building-modern-interfaces-with-hotwire',
