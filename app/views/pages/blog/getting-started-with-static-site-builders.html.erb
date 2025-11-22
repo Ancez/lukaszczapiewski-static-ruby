@@ -1,0 +1,41 @@
+<% @js_modules = ['application'] %>
+
+<%# Define blog post variables %>
+<% @blog_title = 'Getting Started with Static Site Builders' %>
+<% @blog_tags = ['Ruby', 'Static Sites', 'Web Development'] %>
+<% @blog_date = Date.new(2025, 11, 22) %>
+<% @blog_external_links = [
+  { url: 'https://github.com/Ancez/static-site-builder', text: 'View on GitHub', icon: 'github' },
+  { url: 'https://rubygems.org/gems/static-site-builder', text: 'View on RubyGems.org', icon: 'rubygems' }
+] %>
+
+<%= render layout: 'shared/blog/layout' do %>
+  <div class="space-y-8">
+    <div class="apple-glass p-8 md:p-10">
+      <p class="text-xl text-slate-300 leading-relaxed mb-6">
+        Static site generators have revolutionised how we build websites. They offer the perfect balance between simplicity and power, allowing developers to create fast, secure, and maintainable sites without the overhead of traditional content management systems.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold text-white mb-4">Why Static Sites?</h2>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        Static sites are pre-rendered HTML files that can be served directly from a CDN. This means lightning-fast load times, enhanced security with no server-side vulnerabilities, cost-effective hosting, version control friendly workflows, and easy deployment and scaling.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold text-white mb-4">Choosing the Right Tool</h2>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        The static site builder landscape is diverse. From Jekyll and Hugo to custom Ruby solutions, each tool has its strengths. When choosing, consider your preferred programming language, template engine flexibility, build time and performance, community and ecosystem, and deployment options. I always pick Rails, and my <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">Static Site Builder gem</a> when I don't need a SRR app or a fully-featured backend.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold text-white mb-4">Getting Started</h2>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        Starting with a static site builder is straightforward. Most tools follow a similar pattern: install the generator, create your project structure, write your content in markdown or templates, then build and deploy. Whether you're building a personal blog, documentation site, or portfolio, static site generators provide a solid foundation for modern web development.
+      </p>
+    </div>
+  </div>
+<% end %>

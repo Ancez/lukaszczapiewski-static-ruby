@@ -1,0 +1,25 @@
+<% @js_modules = ['application'] %>
+
+<%# Define project variables %>
+<% @project_title = 'Static Site Builder' %>
+<% @project_description = 'A Ruby gem for building static HTML sites. Choose your stack: ERB or Phlex, Importmap or ESBuild/Webpack/Vite, TailwindCSS or shadcn, Stimulus or React/Vue/Alpine.' %>
+<% @project_tags = ['Ruby', 'ERB/Phlex', 'Importmap', 'TailwindCSS', 'Stimulus'] %>
+<% @project_github_url = 'https://github.com/Ancez/static-site-builder' %>
+<% @project_external_url = @project_github_url %>
+
+<%= render layout: 'shared/projects/layout' do %>
+  <div class="space-y-8">
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold text-white mb-4">About</h2>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        I built this gem because I was tired of the complexity that comes with most static site generators. I wanted something that felt like Rails but produced static HTML—no server required, just compile and deploy.
+      </p>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        The real challenge was making JavaScript work properly in a static context. Most generators either ignore JS entirely or force you into their specific bundling setup. I wanted flexibility—use Importmap if you want simplicity, or ESBuild/Webpack/Vite if you need more power. Same with templates: ERB for familiarity, or Phlex if you prefer component-based views.
+      </p>
+      <p class="text-slate-300 leading-relaxed mb-4">
+        This site itself is built with it, and I use it for client projects when they need something fast and secure without the overhead of a full Rails app. It's become my go-to for portfolios, documentation sites, and marketing pages.
+      </p>
+    </div>
+  </div>
+<% end %>

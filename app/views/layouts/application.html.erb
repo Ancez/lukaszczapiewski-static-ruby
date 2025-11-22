@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="/assets/stylesheets/application.css">
 </head>
 <body>
+  <% @current_page ||= '/' %>
   <main>
     <%= render 'shared/header' %>
     <%= page_content %>

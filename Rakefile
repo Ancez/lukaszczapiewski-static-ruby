@@ -111,7 +111,8 @@ namespace :dev do
     # Simple file watcher - rebuild HTML when non-CSS files change
     # CSS changes are handled by Tailwind watch, so we skip rebuild for CSS files
     # When HTML rebuilds, it cleans dist, so we need to rebuild CSS immediately after
-    watcher_code = %q{watched = ['app', 'config']; exts = ['.erb', '.rb', '.js']; mtimes = {}; loop do; changed = false; watched.each do |dir|; Dir.glob(File.join(dir, '**', '*')).each do |f|; next unless File.file?(f) && exts.any? { |e| f.end_with?(e) }; next if f.end_with?('.css'); mtime = File.mtime(f); if mtimes[f] != mtime; mtimes[f] = mtime; changed = true; end; end; end; if changed; system('rake build:html > /dev/null 2>&1 && rake build:css > /dev/null 2>&1'); end; sleep 0.5; end}
+    # Exclude .readmes directory (generated files) and increase sleep to reduce reload frequency
+    watcher_code = %q{watched = ['app', 'config']; exts = ['.erb', '.rb', '.js']; mtimes = {}; last_build = Time.now; loop do; changed = false; watched.each do |dir|; Dir.glob(File.join(dir, '**', '*')).each do |f|; next unless File.file?(f); next if f.end_with?('.css'); next if f.include?('.readmes'); next if f.include?('/dist/'); next unless exts.any? { |e| f.end_with?(e) }; mtime = File.mtime(f); if mtimes[f] != mtime; mtimes[f] = mtime; changed = true; end; end; end; if changed && (Time.now - last_build) > 2; system('rake build:html > /dev/null 2>&1 && rake build:css > /dev/null 2>&1'); last_build = Time.now; end; sleep 1; end}
     watcher_pid = spawn("ruby", "-e", watcher_code, :err => File::NULL)
 
     # Start web server with custom handler for clean URLs
@@ -139,9 +140,13 @@ namespace :dev do
         end
       end
       
+      # Remove leading slash for path operations
+      clean_path = path.start_with?('/') ? path[1..-1] : path
+      
       # Handle paths without extension (try adding .html)
+      # Check for nested paths like /projects/static-site-builder
       if !path.include?('.') && !path.end_with?('/')
-        html_path = File.join(dist_dir.to_s, "#{path}.html")
+        html_path = File.join(dist_dir.to_s, "#{clean_path}.html")
         if File.exist?(html_path)
           res.status = 200
           res['Content-Type'] = 'text/html'
@@ -151,7 +156,7 @@ namespace :dev do
       end
       
       # Try direct file path
-      file_path = File.join(dist_dir.to_s, path)
+      file_path = File.join(dist_dir.to_s, clean_path)
       if File.directory?(file_path)
         index_path = File.join(file_path, 'index.html')
         if File.exist?(index_path)

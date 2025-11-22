@@ -1,9 +1,9 @@
-<% current_page = defined?(current_page) ? current_page : '' %>
+<% current_page = @current_page || '' %>
 <!-- Navigation -->
 <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-2xl shadow-xl z-50" data-controller="mobile-menu">
   <div class="px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
-      <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">LC</a>
+      <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">LC</a>
       
       <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-8">
@@ -19,9 +19,17 @@
           About
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
         </a>
-        <a href="/projects" class="<%= current_page == '/projects' ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors relative group">
+        <a href="/projects" class="<%= current_page&.start_with?('/projects') ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors relative group">
           Projects
-          <% if current_page == '/projects' %>
+          <% if current_page&.start_with?('/projects') %>
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-400"></span>
+          <% else %>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+          <% end %>
+        </a>
+        <a href="/blog" class="<%= current_page&.start_with?('/blog') ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors relative group">
+          Blog
+          <% if current_page&.start_with?('/blog') %>
             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-400"></span>
           <% else %>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
@@ -73,10 +81,17 @@
         </a>
         <a 
           href="/projects" 
-          class="mobile-menu-item <%= current_page == '/projects' ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors py-2"
+          class="mobile-menu-item <%= current_page&.start_with?('/projects') ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors py-2"
           data-action="click->mobile-menu#close"
         >
           Projects
+        </a>
+        <a 
+          href="/blog" 
+          class="mobile-menu-item <%= current_page&.start_with?('/blog') ? 'text-white' : 'text-slate-300 hover:text-white' %> transition-colors py-2"
+          data-action="click->mobile-menu#close"
+        >
+          Blog
         </a>
         <a 
           href="/#contact" 

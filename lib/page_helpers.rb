@@ -21,6 +21,31 @@ module PageHelpers
     }
   }.freeze
 
+  # Blog posts configuration
+  BLOG_POSTS = [
+    {
+      slug: 'getting-started-with-static-site-builders',
+      title: 'Getting Started with Static Site Builders',
+      date: Date.new(2025, 11, 22),
+      description: 'Exploring the benefits of static site generators and how they can simplify your development workflow. From Jekyll to custom Ruby solutions, we\'ll cover the landscape of static site building tools.',
+      tags: ['Ruby', 'Static Sites', 'Web Development']
+    },
+    {
+      slug: 'building-modern-interfaces-with-hotwire',
+      title: 'Building Modern Interfaces with Hotwire',
+      date: Date.new(2025, 11, 22),
+      description: 'How Hotwire revolutionises Rails development by bringing modern interactivity without the complexity of heavy JavaScript frameworks. Learn how Turbo and Stimulus work together to create seamless user experiences.',
+      tags: ['Rails', 'Hotwire', 'Stimulus']
+    },
+    {
+      slug: 'the-art-of-simple-code',
+      title: 'The Art of Simple Code',
+      date: Date.new(2025, 11, 22),
+      description: 'Why simplicity beats cleverness every time. A reflection on writing code that your future self will thank you for, with practical examples and principles for maintaining readable, maintainable codebases.',
+      tags: ['Programming', 'Best Practices', 'Code Quality']
+    }
+  ].freeze
+
   def page_title(path = nil)
     path ||= @current_page
     PAGES[path]&.fetch(:title) || 'Lukasz Czapiewski - Full Stack Developer'
