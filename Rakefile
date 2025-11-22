@@ -1,4 +1,8 @@
 # frozen_string_literal: true
+# encoding: utf-8
+
+# Set default external encoding to UTF-8
+Encoding.default_external = Encoding::UTF_8
 
 require_relative "lib/site_builder"
 require "fileutils"
