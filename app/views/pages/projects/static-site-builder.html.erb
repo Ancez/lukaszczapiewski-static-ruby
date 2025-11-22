@@ -1,0 +1,12 @@
+<% @current_page = '/projects/static-site-builder' %>
+<% @js_modules = ['application'] %>
+
+<%# Define project variables %>
+<% @project_title = 'Static Site Builder' %>
+<% @project_description = 'A Ruby gem for building static HTML sites. Choose your stack: ERB or Phlex, Importmap or ESBuild/Webpack/Vite, TailwindCSS or shadcn, Stimulus or React/Vue/Alpine.' %>
+<% @project_tags = ['Ruby', 'ERB/Phlex', 'Importmap', 'TailwindCSS', 'Stimulus'] %>
+<% @project_github_url = 'https://github.com/Ancez/static-site-builder' %>
+<% @project_external_url = @project_github_url %>
+
+<%# Render layout with content partial %>
+<%= render partial: 'shared/projects/layout', locals: { content_partial: 'pages/projects/_content/static-site-builder' } %>

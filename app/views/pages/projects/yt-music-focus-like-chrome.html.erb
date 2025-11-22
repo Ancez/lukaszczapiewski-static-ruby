@@ -1,0 +1,12 @@
+<% @current_page = '/projects/yt-music-focus-like-chrome' %>
+<% @js_modules = ['application'] %>
+
+<%# Define project variables %>
+<% @project_title = 'YouTube Music Auto Like' %>
+<% @project_description = 'Chrome extension that automatically likes YouTube Music songs when the browser window gains focus, with keyboard shortcuts and smart duplicate prevention. Built for myself to use on my Omarchy setup.' %>
+<% @project_tags = ['JavaScript', 'Chrome Extension'] %>
+<% @project_github_url = 'https://github.com/Ancez/yt-music-focus-like-chrome' %>
+<% @project_external_url = @project_github_url %>
+
+<%# Render layout with content partial %>
+<%= render partial: 'shared/projects/layout', locals: { content_partial: 'pages/projects/_content/yt-music-focus-like-chrome' } %>
