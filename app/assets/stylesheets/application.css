@@ -146,13 +146,6 @@
   }
 }
 
-[data-controller="typing"] {
-  display: inline;
-  white-space: normal;
-  word-break: normal;
-  overflow-wrap: break-word;
-}
-
 .typing-cursor {
   display: inline-block;
   animation: blink 1s infinite;

@@ -41,8 +41,7 @@ export default class extends Controller {
       this.speed = 50
     } else {
       this.element.removeChild(this.cursor)
-      const textToShow = currentString.substring(0, this.currentCharIndex + 1)
-      this.element.textContent = textToShow
+      this.element.textContent = currentString.substring(0, this.currentCharIndex + 1)
       this.element.appendChild(this.cursor)
       this.currentCharIndex++
       this.speed = 100
