@@ -140,12 +140,23 @@
     box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
     transition: all 0.3s ease;
   }
+  
+  html:not(.dark) .apple-glass-button {
+    background: rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    color: rgb(15 23 42);
+  }
 
   .apple-glass-button:hover {
     background: rgba(59, 130, 246, 0.3);
     border-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
     transform: scale(1.05);
+  }
+  
+  html:not(.dark) .apple-glass-button:hover {
+    background: rgba(37, 99, 235, 0.25);
+    border-color: rgba(37, 99, 235, 0.4);
   }
 
   .apple-glass-button-secondary {

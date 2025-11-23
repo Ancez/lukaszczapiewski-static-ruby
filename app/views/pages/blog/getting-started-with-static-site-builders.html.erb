@@ -13,7 +13,7 @@
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
       <p class="text-xl dark:text-slate-300 text-slate-700 leading-relaxed mb-6">
-        The <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">static-site-builder</a> gem is a Ruby-powered static site generator that compiles ERB templates into static HTML. It's perfect when you want Rails-like templating without the overhead of a full Rails application. This guide will walk you through everything you need to know to build and deploy static sites with this gem.
+        The <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">static-site-builder</a> gem is a Ruby-powered static site generator that compiles ERB templates into static HTML. It's perfect when you want Rails-like templating without the overhead of a full Rails application. This guide will walk you through everything you need to know to build and deploy static sites with this gem.
       </p>
     </div>
 
@@ -87,12 +87,12 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Creating Pages</h2>
       <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
-        Pages are ERB templates in <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">app/views/pages/</code>. The file structure determines the URL structure:
+        Pages are ERB templates in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/pages/</code>. The file structure determines the URL structure:
       </p>
       <ul class="list-disc list-inside dark:text-slate-300 text-slate-700 mb-4 space-y-2">
-        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">index.html.erb</code> → <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">/</code></li>
-        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">about.html.erb</code> → <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">/about</code></li>
-        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">blog/post.html.erb</code> → <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">/blog/post</code></li>
+        <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">index.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/</code></li>
+        <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">about.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/about</code></li>
+        <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">blog/post.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/blog/post</code></li>
       </ul>
       <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
         Example page:
@@ -109,7 +109,7 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Layouts and Partials</h2>
       <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
-        Create a main layout in <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">app/views/layouts/application.html.erb</code>:
+        Create a main layout in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/layouts/application.html.erb</code>:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
@@ -133,20 +133,20 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
       <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
-        Use <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">render</code> for partials and nested layouts. The <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">page_content</code> method yields the page content.
+        Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render</code> for partials and nested layouts. The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">page_content</code> method yields the page content.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">JavaScript with Stimulus</h2>
       <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
-        Configure JavaScript modules in <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">config/importmap.rb</code>:
+        Configure JavaScript modules in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">config/importmap.rb</code>:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>pin 'application', preload: true
 pin '@hotwired/stimulus', to: 'stimulus.min.js', preload: true
 pin_all_from 'app/javascript/controllers', under: 'controllers'</code></pre>
       <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
-        Create Stimulus controllers in <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">app/javascript/controllers/</code>:
+        Create Stimulus controllers in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/javascript/controllers/</code>:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>import { Controller } from '@hotwired/stimulus'
 
@@ -265,7 +265,7 @@ end</code></pre>
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Next Steps</h2>
       <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
-        You're now ready to build static sites with the static-site-builder gem. Check out the <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">GitHub repository</a> for more examples and documentation. Happy building!
+        You're now ready to build static sites with the static-site-builder gem. Check out the <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">GitHub repository</a> for more examples and documentation. Happy building!
       </p>
     </div>
   </div>
