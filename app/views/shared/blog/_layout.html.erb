@@ -28,12 +28,35 @@
             <%= @blog_title %>
           </span>
         </h1>
-        <p class="dark:text-slate-400 text-slate-600 text-lg flex items-center mb-4">
-          <svg class="w-5 h-5 mr-2 dark:text-slate-500 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          <%= @blog_date.strftime('%B %d, %Y') %>
-        </p>
+        <div class="flex items-center gap-6 mb-4 flex-wrap">
+          <p class="dark:text-slate-400 text-slate-600 text-lg flex items-center">
+            <svg class="w-5 h-5 mr-2 dark:text-slate-500 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <%= @blog_date.strftime('%B %d, %Y') %>
+          </p>
+          <% 
+            # Calculate reading time from source file
+            # Derive slug from @current_page or use @blog_slug if set
+            slug = if defined?(@blog_slug) && @blog_slug
+              @blog_slug
+            elsif defined?(@current_page) && @current_page
+              @current_page.gsub(/^\/blog\//, '').gsub(/\/$/, '')
+            end
+            
+            minutes = if slug
+              file_path = File.join(Dir.pwd, 'app', 'views', 'pages', 'blog', "#{slug}.html.erb")
+              PageHelpers.reading_time(file_path) if File.exist?(file_path)
+            end
+            minutes ||= 1
+          %>
+          <p class="dark:text-slate-400 text-slate-600 text-lg flex items-center">
+            <svg class="w-5 h-5 mr-2 dark:text-slate-500 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            ~<%= minutes %> <%= minutes == 1 ? 'minute' : 'minutes' %> read
+          </p>
+        </div>
         <% if @blog_external_links && !@blog_external_links.empty? %>
           <div class="flex flex-wrap items-center gap-4">
             <% @blog_external_links.each do |link| %>

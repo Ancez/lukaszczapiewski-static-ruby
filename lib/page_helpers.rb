@@ -73,5 +73,31 @@ module PageHelpers
     path ||= @current_page
     PAGES[path]&.fetch(:image) || 'https://lukaszczapiewski.com/images/profile.jpeg'
   end
+
+  module_function
+
+  def reading_time(text_or_file_path)
+    text = if text_or_file_path.is_a?(String) && File.exist?(text_or_file_path)
+      # If it's a file path, read and extract text from ERB
+      content = File.read(text_or_file_path)
+      # Remove ERB tags (including multi-line) and extract text content
+      content.gsub(/<%.*?%>/m, ' ')
+             .gsub(/<[^>]*>/, ' ')
+             .gsub(/\s+/, ' ')
+             .strip
+    else
+      # If it's text content, strip HTML tags
+      text_or_file_path.to_s.gsub(/<[^>]*>/, ' ').gsub(/\s+/, ' ').strip
+    end
+    
+    return 1 if text.nil? || text.empty?
+    
+    word_count = text.split(/\s+/).length
+    
+    # Average reading speed: 200 words per minute
+    minutes = (word_count / 200.0).ceil
+    minutes = 1 if minutes < 1
+    minutes
+  end
 end
 

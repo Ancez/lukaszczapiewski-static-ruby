@@ -31,6 +31,43 @@
         <p class="dark:text-slate-400 text-slate-700 text-lg mb-6 leading-relaxed break-words">
           <%= @project_description %>
         </p>
+        <% 
+          # Calculate reading time from source file and description
+          # Derive slug from @current_page or use @project_slug if set
+          slug = if defined?(@project_slug) && @project_slug
+            @project_slug
+          elsif defined?(@current_page) && @current_page
+            @current_page.gsub(/^\/projects\//, '').gsub(/\/$/, '')
+          end
+          
+          minutes = if slug
+            file_path = File.join(Dir.pwd, 'app', 'views', 'pages', 'projects', "#{slug}.html.erb")
+            if File.exist?(file_path)
+              # Get file content and extract text
+              file_content = File.read(file_path)
+              file_text = file_content.gsub(/<%.*?%>/m, ' ')
+                                      .gsub(/<[^>]*>/, ' ')
+                                      .gsub(/\s+/, ' ')
+                                      .strip
+              
+              # Add description if available
+              combined_text = if defined?(@project_description) && @project_description
+                "#{@project_description} #{file_text}"
+              else
+                file_text
+              end
+              
+              PageHelpers.reading_time(combined_text)
+            end
+          end
+          minutes ||= 1
+        %>
+        <p class="dark:text-slate-400 text-slate-600 text-lg flex items-center mb-6">
+          <svg class="w-5 h-5 mr-2 dark:text-slate-500 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          ~<%= minutes %> <%= minutes == 1 ? 'minute' : 'minutes' %> read
+        </p>
         <% if @project_external_url && !@project_external_url.empty? %>
           <div class="flex flex-wrap items-center gap-4">
             <a href="<%= @project_external_url %>" target="_blank" class="inline-flex items-center dark:text-slate-400 text-slate-600 dark:hover:text-indigo-400 hover:text-indigo-600 transition-colors group break-words">
