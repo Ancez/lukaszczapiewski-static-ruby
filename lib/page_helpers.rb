@@ -18,6 +18,14 @@ module PageHelpers
       image: 'https://lukaszczapiewski.com/images/profile.jpeg',
       priority: 0.8,
       changefreq: 'weekly'
+    },
+    '/privacy' => {
+      title: 'Privacy Policy - Lukasz Czapiewski',
+      description: 'Privacy policy for lukaszczapiewski.com. This website does not use cookies or tracking.',
+      url: 'https://lukaszczapiewski.com/privacy',
+      image: 'https://lukaszczapiewski.com/images/profile.jpeg',
+      priority: 0.5,
+      changefreq: 'monthly'
     }
   }.freeze
 

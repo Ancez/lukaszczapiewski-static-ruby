@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-slate-950">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/assets/stylesheets/application.css">
 </head>
-<body>
+<body class="bg-slate-950">
   <% 
     # Automatically set @current_page from @url if not already set
     @current_page ||= if @url
@@ -46,7 +46,7 @@
       '/'
     end
   %>
-  <main>
+  <main class="bg-slate-950">
     <%= render 'shared/header' %>
     <%= page_content %>
     <%= render 'shared/footer' %>
