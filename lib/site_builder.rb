@@ -33,3 +33,11 @@ rescue LoadError
 rescue => e
   puts "\n⚠️  Error generating sitemap: #{e.message}"
 end
+
+# Generate RSS feed
+begin
+  require "fileutils"
+  load File.join(Dir.pwd, "config", "rss.rb")
+rescue => e
+  puts "\n⚠️  Error generating RSS feed: #{e.message}"
+end
