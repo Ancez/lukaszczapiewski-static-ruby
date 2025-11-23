@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-slate-950">
+<html lang="en" class="bg-slate-950 dark" data-controller="theme-toggle">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,8 +35,30 @@
   
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/assets/stylesheets/application.css">
+  
+  <!-- Theme Initialisation Script -->
+  <script>
+    (function() {
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+      }
+      
+      const savedTheme = getCookie('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
 </head>
-<body class="bg-slate-950">
+<body class="bg-slate-950 dark:bg-slate-950 bg-slate-50">
   <% 
     # Automatically set @current_page from @url if not already set
     @current_page ||= if @url
@@ -46,7 +68,7 @@
       '/'
     end
   %>
-  <main class="bg-slate-950">
+  <main class="bg-slate-950 dark:bg-slate-950 bg-slate-50">
     <%= render 'shared/header' %>
     <%= page_content %>
     <%= render 'shared/footer' %>

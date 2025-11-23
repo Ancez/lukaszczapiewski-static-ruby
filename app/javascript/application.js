@@ -5,6 +5,7 @@ import ParticlesController from "controllers/particles"
 import TooltipController from "controllers/tooltip"
 import MobileMenuController from "controllers/mobile_menu"
 import ScrollTrackerController from "controllers/scroll_tracker"
+import ThemeToggleController from "controllers/theme_toggle"
 
 window.Stimulus = Application.start()
 
@@ -15,3 +16,4 @@ Stimulus.register("particles", ParticlesController)
 Stimulus.register("tooltip", TooltipController)
 Stimulus.register("mobile-menu", MobileMenuController)
 Stimulus.register("scroll-tracker", ScrollTrackerController)
+Stimulus.register("theme-toggle", ThemeToggleController)
