@@ -5,6 +5,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: rgb(2 6 23); /* slate-950 */
+  }
+  
+  body {
+    background-color: rgb(2 6 23); /* slate-950 */
+    color: white;
   }
 }
 
