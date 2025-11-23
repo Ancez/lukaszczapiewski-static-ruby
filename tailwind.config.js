@@ -4,6 +4,7 @@ module.exports = {
     "./app/views/**/*.{html,erb,phlex}",
     "./app/javascript/**/*.js",
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
   },

@@ -53,8 +53,8 @@ export default class extends Controller {
         (activeSection === 'contact' && href === '/#contact')
 
       if (isActive) {
-        item.classList.remove('text-slate-300')
-        item.classList.add('text-white')
+        item.classList.remove('dark:text-slate-300', 'text-slate-600')
+        item.classList.add('dark:text-white', 'text-slate-900')
         const indicator = item.querySelector('span.absolute')
         if (indicator) {
           indicator.classList.remove('w-0')
@@ -63,8 +63,8 @@ export default class extends Controller {
       } else {
         // Only update if it's one of the scroll-tracked items
         if (href === '/' || href === '/#about' || href === '/#contact') {
-          item.classList.remove('text-white')
-          item.classList.add('text-slate-300')
+          item.classList.remove('dark:text-white', 'text-slate-900')
+          item.classList.add('dark:text-slate-300', 'text-slate-600')
           const indicator = item.querySelector('span.absolute')
           if (indicator) {
             indicator.classList.remove('w-full')

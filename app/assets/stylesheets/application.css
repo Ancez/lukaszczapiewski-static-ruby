@@ -5,12 +5,28 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+  }
+  
+  html.dark {
     background-color: rgb(2 6 23); /* slate-950 */
   }
   
+  html:not(.dark) {
+    background-color: rgb(248 250 252); /* slate-50 */
+  }
+  
   body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  html.dark body {
     background-color: rgb(2 6 23); /* slate-950 */
     color: white;
+  }
+  
+  html:not(.dark) body {
+    background-color: rgb(248 250 252); /* slate-50 */
+    color: rgb(15 23 42); /* slate-800 */
   }
 }
 
@@ -106,7 +122,27 @@
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  html:not(.dark) .apple-glass {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .apple-glass-header {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  html:not(.dark) .apple-glass-header {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   }
 
   .apple-glass-button {
@@ -118,12 +154,23 @@
     box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
     transition: all 0.3s ease;
   }
+  
+  html:not(.dark) .apple-glass-button {
+    background: rgb(79 70 229);
+    border: 1px solid rgb(79 70 229);
+    color: white;
+  }
 
   .apple-glass-button:hover {
     background: rgba(59, 130, 246, 0.3);
     border-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
     transform: scale(1.05);
+  }
+  
+  html:not(.dark) .apple-glass-button:hover {
+    background: rgb(99 102 241);
+    border-color: rgb(99 102 241);
   }
 
   .apple-glass-button-secondary {
@@ -132,14 +179,27 @@
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+  }
+
+  html:not(.dark) .apple-glass-button-secondary {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgb(15 23 42);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .apple-glass-button-secondary:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 3px 12px rgba(59, 130, 246, 0.2);
+  }
+  
+  html:not(.dark) .apple-glass-button-secondary:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   }
 }
 
@@ -172,4 +232,85 @@
   white-space: nowrap;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   animation: fade-in 0.2s ease-out;
+}
+
+html:not(.dark) .tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgb(15 23 42);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes cloud-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(2px, -6px) scale(1.01);
+  }
+  66% {
+    transform: translate(-2px, -4px) scale(0.99);
+  }
+}
+
+@keyframes sun-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes moon-rotate {
+  0%, 100% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes theme-switch {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+.theme-switcher-cloud {
+  animation: cloud-float 3s ease-in-out infinite;
+}
+
+.theme-switcher-switching .theme-switcher-cloud {
+  animation: cloud-float 3s ease-in-out infinite, cloud-counter-rotate 0.6s ease-in-out;
+}
+
+@keyframes cloud-counter-rotate {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(0, 0) scale(1) rotate(-180deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(-360deg);
+  }
+}
+
+.theme-switcher-sun {
+  animation: sun-rotate 20s linear infinite;
+}
+
+.theme-switcher-moon {
+  animation: moon-rotate 4s ease-in-out infinite;
+}
+
+.theme-switcher-switching {
+  animation: theme-switch 0.6s ease-in-out;
 }
