@@ -142,11 +142,12 @@
     </script>
   <% end %>
 
-  <% if @js_modules && !@js_modules.empty? %>
-    <% @js_modules.each do |module_name| %>
-      <script type="module">import "<%= module_name %>";</script>
-    <% end %>
+  <%
+    modules_to_import = (@js_modules || []).dup
+    modules_to_import << 'application' unless modules_to_import.include?('application')
+  %>
+  <% modules_to_import.each do |module_name| %>
+    <script type="module">import "<%= module_name %>";</script>
   <% end %>
-  <script type="module">import "application";</script>
 </body>
 </html>
