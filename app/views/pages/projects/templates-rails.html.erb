@@ -5,7 +5,10 @@
 <% @project_description = 'A simple templating system for Rails applications that allows developers to design views before implementation. Make your design decisions before you build your application views.' %>
 <% @project_tags = ['Ruby', 'Rails', 'ERB'] %>
 <% @project_github_url = 'https://github.com/Ancez/templates-rails' %>
-<% @project_external_url = 'https://rubygems.org/gems/templates-rails' %>
+<% @project_external_links = [
+  { url: 'https://github.com/Ancez/templates-rails', text: 'View on GitHub', icon: 'github' },
+  { url: 'https://rubygems.org/gems/templates-rails', text: 'View on RubyGems.org', icon: 'rubygems' }
+] %>
 
 <%= render layout: 'shared/projects/layout' do %>
   <div class="space-y-8">

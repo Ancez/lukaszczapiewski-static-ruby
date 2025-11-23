@@ -5,7 +5,10 @@
 <% @project_description = 'A Ruby gem for building static HTML sites. Choose your stack: ERB or Phlex, Importmap or ESBuild/Webpack/Vite, TailwindCSS or shadcn, Stimulus or React/Vue/Alpine.' %>
 <% @project_tags = ['Ruby', 'ERB/Phlex', 'Importmap', 'TailwindCSS', 'Stimulus'] %>
 <% @project_github_url = 'https://github.com/Ancez/static-site-builder' %>
-<% @project_external_url = @project_github_url %>
+<% @project_external_links = [
+  { url: 'https://github.com/Ancez/static-site-builder', text: 'View on GitHub', icon: 'github' },
+  { url: 'https://rubygems.org/gems/static-site-builder', text: 'View on RubyGems.org', icon: 'rubygems' }
+] %>
 
 <%= render layout: 'shared/projects/layout' do %>
   <div class="space-y-8">
