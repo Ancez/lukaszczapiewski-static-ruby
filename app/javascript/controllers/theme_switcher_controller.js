@@ -49,7 +49,12 @@ export default class extends Controller {
 
   handleScroll() {
     const scrollY = window.scrollY || window.pageYOffset
-    if (scrollY > 200) {
+    const windowHeight = window.innerHeight
+    const documentHeight = document.documentElement.scrollHeight
+    const distanceFromBottom = documentHeight - scrollY - windowHeight
+    const threshold = 300 // Show when within 300px of bottom
+    
+    if (distanceFromBottom < threshold) {
       this.element.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none')
       this.element.classList.add('opacity-100', 'translate-y-0')
     } else {

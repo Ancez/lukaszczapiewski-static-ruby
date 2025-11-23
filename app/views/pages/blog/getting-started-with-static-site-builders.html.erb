@@ -12,24 +12,24 @@
 <%= render layout: 'shared/blog/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
-      <p class="text-xl dark:text-slate-300 text-slate-700 leading-relaxed mb-6">
+      <p class="text-xl dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
         The <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">static-site-builder</a> gem is a Ruby-powered static site generator that compiles ERB templates into static HTML. It's perfect when you want Rails-like templating without the overhead of a full Rails application. This guide will walk you through everything you need to know to build and deploy static sites with this gem.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Installation and Setup</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Install the gem:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>gem install static-site-builder</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Or clone from GitHub:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>git clone https://github.com/Ancez/static-site-builder
 cd static-site-builder
 bundle install</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Generate a new site:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code># If installed as gem
@@ -37,16 +37,16 @@ static-site-builder new my-site
 
 # Or if using from repo
 ruby bin/generate my-site</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         You'll be prompted to choose your stack using an interactive menu with arrow key navigation. Select your preferred:
       </p>
-      <ul class="list-disc list-inside dark:text-slate-300 text-slate-700 mb-4 space-y-2">
+      <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
         <li><strong>Template Engine</strong>: ERB or Phlex</li>
         <li><strong>JavaScript Bundler</strong>: Importmap, ESBuild, Webpack, Vite, or none</li>
         <li><strong>CSS Framework</strong>: TailwindCSS, shadcn/ui, or plain CSS</li>
         <li><strong>JavaScript Framework</strong>: Stimulus, React, Vue, Alpine.js, or vanilla JS</li>
       </ul>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Once generated, install dependencies:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>cd my-site
@@ -56,7 +56,7 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Project Structure</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The generator creates a complete project structure with all necessary files:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>my-site/
@@ -79,22 +79,22 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
 └── lib/
     ├── site_builder.rb   # Compiles your site (auto-generated)
     └── page_helpers.rb   # Page metadata (auto-generated)</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">lib/site_builder.rb</code> file is automatically generated and configured based on your stack choices. It handles ERB/Phlex compilation and scans <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">app/views/pages/</code> for templates, compiling them to HTML in the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">dist/</code> directory.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Creating Pages</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Pages are ERB templates in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/pages/</code>. The file structure determines the URL structure:
       </p>
-      <ul class="list-disc list-inside dark:text-slate-300 text-slate-700 mb-4 space-y-2">
+      <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">index.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/</code></li>
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">about.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/about</code></li>
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">blog/post.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/blog/post</code></li>
       </ul>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Example page:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% @title = 'About Me' %&gt;
@@ -108,7 +108,7 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Layouts and Partials</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Create a main layout in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/layouts/application.html.erb</code>:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;!DOCTYPE html&gt;
@@ -132,20 +132,20 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
   &lt;script type="module"&gt;import "application";&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render</code> for partials and nested layouts. The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">page_content</code> method yields the page content.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">JavaScript with Stimulus</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Configure JavaScript modules in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">config/importmap.rb</code>:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>pin 'application', preload: true
 pin '@hotwired/stimulus', to: 'stimulus.min.js', preload: true
 pin_all_from 'app/javascript/controllers', under: 'controllers'</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Create Stimulus controllers in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/javascript/controllers/</code>:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>import { Controller } from '@hotwired/stimulus'
@@ -155,7 +155,7 @@ export default class extends Controller {
     console.log('Controller connected')
   }
 }</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         In your pages, specify which JavaScript modules to load:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% @js_modules = ['application', 'my-controller'] %&gt;</code></pre>
@@ -163,10 +163,10 @@ export default class extends Controller {
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Styling with Tailwind CSS</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         If you selected TailwindCSS during generation, the gem automatically creates <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">tailwind.config.js</code> and <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">package.json</code> with the necessary build scripts. Your source CSS goes in <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">app/assets/stylesheets/application.css</code>, and the Rake tasks handle building CSS automatically.
       </p>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The generated <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">package.json</code> includes scripts like:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>{
@@ -179,34 +179,34 @@ export default class extends Controller {
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Building Your Site</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The generator creates a <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">Rakefile</code> with all necessary build tasks. Use these commands:
       </p>
-      <ul class="list-disc list-inside dark:text-slate-300 text-slate-700 mb-4 space-y-2">
+      <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:all</code> - Build HTML and CSS</li>
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:html</code> - Build HTML only</li>
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:css</code> - Build CSS only</li>
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:production</code> - Clean build for production</li>
       </ul>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The build process compiles your templates to static HTML in the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory, ready for deployment.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Development Workflow</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         For development with live reload, use:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>rake dev:server</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         This starts a local server, watches for file changes, and automatically rebuilds. The gem includes WebSocket support for live reloading in the browser.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Page Metadata and Helpers</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The generator creates <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">lib/page_helpers.rb</code> automatically. This file contains page metadata that's used for SEO and sitemap generation:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>module PageHelpers
@@ -221,28 +221,28 @@ export default class extends Controller {
     }
   }.freeze
 end</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The builder automatically loads metadata from <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">PageHelpers::PAGES</code> and sets <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@title</code>, <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@description</code>, <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@url</code>, and <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@image</code> instance variables for use in your templates. Simply add new pages to the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">PAGES</code> hash.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Sitemap Generation</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Sitemap generation is automatically configured when you generate a new site. The <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">sitemap_generator</code> gem is included in the Gemfile, and <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">config/sitemap.rb</code> is automatically created. Update it to set your domain:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>SitemapGenerator::Sitemap.default_host = 'https://yourdomain.com'</code></pre>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         The sitemap is generated from your <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">PageHelpers::PAGES</code> metadata during <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:all</code>. It will be output to <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/sitemaps/sitemap.xml.gz</code>.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Deployment</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Once built, your static site is in the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory. Deploy it to any static hosting service:
       </p>
-      <ul class="list-disc list-inside dark:text-slate-300 text-slate-700 mb-4 space-y-2">
+      <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
         <li><strong>Netlify</strong> - Connect your Git repository and set build command to <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:production</code></li>
         <li><strong>Vercel</strong> - Similar setup with build command</li>
         <li><strong>GitHub Pages</strong> - Use GitHub Actions to build and deploy</li>
@@ -253,7 +253,7 @@ end</code></pre>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Best Practices</h2>
-      <ul class="list-disc list-inside dark:text-slate-300 text-slate-700 mb-4 space-y-2">
+      <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
         <li><strong>Keep it simple</strong> - Use partials for reusable components</li>
         <li><strong>Organise by feature</strong> - Group related pages in subdirectories</li>
         <li><strong>Use helpers</strong> - Centralise page metadata and common logic</li>
@@ -264,7 +264,7 @@ end</code></pre>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Next Steps</h2>
-      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         You're now ready to build static sites with the static-site-builder gem. Check out the <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">GitHub repository</a> for more examples and documentation. Happy building!
       </p>
     </div>

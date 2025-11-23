@@ -73,7 +73,7 @@
   <!-- Theme Switcher -->
   <div 
     data-controller="theme-switcher" 
-    class="fixed bottom-6 right-6 z-50 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out"
+    class="fixed top-auto bottom-6 md:top-6 md:bottom-auto right-6 z-50 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out"
   >
     <button
       type="button"
@@ -83,7 +83,7 @@
     >
       <!-- Cloud Background -->
       <svg 
-        class="absolute inset-0 w-full h-full theme-switcher-cloud dark:opacity-100 opacity-100 transition-opacity duration-300"
+        class="absolute top-0 right-0 w-3/4 h-3/4 theme-switcher-cloud dark:opacity-100 opacity-100 transition-opacity duration-300 z-10"
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -91,13 +91,13 @@
         <!-- Cloud shape -->
         <path 
           d="M25 50C25 40 30 35 35 35C35 30 40 25 50 25C60 25 65 30 65 35C70 35 75 40 75 50C80 50 85 55 85 60C85 65 80 70 75 70H25C20 70 15 65 15 60C15 55 20 50 25 50Z"
-          class="fill-slate-400 dark:fill-slate-500 transition-colors duration-300"
+          class="fill-slate-600/80 dark:fill-slate-400/80 transition-colors duration-300"
         />
       </svg>
 
       <!-- Sun (visible in dark mode) -->
       <svg 
-        class="absolute inset-0 w-full h-full theme-switcher-sun dark:opacity-100 opacity-0 transition-opacity duration-300 dark:text-blue-600"
+        class="absolute inset-0 w-full h-full theme-switcher-sun dark:opacity-100 opacity-0 transition-opacity duration-300 dark:text-yellow-500 z-0"
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -109,15 +109,26 @@
 
       <!-- Moon (visible in light mode) -->
       <svg 
-        class="absolute inset-0 w-full h-full theme-switcher-moon dark:opacity-0 opacity-100 transition-opacity duration-300 text-amber-300"
+        class="absolute inset-0 w-full h-full theme-switcher-moon dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path 
-          d="M50 20C50 20 35 30 35 50C35 70 45 80 50 80C45 80 35 70 35 50C35 30 50 20 50 20Z"
-          fill="currentColor"
-        />
+        <defs>
+          <radialGradient id="moon-gradient" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#fefce8"/>
+            <stop offset="100%" stop-color="#e4e4d7"/>
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="25" fill="url(#moon-gradient)"/>
+        <!-- Craters -->
+        <circle cx="45" cy="40" r="3" fill="#94a3b8" opacity="0.7"/>
+        <circle cx="55" cy="45" r="2.5" fill="#94a3b8" opacity="0.6"/>
+        <circle cx="42" cy="55" r="2" fill="#94a3b8" opacity="0.7"/>
+        <circle cx="58" cy="58" r="2.5" fill="#94a3b8" opacity="0.6"/>
+        <circle cx="50" cy="50" r="1.5" fill="#94a3b8" opacity="0.5"/>
+        <ellipse cx="48" cy="48" rx="1.5" ry="2" fill="#94a3b8" opacity="0.6"/>
+        <ellipse cx="52" cy="52" rx="2" ry="1.5" fill="#94a3b8" opacity="0.6"/>
       </svg>
     </button>
   </div>
