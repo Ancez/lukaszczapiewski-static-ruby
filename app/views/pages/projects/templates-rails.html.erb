@@ -10,14 +10,14 @@
 <%= render layout: 'shared/projects/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
-      <h2 class="text-2xl font-bold text-white mb-4">About</h2>
-      <p class="text-slate-300 leading-relaxed mb-4">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">About</h2>
+      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
         Templates Rails is a gem I built to solve a common problem in Rails development: making design decisions before diving into implementation. Instead of building views directly into controllers and routes, you can create templates in a dedicated directory and access them via a simple engine.
       </p>
-      <p class="text-slate-300 leading-relaxed mb-4">
+      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
         The gem mounts a Rails engine that serves templates from <code class="text-indigo-400">app/views/templates</code>, making them accessible at <code class="text-indigo-400">/templates</code>. This lets you prototype layouts, test design ideas, and iterate on UI without touching your application's actual views or routes.
       </p>
-      <p class="text-slate-300 leading-relaxed mb-4">
+      <p class="dark:text-slate-300 text-slate-700 leading-relaxed mb-4">
         I use it extensively in mmtm projects as part of our design workflow. During the design phase, we experiment with layouts, components, and interactions to establish the foundations. Once the design is settled, these templates become a living reference we return to when implementing features—ensuring what we build matches what was designed. It supports nested directories, Rails helpers, and the asset pipeline, so templates feel just like regular Rails views and translate seamlessly into production code.
       </p>
     </div>
