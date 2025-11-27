@@ -1,0 +1,22 @@
+<% @title = 'Christmas Shooter - Lukasz Czapiewski' %>
+<% @description = 'Play Christmas Shooter - A festive space shooter game with confetti and explosions!' %>
+<% @js_modules = ['application'] %>
+<% @current_page = '/space-shooter' %>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+</style>
+
+<div class="fixed inset-0 w-full h-full overflow-hidden" style="margin: 0; padding: 0; top: 0; left: 0; right: 0; bottom: 0;">
+  <canvas 
+    data-controller="space-shooter" 
+    class="cursor-crosshair"
+    style="background: #000011; display: block; width: 100vw; height: 100vh;"
+  ></canvas>
+</div>
+

@@ -6,6 +6,8 @@ import TooltipController from "controllers/tooltip"
 import MobileMenuController from "controllers/mobile_menu"
 import ScrollTrackerController from "controllers/scroll_tracker"
 import ThemeSwitcherController from "controllers/theme_switcher"
+import SpaceShooterController from "controllers/space_shooter"
+import EasterEggController from "controllers/easter_egg"
 
 window.Stimulus = Application.start()
 
@@ -17,3 +19,5 @@ Stimulus.register("tooltip", TooltipController)
 Stimulus.register("mobile-menu", MobileMenuController)
 Stimulus.register("scroll-tracker", ScrollTrackerController)
 Stimulus.register("theme-switcher", ThemeSwitcherController)
+Stimulus.register("space-shooter", SpaceShooterController)
+Stimulus.register("easter-egg", EasterEggController)

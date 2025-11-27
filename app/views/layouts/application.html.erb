@@ -68,12 +68,17 @@
     end
   %>
   <main class="dark:bg-slate-950 bg-slate-50">
-    <%= render 'shared/header' %>
+    <% unless @current_page == '/space-shooter' %>
+      <%= render 'shared/header' %>
+    <% end %>
     <%= page_content %>
-    <%= render 'shared/footer' %>
+    <% unless @current_page == '/space-shooter' %>
+      <%= render 'shared/footer' %>
+    <% end %>
   </main>
 
   <!-- Theme Switcher -->
+  <% unless @current_page == '/space-shooter' %>
   <div 
     data-controller="theme-switcher" 
     class="fixed top-auto bottom-6 md:top-6 md:bottom-auto right-6 z-50 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out"
@@ -135,6 +140,7 @@
       </svg>
     </button>
   </div>
+  <% end %>
 
   <% if importmap_json %>
     <script type="importmap">
