@@ -1,11 +1,12 @@
 export class GameLogic {
-  constructor(gameState, gameObjects, effects, powerups, canvasWidth, canvasHeight) {
+  constructor(gameState, gameObjects, effects, powerups, canvasWidth, canvasHeight, soundManager) {
     this.gameState = gameState
     this.gameObjects = gameObjects
     this.effects = effects
     this.powerups = powerups
     this.canvasWidth = canvasWidth
     this.canvasHeight = canvasHeight
+    this.soundManager = soundManager
   }
 
   updateCanvasSize(canvasWidth, canvasHeight) {
@@ -105,6 +106,11 @@ export class GameLogic {
             
             this.gameObjects.enemies.splice(j, 1)
             
+            // Play kill sound
+            if (this.soundManager) {
+              this.soundManager.playKillSound()
+            }
+            
             if (isBoss) {
               this.gameState.score += 500 * enemy.bossStage
               this.gameState.bossActive = false
@@ -165,6 +171,9 @@ export class GameLogic {
               this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
               
               if (levelUpResult.leveledUp) {
+                if (this.soundManager) {
+                  this.soundManager.playLevelUpSound()
+                }
                 this.gameState.showPowerupSelection = true
                 this.gameState.pendingPowerups = this.powerups.selectRandomPowerups(3)
               }
@@ -222,6 +231,11 @@ export class GameLogic {
         this.gameObjects.enemies.splice(i, 1)
         this.effects.createExplosion(enemyX, enemyY, enemySize)
         
+        // Play kill sound
+        if (this.soundManager) {
+          this.soundManager.playKillSound()
+        }
+        
         // Player takes damage
         const barrierLevel = this.powerups.getLevel('barrier')
         const enemyDamage = isBoss ? (30 + enemy.bossStage * 5) : (5 + Math.floor(this.gameState.level / 2))
@@ -274,6 +288,9 @@ export class GameLogic {
           this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
           
           if (levelUpResult.leveledUp) {
+            if (this.soundManager) {
+              this.soundManager.playLevelUpSound()
+            }
             // Alternate between weapon and skill selection
             const weaponCount = this.powerups.getActiveWeaponCount()
             const skillCount = this.powerups.getActiveSkillCount()

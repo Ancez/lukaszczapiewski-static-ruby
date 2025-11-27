@@ -20,6 +20,8 @@ export class InputHandler {
     this.wheelHandler = null
     this.lastTouchY = undefined
     this.isScrolling = false
+    this.isDraggingSlider = false
+    this.draggingSliderIndex = -1
   }
 
   setup() {
@@ -113,9 +115,45 @@ export class InputHandler {
       }
       
       if (this.gameState.gameState === 'menu') {
-        if (this.menu.showInstructions || this.menu.showHighScores) {
+        if (this.menu.showInstructions || this.menu.showHighScores || this.menu.showSettings) {
+          // Handle settings slider clicks
+          if (this.menu.showSettings && this.menu.soundManager) {
+            const centerX = this.canvas.width / 2
+            const centerY = this.canvas.height / 2
+            const sliderWidth = 400
+            const sliderHeight = 30
+            const sliderY = centerY - 50
+            const sliderSpacing = 80
+            
+            // Check if click is on any slider
+            for (let i = 0; i < 3; i++) {
+              const sliderX = centerX - sliderWidth / 2
+              const sliderTop = sliderY + i * sliderSpacing
+              const sliderBottom = sliderTop + sliderHeight
+              
+              if (clickY >= sliderTop && clickY <= sliderBottom && 
+                  clickX >= sliderX && clickX <= sliderX + sliderWidth) {
+                this.isDraggingSlider = true
+                this.draggingSliderIndex = i
+                const value = (clickX - sliderX) / sliderWidth
+                const clampedValue = Math.max(0, Math.min(1, value))
+                
+                if (i === 0) {
+                  this.menu.soundManager.setMasterVolume(clampedValue)
+                } else if (i === 1) {
+                  this.menu.soundManager.setSfxVolume(clampedValue)
+                } else if (i === 2) {
+                  this.menu.soundManager.setMusicVolume(clampedValue)
+                }
+                e.preventDefault()
+                return
+              }
+            }
+          }
+          
           this.menu.showInstructions = false
           this.menu.showHighScores = false
+          this.menu.showSettings = false
         } else {
           const action = this.menu.handleClick(this.canvas, this.canvas.width / 2, this.canvas.height / 2)
           if (action) {
@@ -242,9 +280,10 @@ export class InputHandler {
           this.gameObjects.enemyBullets = []
           this.powerups.reset()
           this.gameState.gameState = 'menu'
-        } else if (this.menu.showInstructions || this.menu.showHighScores) {
+        } else if (this.menu.showInstructions || this.menu.showHighScores || this.menu.showSettings) {
           this.menu.showInstructions = false
           this.menu.showHighScores = false
+          this.menu.showSettings = false
         }
       } else if (this.gameState.gameState === 'playing' && this.gameState.showPowerupSelection) {
         if (e.key === '1' || e.key === '2' || e.key === '3') {
@@ -320,6 +359,11 @@ export class InputHandler {
       }
     }
     
+    this.mouseUpHandler = () => {
+      this.isDraggingSlider = false
+      this.draggingSliderIndex = -1
+    }
+    
     this.wheelHandler = (e) => {
       if (this.gameState.gameState === 'menu' && this.menu.showInstructions) {
         e.preventDefault()
@@ -332,6 +376,7 @@ export class InputHandler {
     this.canvas.addEventListener('mousemove', this.menuMouseMoveHandler)
     this.canvas.addEventListener('touchmove', this.menuMouseMoveHandler)
     this.canvas.addEventListener('click', this.clickHandler)
+    window.addEventListener('mouseup', this.mouseUpHandler)
     this.canvas.addEventListener('touchstart', this.touchStartHandler, { passive: false })
     this.canvas.addEventListener('touchmove', this.touchMoveHandler, { passive: false })
     this.canvas.addEventListener('touchend', this.touchEndHandler)
@@ -412,6 +457,9 @@ export class InputHandler {
     }
     if (this.keyUpHandler) {
       window.removeEventListener('keyup', this.keyUpHandler)
+    }
+    if (this.mouseUpHandler) {
+      window.removeEventListener('mouseup', this.mouseUpHandler)
     }
   }
 }

@@ -3,13 +3,15 @@ export class Menu {
     this.menuItems = [
       { text: '🎮 Start Game', action: 'start' },
       { text: '📖 Instructions', action: 'instructions' },
-      { text: '🏆 Your High Scores', action: 'highscores' }
+      { text: '🏆 Your High Scores', action: 'highscores' },
+      { text: '⚙️ Settings', action: 'settings' }
     ]
     this.selectedMenuItem = 0
     this.menuMouseX = 0
     this.menuMouseY = 0
     this.showInstructions = false
     this.showHighScores = false
+    this.showSettings = false
     this.instructionsScrollOffset = 0
   }
 
@@ -57,9 +59,15 @@ export class Menu {
     if (action === 'instructions') {
       this.showInstructions = true
       this.showHighScores = false
+      this.showSettings = false
     } else if (action === 'highscores') {
       this.showHighScores = true
       this.showInstructions = false
+      this.showSettings = false
+    } else if (action === 'settings') {
+      this.showSettings = true
+      this.showInstructions = false
+      this.showHighScores = false
     }
   }
 
@@ -82,6 +90,7 @@ export class Menu {
     this.selectedMenuItem = 0
     this.showInstructions = false
     this.showHighScores = false
+    this.showSettings = false
     this.instructionsScrollOffset = 0
   }
   
