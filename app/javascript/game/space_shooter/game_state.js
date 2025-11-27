@@ -103,6 +103,10 @@ export class GameState {
     const leveledUp = this.level > oldLevel
     const stageChanged = this.stage > oldStage
     
+    if (stageChanged) {
+      this.bossSpawned = false
+    }
+    
     if (leveledUp && this.level > this.lastLevel) {
       this.lastLevel = this.level
       return { leveledUp: true, stageChanged }

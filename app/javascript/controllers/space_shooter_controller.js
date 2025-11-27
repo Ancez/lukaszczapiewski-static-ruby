@@ -80,10 +80,9 @@ export default class extends Controller {
       this.autoShoot()
       this.gameObjects.updateBullets(this.gameObjects.enemies, this.canvas.width, this.canvas.height)
       
-      // Update stage calculation (but only spawn boss once per stage)
-      const newStage = Math.floor((this.gameState.level - 1) / 5) + 1
-      if (newStage > this.gameState.stage && !this.gameState.bossSpawned && !this.gameState.bossActive) {
-        this.gameState.stage = newStage
+      // Spawn boss every 5 levels (at levels 6, 11, 16, etc.)
+      const isBossLevel = this.gameState.level > 1 && (this.gameState.level - 1) % 5 === 0
+      if (isBossLevel && !this.gameState.bossSpawned && !this.gameState.bossActive && this.gameObjects.enemies.filter(e => e.isBoss).length === 0) {
         this.gameObjects.spawnBoss(this.canvas.width, this.gameState.stage)
         this.gameState.bossActive = true
         this.gameState.bossSpawned = true

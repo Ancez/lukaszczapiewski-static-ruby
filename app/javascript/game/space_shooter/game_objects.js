@@ -321,7 +321,7 @@ export class GameObjects {
 
   spawnBoss(canvasWidth, stage) {
     const size = 80 + (stage * 10)
-    const health = 50 + (stage * 30) + (stage * stage * 5)
+    const health = 500 + (stage * 200) + (stage * stage * 50)
     const speed = 0.5 + (stage * 0.1)
     
     this.enemies.push({
@@ -337,7 +337,9 @@ export class GameObjects {
       isBoss: true,
       bossStage: stage,
       shootTimer: 0,
-      shootInterval: 60 - (stage * 5) // Faster shooting at higher stages
+      shootInterval: Math.max(15, 50 - (stage * 3)), // Much faster shooting at higher stages, minimum 15 frames
+      burstCount: 0,
+      burstTimer: 0
     })
   }
 
@@ -345,29 +347,47 @@ export class GameObjects {
     if (!boss.isBoss) return
     
     boss.shootTimer++
+    
+    // Burst fire pattern - shoot multiple bursts
     if (boss.shootTimer >= boss.shootInterval) {
+      boss.burstCount = 3 + Math.floor(boss.bossStage / 2) // More bursts at higher stages
+      boss.burstTimer = 0
       boss.shootTimer = 0
-      
-      // Shoot 3 bullets in a spread pattern
-      const angles = [-0.3, 0, 0.3]
-      angles.forEach(angle => {
-        const dx = player.x - boss.x
-        const dy = player.y - boss.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
-        const baseAngle = Math.atan2(dy, dx)
+    }
+    
+    // Fire bursts rapidly
+    if (boss.burstCount > 0) {
+      boss.burstTimer++
+      if (boss.burstTimer >= 5) { // 5 frames between bursts
+        boss.burstTimer = 0
+        boss.burstCount--
         
-        this.enemyBullets.push({
-          x: boss.x,
-          y: boss.y + boss.height / 2,
-          width: 6,
-          height: 12,
-          speed: 4 + boss.bossStage * 0.5,
-          angle: baseAngle + angle,
-          vx: Math.cos(baseAngle + angle) * (4 + boss.bossStage * 0.5),
-          vy: Math.sin(baseAngle + angle) * (4 + boss.bossStage * 0.5),
-          damage: 5 + boss.bossStage * 2
-        })
-      })
+        // More bullets per burst at higher stages
+        const bulletCount = Math.min(5 + Math.floor(boss.bossStage / 1.5), 10)
+        const spreadAngle = 0.6 + (boss.bossStage * 0.15)
+        const angleStep = bulletCount > 1 ? spreadAngle / (bulletCount - 1) : 0
+        const startAngle = -spreadAngle / 2
+        
+        for (let i = 0; i < bulletCount; i++) {
+          const angle = startAngle + (i * angleStep)
+          const dx = player.x - boss.x
+          const dy = player.y - boss.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+          const baseAngle = Math.atan2(dy, dx)
+          
+          this.enemyBullets.push({
+            x: boss.x,
+            y: boss.y + boss.height / 2,
+            width: 7,
+            height: 14,
+            speed: 6 + boss.bossStage * 0.8, // Much faster bullets
+            angle: baseAngle + angle,
+            vx: Math.cos(baseAngle + angle) * (6 + boss.bossStage * 0.8),
+            vy: Math.sin(baseAngle + angle) * (6 + boss.bossStage * 0.8),
+            damage: 8 + boss.bossStage * 3 // Much more damage
+          })
+        }
+      }
     }
   }
 

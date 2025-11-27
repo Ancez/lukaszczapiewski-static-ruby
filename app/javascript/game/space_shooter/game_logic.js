@@ -224,7 +224,7 @@ export class GameLogic {
         
         // Player takes damage
         const barrierLevel = this.powerups.getLevel('barrier')
-        const enemyDamage = isBoss ? 20 : (5 + Math.floor(this.gameState.level / 2))
+        const enemyDamage = isBoss ? (30 + enemy.bossStage * 5) : (5 + Math.floor(this.gameState.level / 2))
         
         if (barrierLevel > 0) {
           this.powerups.activePowerups.barrier = Math.max(0, barrierLevel - 1)
