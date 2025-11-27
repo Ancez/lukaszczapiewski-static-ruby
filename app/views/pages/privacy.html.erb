@@ -1,6 +1,6 @@
 <% @js_modules = ['application'] %>
 <% @title = 'Privacy Policy - Lukasz Czapiewski' %>
-<% @description = 'Privacy policy for lukaszczapiewski.com. This website does not use cookies or tracking.' %>
+<% @description = 'Privacy policy for lukaszczapiewski.com. This website uses cookies for theme preference and localStorage for game high scores only.' %>
 <% @url = 'https://lukaszczapiewski.com/privacy' %>
 
 <div class="min-h-screen dark:bg-slate-950 bg-slate-50 dark:text-white text-slate-900 relative overflow-hidden">
@@ -27,7 +27,7 @@
 
       <div class="space-y-8">
         <div class="apple-glass p-8 hover:border-indigo-500/50 transition-all">
-          <h2 class="text-3xl font-bold dark:text-white text-slate-900 mb-4">Cookies</h2>
+          <h2 class="text-3xl font-bold dark:text-white text-slate-900 mb-4">Cookies and Local Storage</h2>
           <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg">
             This website uses a single essential cookie named <code class="dark:text-indigo-400 text-blue-600">theme</code> to store your theme preference (light or dark mode). This cookie is stored locally on your device and is used solely to remember your visual preference for future visits. It expires after 365 days and does not contain any personal information. It is not used for tracking or analytics purposes.
           </p>
@@ -35,7 +35,10 @@
             You can change your theme preference at any time using the theme switcher (sun/moon icon) located in the top right corner of the page (or bottom right on mobile devices). Changing your preference will update the cookie automatically.
           </p>
           <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg mt-4">
-            This website does not use any tracking scripts, analytics tools, or any other means of collecting or storing your personal information beyond the theme preference cookie mentioned above. Your visit to this site is otherwise completely private and anonymous.
+            Additionally, this website uses browser localStorage to store high scores for the easter egg game (Christmas Shooter). The localStorage key <code class="dark:text-indigo-400 text-blue-600">christmasShooterHighScores</code> stores only your game scores locally on your device. This data is stored entirely on your device and is never transmitted to any server. It is used solely to display your personal high scores within the game and does not contain any personal information or tracking data.
+          </p>
+          <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg mt-4">
+            This website does not use any tracking scripts, analytics tools, or any other means of collecting or storing your personal information beyond the theme preference cookie and game high scores mentioned above. Your visit to this site is otherwise completely private and anonymous.
           </p>
         </div>
 
