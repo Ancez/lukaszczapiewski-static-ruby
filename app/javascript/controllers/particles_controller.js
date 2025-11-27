@@ -117,42 +117,6 @@ export default class extends Controller {
         particle.draw(ctx, this.mouseX, this.mouseY, this.mouseRadius)
       })
 
-      particles.forEach((particle, i) => {
-        particles.slice(i + 1).forEach(otherParticle => {
-          const dx = particle.x - otherParticle.x
-          const dy = particle.y - otherParticle.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 120) {
-            const mouseDx1 = this.mouseX - particle.x
-            const mouseDy1 = this.mouseY - particle.y
-            const mouseDist1 = Math.sqrt(mouseDx1 * mouseDx1 + mouseDy1 * mouseDy1)
-            
-            const mouseDx2 = this.mouseX - otherParticle.x
-            const mouseDy2 = this.mouseY - otherParticle.y
-            const mouseDist2 = Math.sqrt(mouseDx2 * mouseDx2 + mouseDy2 * mouseDy2)
-
-            const mouseInfluence1 = mouseDist1 < this.mouseRadius ? (this.mouseRadius - mouseDist1) / this.mouseRadius : 0
-            const mouseInfluence2 = mouseDist2 < this.mouseRadius ? (this.mouseRadius - mouseDist2) / this.mouseRadius : 0
-            const maxInfluence = Math.max(mouseInfluence1, mouseInfluence2)
-
-            const baseOpacity = 0.2 * (1 - distance / 120)
-            const enhancedOpacity = baseOpacity + maxInfluence * 0.4
-            const lineWidth = 1 + maxInfluence * 1.5
-
-            ctx.strokeStyle = `rgba(99, 102, 241, ${Math.min(enhancedOpacity, 0.8)})`
-            ctx.lineWidth = lineWidth
-            ctx.shadowBlur = maxInfluence > 0 ? 5 * maxInfluence : 0
-            ctx.shadowColor = maxInfluence > 0 ? `rgba(99, 102, 241, ${maxInfluence * 0.5})` : 'transparent'
-            ctx.beginPath()
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            ctx.stroke()
-            ctx.shadowBlur = 0
-          }
-        })
-      })
-
       requestAnimationFrame(animate)
     }
 
