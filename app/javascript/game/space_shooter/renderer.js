@@ -933,7 +933,6 @@ export class Renderer {
       '🔫 WEAPONS (choose up to 3):',
       '  • Shotgun - Spread pattern, more bullets per level',
       '  • Homing Reindeers - Tracks enemies (Legendary)',
-      '  • Big Bullets - Larger size',
       '  • Laser - Piercing beams, more beams per level',
       '  • Leveling weapons increases:',
       '    - Attack speed (+10% per level)',

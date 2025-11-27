@@ -3,7 +3,6 @@ export class Powerups {
     this.activePowerups = {
       shotgun: 0,
       homingReindeers: 0,
-      bigBullets: 0,
       explodeAround: 0,
       shield: 0,
       barrier: 0,
@@ -127,16 +126,6 @@ export class Powerups {
       {
         id: 'bulletSize',
         name: 'Bullet Size',
-        getDescription: (level) => {
-          const sizeBonus = Math.round(level * 30)
-          return `Always active: +${sizeBonus}% bullet size`
-        },
-        icon: '💎',
-        rarity: 'rare'
-      },
-      {
-        id: 'bigBullets',
-        name: 'Big Bullets',
         getDescription: (level) => {
           const sizeBonus = Math.round(level * 30)
           return `Always active: +${sizeBonus}% bullet size`
@@ -352,12 +341,8 @@ export class Powerups {
   }
 
   getBulletSizeMultiplier() {
-    // Bullet size can come from bigBullets skill OR bulletSize modifier
-    // Both are now skills/modifiers, so combine them
-    const bigBulletsLevel = this.activePowerups.bigBullets || 0
     const bulletSizeLevel = this.activePowerups.bulletSize || 0
-    const totalLevel = bigBulletsLevel + bulletSizeLevel
-    return 1 + (totalLevel * 0.3)
+    return 1 + (bulletSizeLevel * 0.3)
   }
 
   getRapidFireLevel() {
@@ -404,7 +389,7 @@ export class Powerups {
   }
 
   getActiveSkillCount() {
-    const skills = ['explodeAround', 'shield', 'barrier', 'damage', 'bulletVelocity', 'bulletSize', 'bigBullets', 'rapidFire', 'piercing', 'luck', 'xpGain']
+    const skills = ['explodeAround', 'shield', 'barrier', 'damage', 'bulletVelocity', 'bulletSize', 'rapidFire', 'piercing', 'luck', 'xpGain']
     return skills.reduce((count, skillId) => {
       return count + (this.activePowerups[skillId] > 0 ? 1 : 0)
     }, 0)
@@ -414,7 +399,6 @@ export class Powerups {
     this.activePowerups = {
       shotgun: 0,
       homingReindeers: 0,
-      bigBullets: 0,
       laser: 0,
       explodeAround: 0,
       shield: 0,
