@@ -837,6 +837,11 @@ export class Renderer {
       return
     }
     
+    if (menu.showSettings) {
+      this.drawSettings(menu, centerX, centerY)
+      return
+    }
+    
     const gradient = this.ctx.createLinearGradient(centerX - 200, centerY - 120, centerX + 200, centerY - 120)
     if (isDark) {
       gradient.addColorStop(0, 'rgb(99, 102, 241)')
@@ -922,7 +927,8 @@ export class Renderer {
       '  • Destroy enemies to score points',
       '  • Avoid collisions or lose HP',
       '  • Level up: XP required increases per level',
-      '  • Bosses appear every 5 levels',
+      '  • Stages progress every 5 levels',
+      '  • Bosses appear at the start of each stage',
       '',
       '🔫 WEAPONS (choose up to 3):',
       '  • Shotgun - Spread pattern, more bullets per level',
@@ -1066,6 +1072,76 @@ export class Renderer {
     this.ctx.fillText('Click to return to menu', centerX, centerY + 160)
     
     this.ctx.textAlign = 'left'
+  }
+  
+  drawSettings(menu, centerX, centerY) {
+    const isDark = document.documentElement.classList.contains('dark')
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.9)'
+    this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
+    
+    this.ctx.fillStyle = '#ffffff'
+    this.ctx.font = 'bold 36px sans-serif'
+    this.ctx.textAlign = 'center'
+    this.ctx.fillText('⚙️ Settings', centerX, centerY - 150)
+    
+    const sliderWidth = 400
+    const sliderHeight = 30
+    const sliderY = centerY - 50
+    const sliderSpacing = 80
+    
+    // Master Volume
+    this.drawVolumeSlider(centerX, sliderY, sliderWidth, sliderHeight, 'Master Volume', menu.soundManager.masterVolume, isDark, (value) => {
+      menu.soundManager.setMasterVolume(value)
+    })
+    
+    // SFX Volume
+    this.drawVolumeSlider(centerX, sliderY + sliderSpacing, sliderWidth, sliderHeight, 'SFX Volume', menu.soundManager.sfxVolume, isDark, (value) => {
+      menu.soundManager.setSfxVolume(value)
+    })
+    
+    // Music Volume
+    this.drawVolumeSlider(centerX, sliderY + sliderSpacing * 2, sliderWidth, sliderHeight, 'Music Volume', menu.soundManager.musicVolume, isDark, (value) => {
+      menu.soundManager.setMusicVolume(value)
+    })
+    
+    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
+    this.ctx.font = '18px sans-serif'
+    this.ctx.fillText('Click or press ESC to return', centerX, centerY + 200)
+    
+    this.ctx.textAlign = 'left'
+  }
+  
+  drawVolumeSlider(centerX, y, width, height, label, value, isDark, onChange) {
+    const sliderX = centerX - width / 2
+    const handleWidth = 20
+    const handleX = sliderX + (value * (width - handleWidth))
+    
+    // Label
+    this.ctx.fillStyle = '#ffffff'
+    this.ctx.font = '20px sans-serif'
+    this.ctx.textAlign = 'left'
+    this.ctx.fillText(label, sliderX, y - 10)
+    
+    // Value text
+    this.ctx.textAlign = 'right'
+    this.ctx.fillText(`${Math.round(value * 100)}%`, sliderX + width, y - 10)
+    
+    // Slider track
+    this.ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)'
+    this.ctx.fillRect(sliderX, y, width, height)
+    
+    // Slider fill
+    this.ctx.fillStyle = isDark ? 'rgba(99, 102, 241, 0.8)' : 'rgba(79, 70, 229, 0.8)'
+    this.ctx.fillRect(sliderX, y, value * width, height)
+    
+    // Slider handle
+    this.ctx.fillStyle = isDark ? 'rgb(99, 102, 241)' : 'rgb(79, 70, 229)'
+    this.ctx.fillRect(handleX, y - 5, handleWidth, height + 10)
+    this.ctx.strokeStyle = '#ffffff'
+    this.ctx.lineWidth = 2
+    this.ctx.strokeRect(handleX, y - 5, handleWidth, height + 10)
+    
+    this.ctx.textAlign = 'center'
   }
 
   drawBackground(canvasWidth, canvasHeight) {

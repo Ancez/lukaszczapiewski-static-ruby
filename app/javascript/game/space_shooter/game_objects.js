@@ -321,7 +321,7 @@ export class GameObjects {
 
   spawnBoss(canvasWidth, stage) {
     const size = 80 + (stage * 10)
-    const health = 500 + (stage * 200) + (stage * stage * 50)
+    const health = 100 + (stage * 50) + (stage * stage * 10) // Much more reasonable HP
     const speed = 0.5 + (stage * 0.1)
     
     this.enemies.push({
@@ -337,7 +337,7 @@ export class GameObjects {
       isBoss: true,
       bossStage: stage,
       shootTimer: 0,
-      shootInterval: Math.max(15, 50 - (stage * 3)), // Much faster shooting at higher stages, minimum 15 frames
+      shootInterval: Math.max(40, 80 - (stage * 5)), // Slower shooting, minimum 40 frames
       burstCount: 0,
       burstTimer: 0
     })
@@ -350,7 +350,7 @@ export class GameObjects {
     
     // Burst fire pattern - shoot multiple bursts
     if (boss.shootTimer >= boss.shootInterval) {
-      boss.burstCount = 3 + Math.floor(boss.bossStage / 2) // More bursts at higher stages
+      boss.burstCount = 2 + Math.floor(boss.bossStage / 3) // Fewer bursts, scales slower
       boss.burstTimer = 0
       boss.shootTimer = 0
     }
@@ -358,13 +358,13 @@ export class GameObjects {
     // Fire bursts rapidly
     if (boss.burstCount > 0) {
       boss.burstTimer++
-      if (boss.burstTimer >= 5) { // 5 frames between bursts
+      if (boss.burstTimer >= 8) { // Slower bursts, 8 frames between
         boss.burstTimer = 0
         boss.burstCount--
         
-        // More bullets per burst at higher stages
-        const bulletCount = Math.min(5 + Math.floor(boss.bossStage / 1.5), 10)
-        const spreadAngle = 0.6 + (boss.bossStage * 0.15)
+        // Fewer bullets per burst
+        const bulletCount = Math.min(3 + Math.floor(boss.bossStage / 2), 6)
+        const spreadAngle = 0.4 + (boss.bossStage * 0.1)
         const angleStep = bulletCount > 1 ? spreadAngle / (bulletCount - 1) : 0
         const startAngle = -spreadAngle / 2
         
@@ -378,13 +378,13 @@ export class GameObjects {
           this.enemyBullets.push({
             x: boss.x,
             y: boss.y + boss.height / 2,
-            width: 7,
-            height: 14,
-            speed: 6 + boss.bossStage * 0.8, // Much faster bullets
+            width: 6,
+            height: 12,
+            speed: 4 + boss.bossStage * 0.3, // Slower bullets
             angle: baseAngle + angle,
-            vx: Math.cos(baseAngle + angle) * (6 + boss.bossStage * 0.8),
-            vy: Math.sin(baseAngle + angle) * (6 + boss.bossStage * 0.8),
-            damage: 8 + boss.bossStage * 3 // Much more damage
+            vx: Math.cos(baseAngle + angle) * (4 + boss.bossStage * 0.3),
+            vy: Math.sin(baseAngle + angle) * (4 + boss.bossStage * 0.3),
+            damage: 5 + boss.bossStage * 1 // Less damage
           })
         }
       }

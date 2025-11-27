@@ -8,6 +8,7 @@ import { Powerups } from "../game/space_shooter/powerups.js"
 import { Menu } from "../game/space_shooter/menu.js"
 import { Renderer } from "../game/space_shooter/renderer.js"
 import { InputHandler } from "../game/space_shooter/input.js"
+import { SoundManager } from "../game/space_shooter/sound_manager.js"
 
 export default class extends Controller {
   connect() {
@@ -19,10 +20,15 @@ export default class extends Controller {
     this.gameObjects = new GameObjects()
     this.powerups = new Powerups()
     this.effects = new Effects(this.gameObjects)
-    this.gameLogic = new GameLogic(this.gameState, this.gameObjects, this.effects, this.powerups, this.canvas.width, this.canvas.height)
+    this.soundManager = new SoundManager()
+    this.gameLogic = new GameLogic(this.gameState, this.gameObjects, this.effects, this.powerups, this.canvas.width, this.canvas.height, this.soundManager)
     this.menu = new Menu()
+    this.menu.soundManager = this.soundManager
     this.renderer = new Renderer(this.ctx)
     this.input = new InputHandler(this.canvas, this.gameState, this.menu, this.gameObjects, this.effects, this.powerups)
+    
+    // Start background music
+    this.soundManager.startBgMusic()
     
     this.initGame()
     this.input.setup()
@@ -40,6 +46,9 @@ export default class extends Controller {
       cancelAnimationFrame(this.animationFrameId)
     }
     this.input.remove()
+    if (this.soundManager) {
+      this.soundManager.stopBgMusic()
+    }
   }
 
   setupCanvas() {
@@ -80,10 +89,10 @@ export default class extends Controller {
       this.autoShoot()
       this.gameObjects.updateBullets(this.gameObjects.enemies, this.canvas.width, this.canvas.height)
       
-      // Spawn boss every 5 levels (at levels 6, 11, 16, etc.)
-      const isBossLevel = this.gameState.level > 1 && (this.gameState.level - 1) % 5 === 0
-      if (isBossLevel && !this.gameState.bossSpawned && !this.gameState.bossActive && this.gameObjects.enemies.filter(e => e.isBoss).length === 0) {
-        this.gameObjects.spawnBoss(this.canvas.width, this.gameState.stage)
+      // Spawn boss at the start of each new stage (stage changes every 5 levels)
+      const currentStage = Math.floor((this.gameState.level - 1) / 5) + 1
+      if (currentStage > this.gameState.stage && !this.gameState.bossSpawned && !this.gameState.bossActive && this.gameObjects.enemies.filter(e => e.isBoss).length === 0) {
+        this.gameObjects.spawnBoss(this.canvas.width, currentStage)
         this.gameState.bossActive = true
         this.gameState.bossSpawned = true
       }
@@ -150,6 +159,7 @@ export default class extends Controller {
       if (this.gameState.shootTimer >= adjustedInterval) {
         this.gameState.shootTimer = 0
         this.gameObjects.shoot(this.powerups)
+        this.soundManager.playShootSound()
       }
     }
   }
