@@ -5,7 +5,13 @@
   <canvas data-controller="particles" class="fixed inset-0 w-full h-full opacity-30 pointer-events-none"></canvas>
   
   <!-- Gradient Orbs -->
-  <div class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
+  <div 
+    data-controller="easter-egg" 
+    data-easter-egg-target-value="/space-shooter"
+    data-easter-egg-count-value="10"
+    data-action="click->easter-egg#handleClick"
+    class="fixed top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse z-10"
+  ></div>
   <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse pointer-events-none" style="animation-delay: 1s;"></div>
 
   <!-- Hero Section -->

@@ -2,5 +2,6 @@
 
 pin "application", preload: true
 pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
+pin "canvas-confetti", to: "confetti.browser.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 
