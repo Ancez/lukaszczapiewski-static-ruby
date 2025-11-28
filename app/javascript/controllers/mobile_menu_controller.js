@@ -7,7 +7,11 @@ export default class extends Controller {
     this.isOpen = false
   }
 
-  toggle() {
+  toggle(event) {
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
     this.isOpen = !this.isOpen
     this.updateMenu()
   }
@@ -20,8 +24,9 @@ export default class extends Controller {
   updateMenu() {
     if (this.isOpen) {
       // Show menu with animation
+      this.menuTarget.style.display = 'flex'
       this.menuTarget.classList.remove('hidden', 'mobile-menu-exit')
-      this.menuTarget.classList.add('flex', 'mobile-menu-enter')
+      this.menuTarget.classList.add('mobile-menu-enter')
       this.buttonTarget.setAttribute('aria-expanded', 'true')
       this.hamburgerTarget.classList.add('hidden')
       this.closeTarget.classList.remove('hidden')
@@ -36,8 +41,9 @@ export default class extends Controller {
       // Wait for animation to complete before hiding
       setTimeout(() => {
         if (!this.isOpen) {
-          this.menuTarget.classList.remove('flex', 'mobile-menu-exit')
+          this.menuTarget.classList.remove('mobile-menu-exit')
           this.menuTarget.classList.add('hidden')
+          this.menuTarget.style.display = ''
         }
       }, 250)
     }

@@ -44,9 +44,10 @@
       <!-- Mobile Hamburger Button -->
       <button 
         type="button"
-        class="md:hidden p-2 dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors"
+        class="md:hidden p-3 -mr-2 dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors touch-manipulation"
         data-mobile-menu-target="button"
         data-action="click->mobile-menu#toggle"
+        style="min-width: 44px; min-height: 44px;"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
@@ -61,14 +62,14 @@
 
     <!-- Mobile Menu -->
     <div 
-      class="hidden md:hidden pb-4 pt-2 dark:border-t-slate-800/50 border-t-slate-200/50 overflow-hidden"
+      class="hidden pb-4 pt-2 dark:border-t-slate-800/50 border-t-slate-200/50 overflow-hidden md:hidden"
       data-mobile-menu-target="menu"
     >
       <div class="flex flex-col grow gap-4">
         <a 
           href="/" 
           data-scroll-tracker-target="navItem"
-          class="mobile-menu-item <%= current_page == '/' ? 'dark:text-white text-slate-900' : 'dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900' %> transition-colors py-2"
+          class="mobile-menu-item touch-manipulation <%= current_page == '/' ? 'dark:text-white text-slate-900' : 'dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900' %> transition-colors py-3 px-2 -mx-2"
           data-action="click->mobile-menu#close"
         >
           Home
@@ -76,21 +77,21 @@
         <a 
           href="/#about" 
           data-scroll-tracker-target="navItem"
-          class="mobile-menu-item dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors py-2"
+          class="mobile-menu-item touch-manipulation dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors py-3 px-2 -mx-2"
           data-action="click->mobile-menu#close"
         >
           About
         </a>
         <a 
           href="/projects" 
-          class="mobile-menu-item <%= current_page&.start_with?('/projects') ? 'dark:text-white text-slate-900' : 'dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900' %> transition-colors py-2"
+          class="mobile-menu-item touch-manipulation <%= current_page&.start_with?('/projects') ? 'dark:text-white text-slate-900' : 'dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900' %> transition-colors py-3 px-2 -mx-2"
           data-action="click->mobile-menu#close"
         >
           Projects
         </a>
         <a 
           href="/blog" 
-          class="mobile-menu-item <%= current_page&.start_with?('/blog') ? 'dark:text-white text-slate-900' : 'dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900' %> transition-colors py-2"
+          class="mobile-menu-item touch-manipulation <%= current_page&.start_with?('/blog') ? 'dark:text-white text-slate-900' : 'dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900' %> transition-colors py-3 px-2 -mx-2"
           data-action="click->mobile-menu#close"
         >
           Blog
@@ -98,7 +99,7 @@
         <a 
           href="/#contact" 
           data-scroll-tracker-target="navItem"
-          class="mobile-menu-item dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors py-2"
+          class="mobile-menu-item touch-manipulation dark:text-slate-300 text-slate-600 dark:hover:text-white hover:text-slate-900 transition-colors py-3 px-2 -mx-2"
           data-action="click->mobile-menu#close"
         >
           Contact
