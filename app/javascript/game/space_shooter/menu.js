@@ -6,22 +6,30 @@ export class Menu {
       { text: '🏆 Your High Scores', action: 'highscores' },
       { text: '⚙️ Settings', action: 'settings' }
     ]
+    this.pauseMenuItems = [
+      { text: '▶️ Resume', action: 'resume' },
+      { text: '⚙️ Settings', action: 'settings' },
+      { text: '🏠 Quit to Menu', action: 'quit' }
+    ]
     this.selectedMenuItem = 0
+    this.selectedPauseMenuItem = 0
     this.menuMouseX = 0
     this.menuMouseY = 0
     this.showInstructions = false
     this.showHighScores = false
     this.showSettings = false
+    this.showPauseSettings = false
     this.instructionsScrollOffset = 0
   }
 
-  updateHover(canvas, centerX, centerY) {
+  updateHover(canvas, centerX, centerY, isPauseMenu = false) {
     const buttonHeight = 60
     const buttonSpacing = 20
     const startY = centerY + 40
     const buttonWidth = 400
+    const items = isPauseMenu ? this.pauseMenuItems : this.menuItems
     
-    for (let i = 0; i < this.menuItems.length; i++) {
+    for (let i = 0; i < items.length; i++) {
       const buttonY = startY + i * (buttonHeight + buttonSpacing)
       const buttonX = centerX - buttonWidth / 2
       
@@ -29,45 +37,60 @@ export class Menu {
           this.menuMouseX <= buttonX + buttonWidth &&
           this.menuMouseY >= buttonY && 
           this.menuMouseY <= buttonY + buttonHeight) {
-        this.selectedMenuItem = i
+        if (isPauseMenu) {
+          this.selectedPauseMenuItem = i
+        } else {
+          this.selectedMenuItem = i
+        }
         break
       }
     }
   }
   
-  handleClick(canvas, centerX, centerY) {
+  handleClick(canvas, centerX, centerY, isPauseMenu = false, clickX = null, clickY = null) {
     const buttonHeight = 60
     const buttonSpacing = 20
     const startY = centerY + 40
     const buttonWidth = 400
+    const items = isPauseMenu ? this.pauseMenuItems : this.menuItems
     
-    for (let i = 0; i < this.menuItems.length; i++) {
+    // Use provided click coordinates or fall back to stored mouse position
+    const x = clickX !== null ? clickX : this.menuMouseX
+    const y = clickY !== null ? clickY : this.menuMouseY
+    
+    for (let i = 0; i < items.length; i++) {
       const buttonY = startY + i * (buttonHeight + buttonSpacing)
       const buttonX = centerX - buttonWidth / 2
       
-      if (this.menuMouseX >= buttonX && 
-          this.menuMouseX <= buttonX + buttonWidth &&
-          this.menuMouseY >= buttonY && 
-          this.menuMouseY <= buttonY + buttonHeight) {
-        return this.menuItems[i].action
+      if (x >= buttonX && 
+          x <= buttonX + buttonWidth &&
+          y >= buttonY && 
+          y <= buttonY + buttonHeight) {
+        return items[i].action
       }
     }
     return null
   }
   
-  handleAction(action, canvas) {
-    if (action === 'instructions') {
-      this.showInstructions = true
-      this.showHighScores = false
-      this.showSettings = false
-    } else if (action === 'highscores') {
-      this.showHighScores = true
-      this.showInstructions = false
-      this.showSettings = false
-    } else if (action === 'settings') {
-      this.showSettings = true
-      this.showInstructions = false
-      this.showHighScores = false
+  handleAction(action, canvas, isPauseMenu = false) {
+    if (isPauseMenu) {
+      if (action === 'settings') {
+        this.showPauseSettings = true
+      }
+    } else {
+      if (action === 'instructions') {
+        this.showInstructions = true
+        this.showHighScores = false
+        this.showSettings = false
+      } else if (action === 'highscores') {
+        this.showHighScores = true
+        this.showInstructions = false
+        this.showSettings = false
+      } else if (action === 'settings') {
+        this.showSettings = true
+        this.showInstructions = false
+        this.showHighScores = false
+      }
     }
   }
 
@@ -88,9 +111,11 @@ export class Menu {
 
   reset() {
     this.selectedMenuItem = 0
+    this.selectedPauseMenuItem = 0
     this.showInstructions = false
     this.showHighScores = false
     this.showSettings = false
+    this.showPauseSettings = false
     this.instructionsScrollOffset = 0
   }
   

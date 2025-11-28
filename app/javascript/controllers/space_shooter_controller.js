@@ -89,21 +89,35 @@ export default class extends Controller {
       this.autoShoot()
       this.gameObjects.updateBullets(this.gameObjects.enemies, this.canvas.width, this.canvas.height)
       
-      // Spawn boss at the start of each new stage (stage changes every 5 levels)
-      const currentStage = Math.floor((this.gameState.level - 1) / 5) + 1
-      if (currentStage > this.gameState.stage && !this.gameState.bossSpawned && !this.gameState.bossActive && this.gameObjects.enemies.filter(e => e.isBoss).length === 0) {
-        this.gameObjects.spawnBoss(this.canvas.width, currentStage)
-        this.gameState.bossActive = true
-        this.gameState.bossSpawned = true
-      }
+      // Update stage based on waves (each stage is 10 waves)
+      this.gameState.stage = Math.floor((this.gameState.wave - 1) / 10) + 1
       
       // Wave system
       if (!this.gameState.bossActive && this.gameObjects.enemies.length === 0 && this.gameState.waveEnemiesSpawned >= this.gameState.waveEnemiesTotal) {
         // Wave complete, start next wave
+        const oldWave = this.gameState.wave
         this.gameState.wave++
         this.gameState.waveEnemiesSpawned = 0
         this.gameState.waveEnemiesTotal = 10 + (this.gameState.wave * 2)
         this.gameState.waveComplete = false
+        
+        // Update stage based on waves (each stage is 10 waves)
+        const oldStage = this.gameState.stage
+        this.gameState.stage = Math.floor((this.gameState.wave - 1) / 10) + 1
+        const stageChanged = this.gameState.stage > oldStage
+        
+        // Reset bossSpawned when entering a boss wave (10, 20, 30, etc.)
+        if (this.gameState.wave % 10 === 0) {
+          this.gameState.bossSpawned = false
+        }
+      }
+      
+      // Spawn boss at wave 10, 20, 30, 40, 50, etc.
+      const isBossWave = this.gameState.wave % 10 === 0
+      if (isBossWave && !this.gameState.bossSpawned && !this.gameState.bossActive && this.gameObjects.enemies.filter(e => e.isBoss).length === 0) {
+        this.gameObjects.spawnBoss(this.canvas.width, this.gameState.stage)
+        this.gameState.bossActive = true
+        this.gameState.bossSpawned = true
       }
       
       const spawnResult = this.gameObjects.spawnEnemy(
@@ -218,7 +232,7 @@ export default class extends Controller {
       this.renderer.drawParticles(this.gameObjects.particles)
       this.renderer.drawUI(this.gameState.score, this.gameState.lives, this.gameState.level, this.powerups, this.gameState)
       this.renderer.drawPlayerHealthBar(this.gameState, this.powerups, this.canvas.width, this.canvas.height)
-      this.renderer.drawPaused(this.centerX, this.centerY)
+      this.renderer.drawPaused(this.menu, this.centerX, this.centerY)
     }
   }
 

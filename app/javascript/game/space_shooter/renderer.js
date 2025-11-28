@@ -1027,17 +1027,45 @@ export class Renderer {
     this.ctx.textAlign = 'left'
   }
   
-  drawPaused(centerX, centerY) {
+  drawPaused(menu, centerX, centerY) {
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'
     this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
+    
+    if (menu.showPauseSettings) {
+      this.drawSettings(menu, centerX, centerY)
+      return
+    }
     
     this.ctx.fillStyle = '#ffffff'
     this.ctx.font = 'bold 48px sans-serif'
     this.ctx.textAlign = 'center'
-    this.ctx.fillText('PAUSED', centerX, centerY - 20)
+    this.ctx.fillText('PAUSED', centerX, centerY - 100)
     
-    this.ctx.font = '24px sans-serif'
-    this.ctx.fillText('Click to resume', centerX, centerY + 40)
+    const buttonHeight = 60
+    const buttonSpacing = 20
+    const startY = centerY + 40
+    const buttonWidth = 400
+    
+    menu.pauseMenuItems.forEach((item, index) => {
+      const buttonY = startY + index * (buttonHeight + buttonSpacing)
+      const buttonX = centerX - buttonWidth / 2
+      const isSelected = index === menu.selectedPauseMenuItem
+      
+      // Button background
+      this.ctx.fillStyle = isSelected ? 'rgba(99, 102, 241, 0.8)' : 'rgba(255, 255, 255, 0.1)'
+      this.ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight)
+      
+      // Button border
+      this.ctx.strokeStyle = isSelected ? '#ffffff' : 'rgba(255, 255, 255, 0.3)'
+      this.ctx.lineWidth = 2
+      this.ctx.strokeRect(buttonX, buttonY, buttonWidth, buttonHeight)
+      
+      // Button text
+      this.ctx.fillStyle = '#ffffff'
+      this.ctx.font = isSelected ? 'bold 24px sans-serif' : '24px sans-serif'
+      this.ctx.textAlign = 'center'
+      this.ctx.fillText(item.text, centerX, buttonY + buttonHeight / 2 + 8)
+    })
     
     this.ctx.textAlign = 'left'
   }

@@ -71,7 +71,7 @@ export class InputHandler {
     this.pointerLockChangeHandler = () => {
       this.gameState.isPointerLocked = document.pointerLockElement === this.canvas
       if (!this.gameState.isPointerLocked && this.gameState.gameState === 'playing' && !this.gameState.showPowerupSelection) {
-        // If pointer lock is lost during gameplay, try to reacquire it (but not during powerup selection)
+        // If pointer lock is lost during gameplay, try to reacquire it (but not during powerup selection or when paused)
         this.canvas.requestPointerLock()
       }
     }
@@ -145,6 +145,8 @@ export class InputHandler {
                 } else if (i === 2) {
                   this.menu.soundManager.setMusicVolume(clampedValue)
                 }
+                // Add global mouse move handler for dragging outside canvas
+                window.addEventListener('mousemove', this.globalMouseMoveHandler)
                 e.preventDefault()
                 return
               }
@@ -155,7 +157,7 @@ export class InputHandler {
           this.menu.showHighScores = false
           this.menu.showSettings = false
         } else {
-          const action = this.menu.handleClick(this.canvas, this.canvas.width / 2, this.canvas.height / 2)
+          const action = this.menu.handleClick(this.canvas, this.canvas.width / 2, this.canvas.height / 2, false, clickX, clickY)
           if (action) {
             if (action === 'start') {
               // Reset everything before starting new game
@@ -178,10 +180,69 @@ export class InputHandler {
           }
         }
       } else if (this.gameState.gameState === 'paused') {
-        this.gameState.gameState = 'playing'
-        // Request pointer lock when resuming
-        if (document.pointerLockElement !== this.canvas) {
-          this.canvas.requestPointerLock()
+        if (this.menu.showPauseSettings) {
+          // Handle settings slider clicks
+          if (this.menu.soundManager) {
+            const centerX = this.canvas.width / 2
+            const centerY = this.canvas.height / 2
+            const sliderWidth = 400
+            const sliderHeight = 30
+            const sliderY = centerY - 50
+            const sliderSpacing = 80
+            
+            // Check if click is on any slider
+            for (let i = 0; i < 3; i++) {
+              const sliderX = centerX - sliderWidth / 2
+              const sliderTop = sliderY + i * sliderSpacing
+              const sliderBottom = sliderTop + sliderHeight
+              
+              if (clickY >= sliderTop && clickY <= sliderBottom && 
+                  clickX >= sliderX && clickX <= sliderX + sliderWidth) {
+                this.isDraggingSlider = true
+                this.draggingSliderIndex = i
+                const value = (clickX - sliderX) / sliderWidth
+                const clampedValue = Math.max(0, Math.min(1, value))
+                
+                if (i === 0) {
+                  this.menu.soundManager.setMasterVolume(clampedValue)
+                } else if (i === 1) {
+                  this.menu.soundManager.setSfxVolume(clampedValue)
+                } else if (i === 2) {
+                  this.menu.soundManager.setMusicVolume(clampedValue)
+                }
+                // Add global mouse move handler for dragging outside canvas
+                window.addEventListener('mousemove', this.globalMouseMoveHandler)
+                e.preventDefault()
+                return
+              }
+            }
+          }
+          
+          this.menu.showPauseSettings = false
+        } else {
+          const action = this.menu.handleClick(this.canvas, this.canvas.width / 2, this.canvas.height / 2, true, clickX, clickY)
+          if (action) {
+            if (action === 'resume') {
+              this.gameState.gameState = 'playing'
+              // Request pointer lock when resuming
+              if (document.pointerLockElement !== this.canvas) {
+                this.canvas.requestPointerLock()
+              }
+            } else if (action === 'quit') {
+              // Reset everything when going back to menu
+              this.gameObjects.bullets = []
+              this.gameObjects.enemies = []
+              this.gameObjects.particles = []
+              this.gameObjects.enemyBullets = []
+              this.powerups.reset()
+              this.gameState.init(this.canvas.width, this.canvas.height, this.canvas.width / 2, this.canvas.height / 2)
+              this.gameObjects.initPlayer(this.canvas.width, this.canvas.height, this.canvas.width / 2)
+              this.gameObjects.reset()
+              this.menu.reset()
+            } else {
+              this.menu.handleAction(action, this.canvas, true)
+            }
+          }
         }
       } else if (this.gameState.gameState === 'gameOver') {
         this.gameState.init(this.canvas.width, this.canvas.height, this.canvas.width / 2, this.canvas.height / 2)
@@ -242,10 +303,33 @@ export class InputHandler {
       const mouseX = e.clientX - rect.left
       const mouseY = e.clientY - rect.top
       
+      // Handle slider dragging (works for both menu and pause settings)
+      if (this.isDraggingSlider && this.menu.soundManager) {
+        const centerX = this.canvas.width / 2
+        const sliderWidth = 400
+        const sliderX = centerX - sliderWidth / 2
+        const value = (mouseX - sliderX) / sliderWidth
+        const clampedValue = Math.max(0, Math.min(1, value))
+        
+        if (this.draggingSliderIndex === 0) {
+          this.menu.soundManager.setMasterVolume(clampedValue)
+        } else if (this.draggingSliderIndex === 1) {
+          this.menu.soundManager.setSfxVolume(clampedValue)
+        } else if (this.draggingSliderIndex === 2) {
+          this.menu.soundManager.setMusicVolume(clampedValue)
+        }
+        e.preventDefault()
+        return
+      }
+      
       if (this.gameState.gameState === 'menu') {
         this.menu.menuMouseX = mouseX
         this.menu.menuMouseY = mouseY
         this.menu.updateHover(this.canvas, this.canvas.width / 2, this.canvas.height / 2)
+      } else if (this.gameState.gameState === 'paused') {
+        this.menu.menuMouseX = mouseX
+        this.menu.menuMouseY = mouseY
+        this.menu.updateHover(this.canvas, this.canvas.width / 2, this.canvas.height / 2, true)
       } else if (this.gameState.gameState === 'playing' && this.gameState.showPowerupSelection && this.gameState.powerupCardBounds) {
         // Check hover on powerup cards
         let hoveredIndex = -1
@@ -261,11 +345,37 @@ export class InputHandler {
       }
     }
     
+    this.globalMouseMoveHandler = (e) => {
+      // Handle slider dragging when mouse moves outside canvas
+      if (this.isDraggingSlider && this.menu.soundManager) {
+        const rect = this.canvas.getBoundingClientRect()
+        const mouseX = e.clientX - rect.left
+        const centerX = this.canvas.width / 2
+        const sliderWidth = 400
+        const sliderX = centerX - sliderWidth / 2
+        let value = (mouseX - sliderX) / sliderWidth
+        // Clamp value even when outside canvas bounds
+        value = Math.max(0, Math.min(1, value))
+        
+        if (this.draggingSliderIndex === 0) {
+          this.menu.soundManager.setMasterVolume(value)
+        } else if (this.draggingSliderIndex === 1) {
+          this.menu.soundManager.setSfxVolume(value)
+        } else if (this.draggingSliderIndex === 2) {
+          this.menu.soundManager.setMusicVolume(value)
+        }
+        e.preventDefault()
+      }
+    }
+    
     this.keyDownHandler = (e) => {
       if (e.code === 'Escape') {
+        e.preventDefault()
+        e.stopPropagation()
         if (this.gameState.gameState === 'playing') {
           // Don't allow closing powerup selection with Esc - must select one
           if (!this.gameState.showPowerupSelection) {
+            // Set state to paused immediately to prevent pointer lock handler from interfering
             this.gameState.gameState = 'paused'
             // Release pointer lock when pausing
             if (document.pointerLockElement === this.canvas) {
@@ -273,14 +383,33 @@ export class InputHandler {
             }
           }
         } else if (this.gameState.gameState === 'paused') {
-          // Reset everything when going back to menu
-          this.gameObjects.bullets = []
-          this.gameObjects.enemies = []
-          this.gameObjects.particles = []
-          this.gameObjects.enemyBullets = []
-          this.powerups.reset()
-          this.gameState.gameState = 'menu'
+          if (this.menu.showPauseSettings) {
+            // Stop any slider dragging
+            if (this.isDraggingSlider) {
+              this.isDraggingSlider = false
+              this.draggingSliderIndex = -1
+              window.removeEventListener('mousemove', this.globalMouseMoveHandler)
+            }
+            this.menu.showPauseSettings = false
+          } else {
+            // Reset everything when going back to menu
+            this.gameObjects.bullets = []
+            this.gameObjects.enemies = []
+            this.gameObjects.particles = []
+            this.gameObjects.enemyBullets = []
+            this.powerups.reset()
+            this.gameState.init(this.canvas.width, this.canvas.height, this.canvas.width / 2, this.canvas.height / 2)
+            this.gameObjects.initPlayer(this.canvas.width, this.canvas.height, this.canvas.width / 2)
+            this.gameObjects.reset()
+            this.menu.reset()
+          }
         } else if (this.menu.showInstructions || this.menu.showHighScores || this.menu.showSettings) {
+          // Stop any slider dragging
+          if (this.isDraggingSlider) {
+            this.isDraggingSlider = false
+            this.draggingSliderIndex = -1
+            window.removeEventListener('mousemove', this.globalMouseMoveHandler)
+          }
           this.menu.showInstructions = false
           this.menu.showHighScores = false
           this.menu.showSettings = false
@@ -340,6 +469,38 @@ export class InputHandler {
             this.menu.handleAction(action, this.canvas)
           }
         }
+      } else if (this.gameState.gameState === 'paused' && !this.menu.showPauseSettings) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault()
+          if (e.key === 'ArrowDown') {
+            this.menu.selectedPauseMenuItem = (this.menu.selectedPauseMenuItem + 1) % this.menu.pauseMenuItems.length
+          } else {
+            this.menu.selectedPauseMenuItem = (this.menu.selectedPauseMenuItem - 1 + this.menu.pauseMenuItems.length) % this.menu.pauseMenuItems.length
+          }
+        } else if (e.key === 'Enter') {
+          e.preventDefault()
+          const action = this.menu.pauseMenuItems[this.menu.selectedPauseMenuItem].action
+          if (action === 'resume') {
+            this.gameState.gameState = 'playing'
+            // Request pointer lock when resuming
+            if (document.pointerLockElement !== this.canvas) {
+              this.canvas.requestPointerLock()
+            }
+          } else if (action === 'quit') {
+            // Reset everything when going back to menu
+            this.gameObjects.bullets = []
+            this.gameObjects.enemies = []
+            this.gameObjects.particles = []
+            this.gameObjects.enemyBullets = []
+            this.powerups.reset()
+            this.gameState.init(this.canvas.width, this.canvas.height, this.canvas.width / 2, this.canvas.height / 2)
+            this.gameObjects.initPlayer(this.canvas.width, this.canvas.height, this.canvas.width / 2)
+            this.gameObjects.reset()
+            this.menu.reset()
+          } else {
+            this.menu.handleAction(action, this.canvas, true)
+          }
+        }
       } else if (this.gameState.gameState === 'menu' && this.menu.showInstructions) {
         // Scroll instructions with arrow keys
         if (e.key === 'ArrowDown') {
@@ -360,8 +521,12 @@ export class InputHandler {
     }
     
     this.mouseUpHandler = () => {
-      this.isDraggingSlider = false
-      this.draggingSliderIndex = -1
+      if (this.isDraggingSlider) {
+        this.isDraggingSlider = false
+        this.draggingSliderIndex = -1
+        // Remove global mouse move handler when done dragging
+        window.removeEventListener('mousemove', this.globalMouseMoveHandler)
+      }
     }
     
     this.wheelHandler = (e) => {
@@ -460,6 +625,9 @@ export class InputHandler {
     }
     if (this.mouseUpHandler) {
       window.removeEventListener('mouseup', this.mouseUpHandler)
+    }
+    if (this.globalMouseMoveHandler) {
+      window.removeEventListener('mousemove', this.globalMouseMoveHandler)
     }
   }
 }

@@ -88,7 +88,6 @@ export class GameState {
 
   levelUp() {
     const oldLevel = this.level
-    const oldStage = this.stage
     
     // Calculate level based on total XP accumulated
     let calculatedLevel = 1
@@ -99,19 +98,13 @@ export class GameState {
     }
     
     this.level = calculatedLevel
-    this.stage = Math.floor((this.level - 1) / 5) + 1
     const leveledUp = this.level > oldLevel
-    const stageChanged = this.stage > oldStage
-    
-    if (stageChanged) {
-      this.bossSpawned = false
-    }
     
     if (leveledUp && this.level > this.lastLevel) {
       this.lastLevel = this.level
-      return { leveledUp: true, stageChanged }
+      return { leveledUp: true, stageChanged: false }
     }
-    return { leveledUp: false, stageChanged }
+    return { leveledUp: false, stageChanged: false }
   }
 
   takeDamage(damage = 1) {
