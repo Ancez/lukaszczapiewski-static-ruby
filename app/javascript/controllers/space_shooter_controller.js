@@ -89,20 +89,17 @@ export default class extends Controller {
       this.autoShoot()
       this.gameObjects.updateBullets(this.gameObjects.enemies, this.canvas.width, this.canvas.height)
       
-      // Update stage based on waves (each stage is 10 waves)
-      this.gameState.stage = Math.floor((this.gameState.wave - 1) / 10) + 1
-      
-      // Wave system
+      // Wave system - check for wave completion
       if (!this.gameState.bossActive && this.gameObjects.enemies.length === 0 && this.gameState.waveEnemiesSpawned >= this.gameState.waveEnemiesTotal) {
         // Wave complete, start next wave
         const oldWave = this.gameState.wave
+        const oldStage = this.gameState.stage
         this.gameState.wave++
         this.gameState.waveEnemiesSpawned = 0
         this.gameState.waveEnemiesTotal = 10 + (this.gameState.wave * 2)
         this.gameState.waveComplete = false
         
         // Update stage based on waves (each stage is 10 waves)
-        const oldStage = this.gameState.stage
         this.gameState.stage = Math.floor((this.gameState.wave - 1) / 10) + 1
         const stageChanged = this.gameState.stage > oldStage
         
@@ -111,6 +108,9 @@ export default class extends Controller {
           this.gameState.bossSpawned = false
         }
       }
+      
+      // Update stage based on waves (each stage is 10 waves) - ensure it's always up to date
+      this.gameState.stage = Math.floor((this.gameState.wave - 1) / 10) + 1
       
       // Spawn boss at wave 10, 20, 30, 40, 50, etc.
       const isBossWave = this.gameState.wave % 10 === 0

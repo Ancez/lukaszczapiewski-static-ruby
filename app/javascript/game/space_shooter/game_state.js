@@ -80,15 +80,15 @@ export class GameState {
   }
 
   getLevelProgress() {
+    // Ensure level is up to date before calculating progress
+    this.recalculateLevel()
     const currentLevelXp = this.getTotalXpForLevel(this.level)
     const nextLevelXp = currentLevelXp + this.getXpRequiredForLevel(this.level)
     const progress = (this.score - currentLevelXp) / (nextLevelXp - currentLevelXp)
     return Math.max(0, Math.min(1, progress))
   }
 
-  levelUp() {
-    const oldLevel = this.level
-    
+  recalculateLevel() {
     // Calculate level based on total XP accumulated
     let calculatedLevel = 1
     let totalXpNeeded = 0
@@ -98,6 +98,14 @@ export class GameState {
     }
     
     this.level = calculatedLevel
+  }
+
+  levelUp() {
+    const oldLevel = this.level
+    
+    // Recalculate level based on total XP accumulated
+    this.recalculateLevel()
+    
     const leveledUp = this.level > oldLevel
     
     if (leveledUp && this.level > this.lastLevel) {

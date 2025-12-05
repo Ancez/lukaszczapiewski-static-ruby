@@ -77,10 +77,15 @@ export class GameLogic {
           }
         }
         
-        if (hit && enemy.health > 0) {
+        if (hit) {
           // Clear target enemy for homing bullets IMMEDIATELY
           if (bullet.homing && bullet.targetEnemy === enemy) {
             bullet.targetEnemy = null
+          }
+          
+          // Ensure enemy has valid health
+          if (enemy.health === undefined || enemy.health === null || isNaN(enemy.health)) {
+            enemy.health = enemy.maxHealth || 1
           }
           
           // Apply damage
@@ -115,6 +120,8 @@ export class GameLogic {
               this.gameState.score += 500 * enemy.bossStage
               this.gameState.bossActive = false
               this.gameState.bossSpawned = false
+              // Mark wave as complete so it can advance
+              this.gameState.waveEnemiesSpawned = this.gameState.waveEnemiesTotal
             } else {
               // Different XP based on enemy type and wave number
               const enemyType = enemy.enemyType || 'normal'
@@ -166,6 +173,8 @@ export class GameLogic {
             
             // Only check level up if not a boss (bosses give score but don't trigger level up)
             if (!isBoss) {
+              // Recalculate level to ensure it's up to date
+              this.gameState.recalculateLevel()
               const levelUpResult = this.gameState.levelUp()
               
               this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
@@ -179,6 +188,8 @@ export class GameLogic {
               }
             } else {
               // Boss defeated - special effects
+              // Recalculate level after boss gives score
+              this.gameState.recalculateLevel()
               this.effects.fireLevelUpConfetti()
               this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
             }
@@ -284,6 +295,8 @@ export class GameLogic {
             this.powerups.createGift(enemyX, enemyY)
           }
           
+          // Recalculate level to ensure it's up to date
+          this.gameState.recalculateLevel()
           const levelUpResult = this.gameState.levelUp()
           this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
           
@@ -323,11 +336,17 @@ export class GameLogic {
     const giftResult = this.powerups.checkGiftCollection(this.gameObjects.player)
     if (giftResult.collected) {
       // Gift XP scales with level: base 50 + (level * 10)
+      // Ensure level is up to date before calculating gift XP
+      this.gameState.recalculateLevel()
       const giftXp = 50 + (this.gameState.level * 10)
       const xpGainMultiplier = this.powerups.getXpGainMultiplier()
       const finalXp = Math.ceil(giftXp * xpGainMultiplier)
       
       this.gameState.score += finalXp
+      // Recalculate level after adding XP
+      this.gameState.recalculateLevel()
+      const levelUpResult = this.gameState.levelUp()
+      
       this.effects.createGiftCollectionEffect(giftResult.x, giftResult.y)
       this.effects.fireConfetti(giftResult.x, giftResult.y, this.canvasWidth, this.canvasHeight)
       this.gameState.scorePopups.push({
@@ -337,6 +356,14 @@ export class GameLogic {
         life: 1.0,
         vy: -2
       })
+      
+      if (levelUpResult.leveledUp) {
+        if (this.soundManager) {
+          this.soundManager.playLevelUpSound()
+        }
+        this.gameState.showPowerupSelection = true
+        this.gameState.pendingPowerups = this.powerups.selectRandomPowerups(3)
+      }
     }
   }
 }

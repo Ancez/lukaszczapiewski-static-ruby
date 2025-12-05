@@ -436,9 +436,12 @@ export class Renderer {
       
       if (gameState && powerups) {
         const progress = gameState.getLevelProgress()
-        const currentLevelXp = gameState.getTotalXpForLevel(level)
-        const nextLevelXp = currentLevelXp + gameState.getXpRequiredForLevel(level)
-        const remaining = nextLevelXp - score
+        // Ensure level is up to date
+        gameState.recalculateLevel()
+        const currentLevel = gameState.level
+        const currentLevelXp = gameState.getTotalXpForLevel(currentLevel)
+        const nextLevelXp = currentLevelXp + gameState.getXpRequiredForLevel(currentLevel)
+        const remaining = Math.max(0, nextLevelXp - score)
         
         this.ctx.font = '12px sans-serif'
         this.ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 41, 59, 0.7)'
