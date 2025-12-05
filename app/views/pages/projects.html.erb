@@ -1,5 +1,3 @@
-<% @js_modules = ['application'] %>
-
 <div class="min-h-screen dark:bg-slate-950 bg-slate-50 dark:text-white text-slate-900 relative overflow-hidden">
   <!-- Animated Background -->
   <canvas data-controller="particles" class="fixed inset-0 w-full h-full opacity-30 pointer-events-none"></canvas>
@@ -32,14 +30,13 @@
             </span>
           </div>
           <p class="dark:text-slate-400 text-slate-700 mb-6 leading-relaxed">
-            A Ruby gem for building static HTML sites. Choose your stack: ERB or Phlex, Importmap or ESBuild/Webpack/Vite, TailwindCSS or shadcn, Stimulus or React/Vue/Alpine.
+            A Ruby gem for building static HTML sites using ERB files. Simple and flexible - add your own JavaScript bundling and CSS processing as needed.
           </p>
           <div class="flex flex-wrap gap-2">
             <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Ruby</span>
-            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">ERB/Phlex</span>
-            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Importmap</span>
-            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">TailwindCSS</span>
-            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Stimulus</span>
+            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">ERB</span>
+            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Static Sites</span>
+            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">ActionView</span>
           </div>
         </a>
 
@@ -92,7 +89,8 @@
           <div class="flex flex-wrap gap-2">
             <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Ruby</span>
             <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">ERB</span>
-            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Importmap</span>
+            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Static Sites</span>
+            <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">ActionView</span>
             <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">TailwindCSS</span>
             <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">Stimulus</span>
           </div>
@@ -132,3 +130,6 @@
   </section>
 </div>
 
+<% content_for :javascript do %>
+  <script type="module" src="/assets/javascripts/application.js"></script>
+<% end %>

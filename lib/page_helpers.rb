@@ -19,10 +19,10 @@ module PageHelpers
       priority: 0.8,
       changefreq: 'weekly'
     },
-    '/privacy' => {
-      title: 'Privacy Policy - Lukasz Czapiewski',
-      description: 'Privacy policy for lukaszczapiewski.com. This website does not use cookies or tracking.',
-      url: 'https://lukaszczapiewski.com/privacy',
+    '/privacy-cookies' => {
+      title: 'Privacy & Cookies Policy - Lukasz Czapiewski',
+      description: 'Privacy and cookies policy for lukaszczapiewski.com. This website uses cookies for theme preference and localStorage for game high scores only.',
+      url: 'https://lukaszczapiewski.com/privacy-cookies',
       image: 'https://lukaszczapiewski.com/images/profile.jpeg',
       priority: 0.5,
       changefreq: 'monthly'
