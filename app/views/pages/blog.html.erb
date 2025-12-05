@@ -28,10 +28,10 @@
 
       <div class="space-y-6">
         <% PageHelpers::BLOG_POSTS.sort_by { |post| -post[:date].to_time.to_i }.each do |post| %>
-          <a href="/blog/<%= post[:slug] %>" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer" data-blog-slug="<%= post[:slug] %>" data-view-transition-card="blog-card-<%= post[:slug] %>">
+          <a href="/blog/<%= post[:slug] %>" class="group apple-glass p-8 hover:border-indigo-500/50 transition-all block cursor-pointer">
             <div class="flex items-start justify-between mb-4">
               <div class="flex-1">
-                <h3 class="text-2xl font-bold dark:text-white text-slate-900 mb-2" data-view-transition-title="blog-<%= post[:slug] %>">
+                <h3 class="text-2xl font-bold dark:text-white text-slate-900 mb-2">
                   <%= post[:title] %>
                 </h3>
                 <div class="flex items-center gap-4 flex-wrap">
@@ -66,3 +66,6 @@
   </section>
 </div>
 
+<% content_for :javascript do %>
+  <script type="module" src="/assets/javascripts/application.js"></script>
+<% end %>

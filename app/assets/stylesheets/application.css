@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* View Transitions API - Cross-document transitions */
+/* View Transitions API - Enable cross-document transitions */
 @view-transition {
   navigation: auto;
 }
@@ -423,50 +423,13 @@ html:not(.dark) .tooltip {
   }
 }
 
-/* Default root transition */
+/* Default root transition - simple fade */
 ::view-transition-old(root) {
-  animation: fade-out-view-transition 0.4s ease-out;
+  animation: fade-out-view-transition 0.3s ease-out;
 }
 
 ::view-transition-new(root) {
-  animation: fade-in-view-transition 0.4s ease-out;
-}
-
-/* When card transitions are active, suppress root/main-content to avoid conflicts */
-/* Note: We can't use CSS selectors for this, so we'll handle it in JS if needed */
-
-/* Forward navigation - slide from right */
-html:active-view-transition-type(forwards)::view-transition-old(root) {
-  animation: slide-out-to-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html:active-view-transition-type(forwards)::view-transition-new(root) {
-  animation: slide-in-from-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html:active-view-transition-type(forwards)::view-transition-old(main-content) {
-  animation: slide-out-to-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html:active-view-transition-type(forwards)::view-transition-new(main-content) {
-  animation: slide-in-from-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Backward navigation - slide from left */
-html:active-view-transition-type(backwards)::view-transition-old(root) {
-  animation: slide-out-to-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html:active-view-transition-type(backwards)::view-transition-new(root) {
-  animation: slide-in-from-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html:active-view-transition-type(backwards)::view-transition-old(main-content) {
-  animation: slide-out-to-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-html:active-view-transition-type(backwards)::view-transition-new(main-content) {
-  animation: slide-in-from-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fade-in-view-transition 0.3s ease-out;
 }
 
 /* Reload transition - fade */
@@ -524,4 +487,5 @@ html:active-view-transition-type(reload)::view-transition-new(root) {
 ::view-transition-new(main-content) {
   animation: slide-fade-in 0.4s ease-out;
 }
+
 
