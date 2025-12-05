@@ -6,35 +6,16 @@ Encoding.default_external = Encoding::UTF_8 if defined?(Encoding)
 
 require "static_site_builder"
 
-require "importmap-rails"
-
 # Load page helpers
 require_relative "page_helpers"
 
-# Configure the builder for your stack
+# Configure the builder
 builder = StaticSiteBuilder::Builder.new(
-  root: Dir.pwd,
-  template_engine: "erb",
-  js_bundler: "importmap",
-  importmap_config: "config/importmap.rb",
-
+  root: Dir.pwd
 )
 
 # Build the site
 builder.build
-
-# Copy vendor JavaScript files to dist/assets/javascripts/
-require "fileutils"
-vendor_js_dir = File.join(Dir.pwd, "vendor", "javascript")
-dist_js_dir = File.join(Dir.pwd, "dist", "assets", "javascripts")
-if Dir.exist?(vendor_js_dir) && Dir.exist?(dist_js_dir)
-  Dir.glob(File.join(vendor_js_dir, "*.js")).each do |vendor_file|
-    filename = File.basename(vendor_file)
-    dest_file = File.join(dist_js_dir, filename)
-    FileUtils.cp(vendor_file, dest_file)
-    puts "  ✓ Copied #{filename} to dist/assets/javascripts/"
-  end
-end
 
 # Generate sitemap
 begin

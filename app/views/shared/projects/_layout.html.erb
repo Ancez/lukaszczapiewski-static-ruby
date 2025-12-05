@@ -23,7 +23,17 @@
             <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100"><%= tag %></span>
           <% end %>
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+        <% 
+          # Derive slug from @current_page or use @project_slug if set
+          project_slug = if defined?(@project_slug) && @project_slug
+            @project_slug
+          elsif defined?(@current_page) && @current_page
+            @current_page.gsub(/^\/projects\//, '').gsub(/\/$/, '')
+          else
+            ''
+          end
+        %>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight" data-view-transition-title="project-<%= project_slug %>">
           <span class="bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">
             <%= @project_title %>
           </span>

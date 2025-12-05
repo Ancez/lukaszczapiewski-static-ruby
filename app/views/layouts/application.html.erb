@@ -4,27 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Primary Meta Tags -->
-  <title><%= @title || 'Lukasz Czapiewski - Full Stack Developer' %></title>
-  <meta name="title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
-  <meta name="description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="<%= @url || 'https://lukaszczapiewski.com' %>">
-  <meta property="og:title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
-  <meta property="og:description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
-  <meta property="og:image" content="<%= @image || 'https://lukaszczapiewski.com/images/profile.jpeg' %>">
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="<%= @url || 'https://lukaszczapiewski.com' %>">
-  <meta property="twitter:title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
-  <meta property="twitter:description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
-  <meta property="twitter:image" content="<%= @image || 'https://lukaszczapiewski.com/images/profile.jpeg' %>">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="<%= @url || 'https://lukaszczapiewski.com' %>">
+  <%= display_meta_tags(default_meta_tags) %>
   
   <!-- RSS Feed -->
   <link rel="alternate" type="application/rss+xml" title="Lukasz Czapiewski - Blog RSS Feed" href="https://lukaszczapiewski.com/feed.xml">
@@ -67,11 +47,11 @@
       '/'
     end
   %>
-  <main class="dark:bg-slate-950 bg-slate-50">
+  <main class="dark:bg-slate-950 bg-slate-50" style="view-transition-name: main-content;">
     <% unless @current_page == '/space-shooter' %>
       <%= render 'shared/header' %>
     <% end %>
-    <%= page_content %>
+    <%= yield %>
     <% unless @current_page == '/space-shooter' %>
       <%= render 'shared/footer' %>
     <% end %>
@@ -85,6 +65,7 @@
   <div 
     data-controller="theme-switcher" 
     class="fixed top-auto bottom-6 md:top-6 md:bottom-auto right-6 z-50 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out"
+    style="view-transition-name: theme-switcher;"
   >
     <button
       type="button"
@@ -145,18 +126,29 @@
   </div>
   <% end %>
 
-  <% if importmap_json %>
-    <script type="importmap">
-      <%= raw importmap_json %>
-    </script>
-  <% end %>
-
-  <%
-    modules_to_import = (@js_modules || []).dup
-    modules_to_import << 'application' unless modules_to_import.include?('application')
-  %>
-  <% modules_to_import.each do |module_name| %>
-    <script type="module">import "<%= module_name %>";</script>
+  <script type="importmap">
+  {
+    "imports": {
+      "application": "/assets/javascripts/application.js",
+      "@hotwired/stimulus": "/assets/javascripts/stimulus.min.js",
+      "canvas-confetti": "/assets/javascripts/confetti.browser.js",
+      "controllers/cookies": "/assets/javascripts/controllers/cookies_controller.js",
+      "controllers/easter_egg": "/assets/javascripts/controllers/easter_egg_controller.js",
+      "controllers/mobile_menu": "/assets/javascripts/controllers/mobile_menu_controller.js",
+      "controllers/particles": "/assets/javascripts/controllers/particles_controller.js",
+      "controllers/scroll_tracker": "/assets/javascripts/controllers/scroll_tracker_controller.js",
+      "controllers/smooth_scroll": "/assets/javascripts/controllers/smooth_scroll_controller.js",
+      "controllers/space_shooter": "/assets/javascripts/controllers/space_shooter_controller.js",
+      "controllers/theme_switcher": "/assets/javascripts/controllers/theme_switcher_controller.js",
+      "controllers/tooltip": "/assets/javascripts/controllers/tooltip_controller.js",
+      "controllers/typing": "/assets/javascripts/controllers/typing_controller.js"
+    }
+  }
+  </script>
+  <script type="module" src="/assets/javascripts/application.js"></script>
+  
+  <% if content_for?(:javascript) %>
+    <%= yield(:javascript) %>
   <% end %>
 </body>
 </html>
