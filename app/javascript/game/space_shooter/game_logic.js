@@ -181,12 +181,33 @@ export class GameLogic {
                 if (this.soundManager) {
                   this.soundManager.playLevelUpSound()
                 }
-                this.gameState.showPowerupSelection = true
-                this.gameState.pendingPowerups = this.powerups.selectRandomPowerups(3)
+                // Alternate between weapon and skill selection
+                const weaponCount = this.powerups.getActiveWeaponCount()
+                const skillCount = this.powerups.getActiveSkillCount()
+                
+                if (weaponCount < 3 && (weaponCount <= skillCount || skillCount >= 5)) {
+                  // Show weapons if we have less than 3 weapons
+                  this.gameState.showPowerupSelection = true
+                  this.gameState.powerupSelectionType = 'weapon'
+                  this.gameState.pendingPowerups = this.powerups.selectRandomWeapons(3)
+                } else if (skillCount < 5) {
+                  // Show skills if we have less than 5 skills
+                  this.gameState.showPowerupSelection = true
+                  this.gameState.powerupSelectionType = 'skill'
+                  this.gameState.pendingPowerups = this.powerups.selectRandomSkills(2)
+                } else {
+                  // Both maxed, show random
+                  this.gameState.showPowerupSelection = true
+                  this.gameState.powerupSelectionType = Math.random() > 0.5 ? 'weapon' : 'skill'
+                  if (this.gameState.powerupSelectionType === 'weapon') {
+                    this.gameState.pendingPowerups = this.powerups.selectRandomWeapons(3)
+                  } else {
+                    this.gameState.pendingPowerups = this.powerups.selectRandomSkills(2)
+                  }
+                }
               }
             } else {
               // Boss defeated - special effects
-              // Recalculate level after boss gives score
               this.gameState.recalculateLevel()
               this.effects.fireLevelUpConfetti()
               this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
@@ -293,8 +314,6 @@ export class GameLogic {
             this.powerups.createGift(enemyX, enemyY)
           }
           
-          // Recalculate level to ensure it's up to date
-          this.gameState.recalculateLevel()
           const levelUpResult = this.gameState.levelUp()
           this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
           
@@ -341,8 +360,6 @@ export class GameLogic {
       const finalXp = Math.ceil(giftXp * xpGainMultiplier)
       
       this.gameState.score += finalXp
-      // Recalculate level after adding XP
-      this.gameState.recalculateLevel()
       const levelUpResult = this.gameState.levelUp()
       
       this.effects.createGiftCollectionEffect(giftResult.x, giftResult.y)
