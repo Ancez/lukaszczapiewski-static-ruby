@@ -173,8 +173,6 @@ export class GameLogic {
             
             // Only check level up if not a boss (bosses give score but don't trigger level up)
             if (!isBoss) {
-              // Recalculate level to ensure it's up to date
-              this.gameState.recalculateLevel()
               const levelUpResult = this.gameState.levelUp()
               
               this.effects.fireConfetti(enemyX, enemyY, this.canvasWidth, this.canvasHeight)
