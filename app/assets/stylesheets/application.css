@@ -238,6 +238,40 @@
     border-color: rgba(59, 130, 246, 0.6);
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   }
+
+  .image-placeholder {
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  html:not(.dark) .image-placeholder {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .image-placeholder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  html:not(.dark) .image-placeholder:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  .image-placeholder::before {
+    content: '🖼️';
+    font-size: 2rem;
+    opacity: 0.5;
+  }
 }
 
 @keyframes blink {

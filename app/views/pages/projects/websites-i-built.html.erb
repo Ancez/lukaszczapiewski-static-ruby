@@ -1,0 +1,90 @@
+
+<%# Define project variables %>
+<% @project_title = 'Websites' %>
+<% @project_description = 'Three websites I built and shipped: a construction company site, a fitness product landing page, and my personal portfolio.' %>
+<% @project_tags = ['Web', 'Design', 'UX', 'Performance'] %>
+<% @project_github_url = 'https://github.com/Ancez/lukaszczapiewski-static-ruby' %>
+<% @project_external_url = @project_github_url %>
+
+
+<%= render layout: 'shared/projects/layout' do %>
+  <div class="flex flex-col gap-8">
+    <a
+      href="https://plandat.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group apple-glass p-8 dark:hover:border-indigo-500/50 hover:border-indigo-600/70 transition-all block cursor-pointer"
+    >
+      <img
+        src="/images/sites/plandat.png"
+        alt="PlanDat website screenshot"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <div class="flex items-start justify-between mb-4">
+        <h3 class="text-2xl font-bold dark:text-white text-slate-900">PlanDat</h3>
+        <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">
+          Product
+        </span>
+      </div>
+      <p class="dark:text-slate-400 text-slate-700 mb-6 leading-relaxed">
+        Landing page for a mobile-first workout tracker with sets/reps logging, timers, trainer sharing, and a focused conversion flow.
+      </p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="dark:text-slate-400 text-slate-600">Fitness • Mobile</span>
+        <span class="dark:text-indigo-300 text-indigo-700 group-hover:underline">Visit →</span>
+      </div>
+    </a>
+
+    <div
+      class="apple-glass p-8 dark:hover:border-indigo-500/50 hover:border-indigo-600/70 transition-all block"
+    >
+      <img
+        src="/images/sites/lukaszczapiewski.png"
+        alt="lukaszczapiewski.com website screenshot"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <div class="flex items-start justify-between mb-4">
+        <h3 class="text-2xl font-bold dark:text-white text-slate-900">lukaszczapiewski.com</h3>
+        <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">
+          Personal
+        </span>
+      </div>
+      <p class="dark:text-slate-400 text-slate-700 mb-6 leading-relaxed">
+        My personal space for projects, articles, and experiments. Built to be quick, readable, and easy to keep updated.
+      </p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="dark:text-slate-400 text-slate-600">Static • Fast</span>
+        <span class="dark:text-indigo-300 text-indigo-700">You're here!</span>
+      </div>
+    </div>
+
+    <a
+      href="https://sbrconstruction.co.uk/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group apple-glass p-8 dark:hover:border-indigo-500/50 hover:border-indigo-600/70 transition-all block cursor-pointer"
+    >
+      <img
+        src="/images/sites/sbrconstruction.png"
+        alt="SBR Construction website screenshot"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <div class="flex items-start justify-between mb-4">
+        <h3 class="text-2xl font-bold dark:text-white text-slate-900">SBR Construction</h3>
+        <span class="px-3 py-1 bg-indigo-700/70 dark:bg-indigo-600/40 border border-indigo-700/80 dark:border-indigo-600/50 rounded-full text-xs text-indigo-50 dark:text-indigo-100">
+          Website
+        </span>
+      </div>
+      <p class="dark:text-slate-400 text-slate-700 mb-6 leading-relaxed">
+        A straight-talking site for a Polish family-owned construction team in Swindon, focused on trust, services, and recent work.
+      </p>
+      <div class="flex items-center justify-between text-sm">
+        <span class="dark:text-slate-400 text-slate-600">Swindon • Construction</span>
+        <span class="dark:text-indigo-300 text-indigo-700 group-hover:underline">Visit →</span>
+      </div>
+    </a>
+  </div>
+<% end %>

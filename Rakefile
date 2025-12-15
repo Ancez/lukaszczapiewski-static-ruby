@@ -4,14 +4,13 @@
 # Set default external encoding to UTF-8
 Encoding.default_external = Encoding::UTF_8
 
-require_relative "lib/site_builder"
 require "fileutils"
 require "pathname"
 require "json"
 
 namespace :build do
   desc "Build everything (HTML + CSS)"
-  task :all => [:html, :css] do
+  task :all => [:html, :assets, :css] do
     puts "\n✓ Build complete!"
   end
 
@@ -28,7 +27,7 @@ namespace :build do
   end
 
   desc "Compile all pages to static HTML"
-  task :html => [:assets] do
+  task :html do
     load "lib/site_builder.rb"
   end
 
@@ -112,7 +111,7 @@ namespace :dev do
     # CSS changes are handled by Tailwind watch, so we skip rebuild for CSS files
     # When HTML rebuilds, it cleans dist, so we need to rebuild CSS immediately after
     # Exclude .readmes directory (generated files) and increase sleep to reduce reload frequency
-    watcher_code = %q{watched = ['app', 'config']; exts = ['.erb', '.rb', '.js']; mtimes = {}; last_build = Time.now; loop do; changed = false; watched.each do |dir|; Dir.glob(File.join(dir, '**', '*')).each do |f|; next unless File.file?(f); next if f.end_with?('.css'); next if f.include?('.readmes'); next if f.include?('/dist/'); next unless exts.any? { |e| f.end_with?(e) }; mtime = File.mtime(f); if mtimes[f] != mtime; mtimes[f] = mtime; changed = true; end; end; end; if changed && (Time.now - last_build) > 2; system('rake build:html > /dev/null 2>&1 && rake build:css > /dev/null 2>&1'); last_build = Time.now; end; sleep 1; end}
+    watcher_code = %q{watched = ['app', 'config']; exts = ['.erb', '.rb', '.js']; mtimes = {}; last_build = Time.now; loop do; changed = false; watched.each do |dir|; Dir.glob(File.join(dir, '**', '*')).each do |f|; next unless File.file?(f); next if f.end_with?('.css'); next if f.include?('.readmes'); next if f.include?('/dist/'); next unless exts.any? { |e| f.end_with?(e) }; mtime = File.mtime(f); if mtimes[f] != mtime; mtimes[f] = mtime; changed = true; end; end; end; if changed && (Time.now - last_build) > 2; system('rake build:all > /dev/null 2>&1'); last_build = Time.now; end; sleep 1; end}
     watcher_pid = spawn("ruby", "-e", watcher_code, :err => File::NULL)
 
     # Start web server with custom handler for clean URLs
