@@ -1,9 +1,10 @@
 <% current_page = @current_page || '' %>
 <!-- Navigation -->
-<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-5xl apple-glass-header rounded-2xl z-50" data-controller="mobile-menu <%= current_page == '/' ? 'scroll-tracker' : '' %>" style="view-transition-name: header-nav;">
+<nav class="fixed top-8 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] md:w-fit apple-glass-header rounded-2xl z-50 transition-all duration-300 ease-in-out" data-controller="header-scroll mobile-menu <%= current_page == '/' ? 'scroll-tracker' : '' %>" style="view-transition-name: header-nav;">
   <div class="px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <a href="/" class="text-xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">LC</a>
+    <div class="flex justify-between md:justify-center items-center h-16">
+      <!-- Mobile Logo/Home Link -->
+      <a href="/" class="md:hidden text-lg font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">LC</a>
       
       <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-8">
