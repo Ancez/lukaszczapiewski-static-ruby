@@ -2,9 +2,8 @@
 <%# Define blog post variables %>
 <% @blog_title = 'Getting Started with Static Site Builder' %>
 <% @blog_slug = 'getting-started-with-static-site-builders' %>
-<% @url = 'https://lukaszczapiewski.com/blog/getting-started-with-static-site-builders' %>
 <% @blog_tags = ['Ruby', 'Static Sites', 'Web Development', 'Tutorial'] %>
-<% @blog_date = Date.new(2025, 11, 22) %>
+<% @blog_date = Date.new(2025, 1, 15) %>
 <% @blog_external_links = [
   { url: 'https://github.com/Ancez/static-site-builder', text: 'View on GitHub', icon: 'github' },
   { url: 'https://rubygems.org/gems/static-site-builder', text: 'View on RubyGems.org', icon: 'rubygems' }
@@ -13,14 +12,8 @@
 <%= render layout: 'shared/blog/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
-      <img
-        src="/images/projects/static-site-builder.webp"
-        alt="Getting Started with Static Site Builder"
-        loading="lazy"
-        class="w-full aspect-[16/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
-      >
       <p class="text-xl dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
-        The <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">static-site-builder</a> gem is a Ruby-powered static site generator that compiles ERB files into static HTML. It's perfect when you want Rails-like layouts, pages, and partials without a full Rails application, allowing you to host it for free directly on Cloudflare CDNs and other static hosting services. This guide will walk you through everything you need to know to build and deploy static sites with this gem.
+        The <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">static-site-builder</a> gem is a Ruby-powered static site generator that compiles ERB templates into static HTML. It uses ActionView to provide Rails-like layouts, pages, and partials without a full Rails application, allowing you to host it for free directly on Cloudflare CDNs and other static hosting services. The gem is intentionally simple—no built-in JavaScript bundlers or CSS frameworks. Instead, you add your own tools as needed, with setup guides provided in the documentation. This guide will walk you through everything you need to know to build and deploy static sites with this gem.
       </p>
     </div>
 
@@ -43,6 +36,9 @@ bundle install</code></pre>
 static-site-builder new my-site
 
 # Or if using from repo
+git clone https://github.com/Ancez/static-site-builder
+cd static-site-builder
+bundle install
 ruby bin/generate my-site</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Once generated, install dependencies:
@@ -61,35 +57,43 @@ bundle install</code></pre>
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>my-site/
 ├── Gemfile              # Dependencies (static-site-builder, sitemap_generator, etc.)
-├── Rakefile            # Build tasks (includes sitemap generation)
+├── Rakefile             # Build tasks (includes sitemap generation)
 ├── config/
-│   └── sitemap.rb      # Sitemap generation config
+│   └── sitemap.rb       # Sitemap generation config
 ├── app/
 │   ├── views/
-│   │   ├── layouts/    # ERB layout templates
-│   │   ├── pages/      # Page templates
-│   │   └── shared/     # Reusable partials
-│   ├── javascript/
-│   │   └── application.js  # Main JavaScript entry point
+│   │   ├── layouts/     # Layout templates (ERB)
+│   │   ├── pages/       # Page templates
+│   │   └── shared/      # Reusable partials
+│   ├── helpers/         # Helper modules (auto-loaded)
+│   ├── javascript/      # JavaScript source files (optional)
+│   │   └── application.js
 │   └── assets/
-│       └── stylesheets/     # CSS source files
-└── lib/
-    └── site_builder.rb   # Compiles your site (auto-generated)</code></pre>
+│       └── stylesheets/ # CSS source files
+├── lib/
+│   └── site_builder.rb  # Compiles your site (auto-generated)
+└── public/              # Static files (copied to dist/)</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">lib/site_builder.rb</code> file is automatically generated. It handles ERB compilation and scans <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">app/views/pages/</code> for ERB files, compiling them to HTML in the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">dist/</code> directory.
+        The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">lib/site_builder.rb</code> file is automatically generated and handles ERB template compilation. It scans <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">app/views/pages/</code> for template files, compiling them to HTML in the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">dist/</code> directory. The gem uses ActionView for Rails-like templates, helpers, layouts, and partials. Helper modules in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">app/helpers/</code> are automatically loaded and available in your templates.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
-      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Creating Pages</h2>
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">ERB Templates</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Pages are ERB files in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/pages/</code>. The file structure determines the URL structure:
+        The gem uses ERB (Embedded Ruby) templates with ActionView, providing Rails-like functionality. This includes support for layouts, partials, helpers, and the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">meta-tags</code> gem for SEO metadata.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Pages are ERB template files in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/pages/</code>. The file structure determines the URL structure:
       </p>
       <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">index.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/</code></li>
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">about.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/about</code></li>
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">blog/post.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/blog/post</code></li>
       </ul>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Partials work just like in Rails. You can include them and pass local variables using the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">locals:</code> option, for example: <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">&lt;%= render partial: 'shared/header', locals: { title: 'Home' } %&gt;</code>.
+      </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
@@ -108,7 +112,7 @@ bundle install</code></pre>
 &lt;body&gt;
   &lt;%= render partial: 'shared/header' %&gt;
   &lt;main&gt;
-    &lt;%= page_content %&gt;
+    &lt;%= yield %&gt;
   &lt;/main&gt;
   &lt;%= render partial: 'shared/footer' %&gt;
   
@@ -118,27 +122,33 @@ bundle install</code></pre>
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render partial:</code> for partials. The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">page_content</code> method yields the page content. Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for :javascript</code> to include JavaScript in pages.
+        Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render partial:</code> for partials. The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">yield</code> tag inserts the page content. Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for :javascript</code> to include JavaScript in pages.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Adding JavaScript</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Include JavaScript files in your page templates using <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for :javascript</code>:
+        To include JavaScript files in your pages, use the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for(:javascript)</code> block in your ERB templates:
       </p>
-      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% content_for :javascript do %&gt;
+      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% content_for(:javascript) do %&gt;
   &lt;script src="/assets/javascripts/application.js"&gt;&lt;/script&gt;
 &lt;% end %&gt;</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Set up your own bundler (ESBuild, Webpack, Vite) if needed and output to <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">dist/assets/javascripts/</code>. See the <a href="https://github.com/Ancez/static-site-builder/blob/main/guides/setup-esbuild.md" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">ESBuild setup guide</a> for an example.
+        If your project includes a <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">package.json</code> with a <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">scripts.build</code> entry, <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">rake build:assets</code> will execute <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">npm run build</code>. Otherwise, it will copy files from <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/javascript/</code> to <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">dist/assets/javascripts/</code>.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        For more advanced setups, you can configure your own bundler (ESBuild, Webpack, or Vite) and ensure the output is directed to <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">dist/assets/javascripts/</code>. See the <a href="https://github.com/Ancez/static-site-builder/blob/main/guides/setup-esbuild.md" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">ESBuild setup guide</a> for detailed instructions.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Adding CSS</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Write CSS in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/assets/stylesheets/application.css</code>. Use any CSS tool you prefer - Tailwind CSS, PostCSS, Sass, Less, or plain CSS. See the <a href="https://github.com/Ancez/static-site-builder/blob/main/guides/setup-tailwind.md" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">Tailwind CSS setup guide</a> for detailed instructions.
+        Write CSS in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/assets/stylesheets/application.css</code>. Use any CSS tool you prefer—Tailwind CSS, PostCSS, Sass, Less, or plain CSS. See the <a href="https://github.com/Ancez/static-site-builder/blob/main/guides/setup-tailwind.md" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">Tailwind CSS setup guide</a> for detailed instructions.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        If your project includes a <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">package.json</code> with a <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">scripts.build:css</code> entry, <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">rake build:css</code> will execute <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">npm run build:css</code>. If a <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">tailwind.config.js</code> exists, it will run the Tailwind CLI. Otherwise, it will copy files from <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/assets/stylesheets/</code> to <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">dist/assets/stylesheets/</code>.
       </p>
     </div>
 
@@ -148,12 +158,14 @@ bundle install</code></pre>
         The generator creates a <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">Rakefile</code> with all necessary build tasks. Use these commands:
       </p>
       <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
-        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:all</code> - Build HTML and sitemap</li>
+        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:all</code> - Build everything (HTML + assets + CSS)</li>
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:html</code> - Build HTML only</li>
+        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:assets</code> - Build JavaScript assets</li>
+        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:css</code> - Build CSS</li>
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:production</code> - Clean build for production</li>
       </ul>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The build process compiles your ERB files to static HTML in the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory, ready for deployment.
+        The build process compiles your ERB templates to static HTML in the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory. It also handles asset copying and sitemap generation. The output is ready for deployment to any static hosting service.
       </p>
     </div>
 
@@ -164,7 +176,7 @@ bundle install</code></pre>
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>rake dev:server</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        This starts a local server, watches for file changes, and automatically rebuilds. The gem includes WebSocket support for live reloading in the browser.
+        This starts a local server on <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">http://localhost:3000</code>, watches for file changes, and automatically rebuilds. The gem includes WebSocket support for live reloading in the browser. Template path annotations are automatically enabled in development mode, helping you debug which template generated each HTML section. These annotations are automatically removed in production builds.
       </p>
     </div>
 
@@ -196,22 +208,26 @@ bundle install</code></pre>
         Once built, your static site is in the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory. Deploy it to any static hosting service:
       </p>
       <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
-        <li><strong>Netlify</strong> - Connect your Git repository and set build command to <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:production</code></li>
-        <li><strong>Vercel</strong> - Similar setup with build command</li>
-        <li><strong>GitHub Pages</strong> - Use GitHub Actions to build and deploy</li>
-        <li><strong>Cloudflare Pages</strong> - Connect repo and configure build settings</li>
+        <li><strong>Netlify</strong> - Connect your Git repository and set build command to <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">bundle install && npm install && bundle exec rake build:all</code></li>
+        <li><strong>Vercel</strong> - Use <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">vercel.json</code> with build command <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">bundle install && npm install && bundle exec rake build:all</code> and output directory <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist</code></li>
+        <li><strong>GitHub Pages</strong> - Use GitHub Actions to build and deploy (see <a href="https://github.com/Ancez/static-site-builder/blob/main/guides/deployment-github-pages.md" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">deployment guide</a>)</li>
+        <li><strong>Cloudflare Pages</strong> - Connect repo and configure build settings with <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">bundle install && npm install && bundle exec rake build:all</code></li>
         <li><strong>Any CDN</strong> - Upload the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory contents</li>
       </ul>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Note: If you're using JavaScript bundlers or CSS frameworks, ensure <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">npm install</code> is included in your build command. See the <a href="https://github.com/Ancez/static-site-builder/tree/main/guides" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">deployment guides</a> for platform-specific instructions.
+      </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Best Practices</h2>
       <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
-        <li><strong>Keep it simple</strong> - Use partials for reusable components</li>
+        <li><strong>Use partials</strong> - Leverage ERB partials for reusable components and shared UI elements</li>
         <li><strong>Organise by feature</strong> - Group related pages in subdirectories</li>
-        <li><strong>Use helpers</strong> - Centralise page metadata and common logic</li>
-        <li><strong>Version control</strong> - Commit your source files, ignore <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code></li>
-        <li><strong>Test locally</strong> - Always preview before deploying</li>
+        <li><strong>Use helpers</strong> - Centralise page metadata and common logic in <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">app/helpers/</code></li>
+        <li><strong>Add tools as needed</strong> - The gem is intentionally simple. Add JavaScript bundlers and CSS frameworks only when you need them</li>
+        <li><strong>Version control</strong> - Commit your source files, ignore <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> and <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">node_modules/</code></li>
+        <li><strong>Test locally</strong> - Always preview with <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake dev:server</code> before deploying</li>
       </ul>
     </div>
 
