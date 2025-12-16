@@ -99,7 +99,7 @@ bundle install</code></pre>
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Layouts and Partials</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Create a main layout in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/layouts/application.html.erb</code>:
+        The generator creates a default layout at <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/layouts/application.html.erb</code>. You can customise it to match your needs. Here's what a typical layout looks like:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
@@ -110,19 +110,17 @@ bundle install</code></pre>
   &lt;link rel="stylesheet" href="/assets/stylesheets/application.css"&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;%= render partial: 'shared/header' %&gt;
   &lt;main&gt;
     &lt;%= yield %&gt;
-  &lt;/main&gt;
-  &lt;%= render partial: 'shared/footer' %&gt;
-  
+  &lt;/main>
+
   &lt;% if content_for?(:javascript) %&gt;
     &lt;%= yield(:javascript) %&gt;
   &lt;% end %&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render partial:</code> for partials. The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">yield</code> tag inserts the page content. Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for :javascript</code> to include JavaScript in pages.
+        The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">yield</code> tag inserts the page content. Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render partial:</code> to include partials, for example: <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">&lt;%= render partial: 'shared/header' %&gt;</code>. Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for :javascript</code> in your page templates to include JavaScript that will be injected into the layout.
       </p>
     </div>
 
