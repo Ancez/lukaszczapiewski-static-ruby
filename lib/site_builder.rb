@@ -6,18 +6,12 @@ Encoding.default_external = Encoding::UTF_8 if defined?(Encoding)
 
 require "static_site_builder"
 
-require "importmap-rails"
-
 # Load page helpers
 require_relative "page_helpers"
 
-# Configure the builder for your stack
+# Configure the builder
 builder = StaticSiteBuilder::Builder.new(
-  root: Dir.pwd,
-  template_engine: "erb",
-  js_bundler: "importmap",
-  importmap_config: "config/importmap.rb",
-
+  root: Dir.pwd
 )
 
 # Build the site

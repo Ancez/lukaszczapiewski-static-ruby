@@ -1,6 +1,6 @@
-<% @js_modules = ['application'] %>
 
 <%# Define project variables %>
+<% @url = 'https://lukaszczapiewski.com/projects/templates-rails' %>
 <% @project_title = 'Templates Rails' %>
 <% @project_description = 'A simple templating system for Rails applications that allows developers to design views before implementation. Make your design decisions before you build your application views.' %>
 <% @project_tags = ['Ruby', 'Rails', 'ERB'] %>
@@ -13,6 +13,12 @@
 <%= render layout: 'shared/projects/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/templates-rails.webp"
+        alt="Templates Rails"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-2xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">About</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Templates Rails is a gem I built to solve a common problem in Rails development: making design decisions before diving into implementation. Instead of building views directly into controllers and routes, you can create templates in a dedicated directory and access them via a simple engine.
@@ -26,4 +32,5 @@
     </div>
   </div>
 <% end %>
+
 

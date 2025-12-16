@@ -10,7 +10,7 @@ This is the source code for [lukaszczapiewski.com](https://lukaszczapiewski.com)
 
 - **Static Site Generator**: Custom Ruby gem (`static-site-builder`)
 - **Templates**: ERB (Embedded Ruby)
-- **JavaScript**: Stimulus controllers with importmap
+- **JavaScript**: Stimulus (bundled with esbuild)
 - **CSS**: Tailwind CSS
 - **Build Tools**: Rake tasks for building and development
 - **Sitemap**: Automatic sitemap generation
@@ -34,7 +34,6 @@ app/
       projects/
 
 config/
-  importmap.rb            # JavaScript module mapping
   sitemap.rb              # Sitemap configuration
 
 lib/
@@ -85,7 +84,7 @@ Build the static site:
 rake build:all
 ```
 
-This compiles all pages to HTML and processes CSS.
+This compiles all pages to HTML, bundles JavaScript, and processes CSS.
 
 Build for production (cleans dist directory first):
 
@@ -95,8 +94,9 @@ rake build:production
 
 ### Available Rake Tasks
 
-- `rake build:all` - Build HTML and CSS
+- `rake build:all` - Build HTML, JavaScript, and CSS
 - `rake build:html` - Build HTML pages only
+- `rake build:assets` - Build JavaScript assets only
 - `rake build:css` - Build CSS only
 - `rake build:production` - Clean and build for production
 - `rake build:clean` - Clean the dist directory

@@ -1,8 +1,8 @@
-<% @js_modules = ['application'] %>
 
 <%# Define blog post variables %>
 <% @blog_title = 'Building Modern Interfaces with Hotwire' %>
 <% @blog_slug = 'building-modern-interfaces-with-hotwire' %>
+<% @url = 'https://lukaszczapiewski.com/blog/building-modern-interfaces-with-hotwire' %>
 <% @blog_tags = ['Rails', 'Hotwire', 'Stimulus'] %>
 <% @blog_date = Date.new(2025, 11, 22) %>
 <% @blog_external_links = [] %>
@@ -10,6 +10,12 @@
 <%= render layout: 'shared/blog/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/blog/building-modern-interfaces-with-hotwire.webp"
+        alt="Building Modern Interfaces with Hotwire"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
       <p class="text-xl dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
         Hotwire represents a paradigm shift in Rails development. Instead of building separate API endpoints and JavaScript applications, Hotwire brings modern interactivity directly to your server-rendered HTML.
       </p>
@@ -37,3 +43,4 @@
     </div>
   </div>
 <% end %>
+

@@ -1,15 +1,24 @@
-<% @js_modules = ['application'] %>
 
 <%# Define project variables %>
+<% @url = 'https://lukaszczapiewski.com/projects/yt-music-focus-like-chrome' %>
 <% @project_title = 'YouTube Music Auto Like' %>
 <% @project_description = 'Chrome extension that automatically likes YouTube Music songs when the browser window gains focus, with keyboard shortcuts and smart duplicate prevention. Built for myself to use on my Omarchy setup.' %>
 <% @project_tags = ['JavaScript', 'Chrome Extension'] %>
 <% @project_github_url = 'https://github.com/Ancez/yt-music-focus-like-chrome' %>
-<% @project_external_url = @project_github_url %>
+<% @project_external_links = [
+  { url: 'https://github.com/Ancez/yt-music-focus-like-chrome', text: 'View on GitHub', icon: 'github' },
+  { url: 'https://chromewebstore.google.com/detail/youtube-music-auto-like-o/hpihphjkeeblhgjffeknlmophfkonnai', text: 'View on Chrome Web Store', icon: nil }
+] %>
 
 <%= render layout: 'shared/projects/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/yt-music-focus-like-chrome.webp"
+        alt="YouTube Music Auto Like"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-2xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">About</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         I built this for my Omarchy setup—a multi-monitor workstation where YouTube Music runs on a dedicated screen. The problem was simple: I'd discover great music while working, but by the time I switched windows to like it, I'd already forgotten or moved on to the next track.
@@ -23,3 +32,4 @@
     </div>
   </div>
 <% end %>
+

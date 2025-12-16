@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* View Transitions API - Enable cross-document transitions */
+@view-transition {
+  navigation: auto;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -81,6 +86,29 @@
     max-height: 0;
   }
 }
+
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out-to-bottom {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
 
 .animate-fade-in {
   animation: fade-in 0.6s ease-out;
@@ -210,6 +238,40 @@
     border-color: rgba(59, 130, 246, 0.6);
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   }
+
+  .image-placeholder {
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  html:not(.dark) .image-placeholder {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .image-placeholder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  html:not(.dark) .image-placeholder:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  .image-placeholder::before {
+    content: '🖼️';
+    font-size: 2rem;
+    opacity: 0.5;
+  }
 }
 
 @keyframes blink {
@@ -323,3 +385,141 @@ html:not(.dark) .tooltip {
 .theme-switcher-switching {
   animation: theme-switch 0.6s ease-in-out;
 }
+
+/* View Transition Names for smooth cross-document transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth fade transition for page content */
+@keyframes fade-in-view-transition {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-view-transition {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Slide animations for directional transitions */
+@keyframes slide-out-to-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-to-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Default root transition - simple fade */
+::view-transition-old(root) {
+  animation: fade-out-view-transition 0.3s ease-out;
+}
+
+::view-transition-new(root) {
+  animation: fade-in-view-transition 0.3s ease-out;
+}
+
+/* Reload transition - fade */
+html:active-view-transition-type(reload)::view-transition-old(root) {
+  animation: fade-out-view-transition 0.3s ease-out;
+}
+
+html:active-view-transition-type(reload)::view-transition-new(root) {
+  animation: fade-in-view-transition 0.3s ease-out;
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+/* Smooth transitions for persistent elements */
+::view-transition-old(header-nav),
+::view-transition-new(header-nav) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(theme-switcher),
+::view-transition-new(theme-switcher) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced transition for main content with subtle slide */
+@keyframes slide-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* Default main-content transition (when no type is set) */
+::view-transition-old(main-content) {
+  animation: slide-fade-out 0.4s ease-out;
+}
+
+::view-transition-new(main-content) {
+  animation: slide-fade-in 0.4s ease-out;
+}
+
+

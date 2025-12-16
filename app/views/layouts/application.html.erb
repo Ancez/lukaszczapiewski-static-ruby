@@ -3,28 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="view-transition" content="same-origin">
   
-  <!-- Primary Meta Tags -->
-  <title><%= @title || 'Lukasz Czapiewski - Full Stack Developer' %></title>
-  <meta name="title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
-  <meta name="description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="<%= @url || 'https://lukaszczapiewski.com' %>">
-  <meta property="og:title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
-  <meta property="og:description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
-  <meta property="og:image" content="<%= @image || 'https://lukaszczapiewski.com/images/profile.jpeg' %>">
-  
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="<%= @url || 'https://lukaszczapiewski.com' %>">
-  <meta property="twitter:title" content="<%= @title || 'Lukasz Czapiewski - Full Stack Developer' %>">
-  <meta property="twitter:description" content="<%= @description || 'Full stack developer passionate about Ruby on Rails and building things that matter. Based in Cheltenham, UK.' %>">
-  <meta property="twitter:image" content="<%= @image || 'https://lukaszczapiewski.com/images/profile.jpeg' %>">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="<%= @url || 'https://lukaszczapiewski.com' %>">
+  <%= display_meta_tags(default_meta_tags) %>
   
   <!-- RSS Feed -->
   <link rel="alternate" type="application/rss+xml" title="Lukasz Czapiewski - Blog RSS Feed" href="https://lukaszczapiewski.com/feed.xml">
@@ -68,12 +49,20 @@
     end
   %>
   <main class="dark:bg-slate-950 bg-slate-50">
-    <%= render 'shared/header' %>
-    <%= page_content %>
-    <%= render 'shared/footer' %>
+    <% unless @current_page == '/space-shooter' %>
+      <%= render 'shared/header' %>
+    <% end %>
+    <%= yield %>
+    <% unless @current_page == '/space-shooter' %>
+      <%= render 'shared/footer' %>
+    <% end %>
   </main>
 
+  <!-- Cookies Popup -->
+  <%= render 'shared/cookies_popup' %>
+
   <!-- Theme Switcher -->
+  <% unless @current_page == '/space-shooter' %>
   <div 
     data-controller="theme-switcher" 
     class="fixed top-auto bottom-6 md:top-6 md:bottom-auto right-6 z-50 opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-out"
@@ -135,19 +124,12 @@
       </svg>
     </button>
   </div>
-
-  <% if importmap_json %>
-    <script type="importmap">
-      <%= raw importmap_json %>
-    </script>
   <% end %>
 
-  <%
-    modules_to_import = (@js_modules || []).dup
-    modules_to_import << 'application' unless modules_to_import.include?('application')
-  %>
-  <% modules_to_import.each do |module_name| %>
-    <script type="module">import "<%= module_name %>";</script>
+  <script type="module" src="/assets/javascripts/application.js"></script>
+  
+  <% if content_for?(:javascript) %>
+    <%= yield(:javascript) %>
   <% end %>
 </body>
 </html>

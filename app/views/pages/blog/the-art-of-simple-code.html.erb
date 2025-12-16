@@ -1,8 +1,8 @@
-<% @js_modules = ['application'] %>
 
 <%# Define blog post variables %>
 <% @blog_title = 'The Art of Simple Code' %>
 <% @blog_slug = 'the-art-of-simple-code' %>
+<% @url = 'https://lukaszczapiewski.com/blog/the-art-of-simple-code' %>
 <% @blog_tags = ['Programming', 'Best Practices', 'Code Quality'] %>
 <% @blog_date = Date.new(2025, 11, 22) %>
 <% @blog_external_links = [] %>
@@ -10,6 +10,12 @@
 <%= render layout: 'shared/blog/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/blog/the-art-of-simple-code.webp"
+        alt="The Art of Simple Code"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
       <p class="text-xl dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
         In a world where complexity is often mistaken for sophistication, writing simple code is both an art and a discipline. The best code isn't the cleverest—it's the code that your future self will thank you for.
       </p>
@@ -37,3 +43,4 @@
     </div>
   </div>
 <% end %>
+

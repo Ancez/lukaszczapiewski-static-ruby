@@ -1,9 +1,9 @@
-<% @js_modules = ['application'] %>
 
 <%# Define project variables %>
+<% @url = 'https://lukaszczapiewski.com/projects/static-site-builder' %>
 <% @project_title = 'Static Site Builder' %>
-<% @project_description = 'A Ruby gem for building static HTML sites. Choose your stack: ERB or Phlex, Importmap or ESBuild/Webpack/Vite, TailwindCSS or shadcn, Stimulus or React/Vue/Alpine.' %>
-<% @project_tags = ['Ruby', 'ERB/Phlex', 'Importmap', 'TailwindCSS', 'Stimulus'] %>
+<% @project_description = 'A Ruby gem for building static HTML sites using ERB files. Simple and flexible - add your own JavaScript bundling and CSS processing as needed.' %>
+<% @project_tags = ['Ruby', 'ERB', 'Static Sites', 'ActionView'] %>
 <% @project_github_url = 'https://github.com/Ancez/static-site-builder' %>
 <% @project_external_links = [
   { url: 'https://github.com/Ancez/static-site-builder', text: 'View on GitHub', icon: 'github' },
@@ -13,16 +13,23 @@
 <%= render layout: 'shared/projects/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/static-site-builder.webp"
+        alt="Static Site Builder"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-2xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">About</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         I built this gem because I was tired of the complexity that comes with most static site generators. I wanted something that felt like Rails but produced static HTML—no server required, just compile and deploy.
       </p>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The real challenge was making JavaScript work properly in a static context. Most generators either ignore JS entirely or force you into their specific bundling setup. I wanted flexibility—use Importmap if you want simplicity, or ESBuild/Webpack/Vite if you need more power. Same with templates: ERB for familiarity, or Phlex if you prefer component-based views.
+        The gem uses ActionView to render ERB files, giving you Rails-like layouts, pages, and partials without a full Rails application, allowing you to host it for free directly on Cloudflare CDNs and other static hosting services. It's intentionally simple—no built-in JavaScript bundlers or CSS frameworks. Instead, you add your own tools as needed, with setup guides provided in the documentation.
       </p>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        This site itself is built with it, and I use it for client projects when they need something fast and secure without the overhead of a full Rails app. It's become my go-to for portfolios, documentation sites, and marketing pages.
+        This site itself is built with it, and I use it for client projects when they need something fast and secure without a full Rails application, allowing them to host it for free directly on Cloudflare CDNs and other static hosting services. It's become my go-to for portfolios, documentation sites, and marketing pages.
       </p>
     </div>
   </div>
 <% end %>
+

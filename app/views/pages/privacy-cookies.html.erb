@@ -1,7 +1,6 @@
-<% @js_modules = ['application'] %>
-<% @title = 'Privacy Policy - Lukasz Czapiewski' %>
-<% @description = 'Privacy policy for lukaszczapiewski.com. This website does not use cookies or tracking.' %>
-<% @url = 'https://lukaszczapiewski.com/privacy' %>
+<% @title = 'Privacy & Cookies Policy - Lukasz Czapiewski' %>
+<% @description = 'Privacy and cookies policy for lukaszczapiewski.com. This website uses cookies for theme preference and localStorage for game high scores only.' %>
+<% @url = 'https://lukaszczapiewski.com/privacy-cookies' %>
 
 <div class="min-h-screen dark:bg-slate-950 bg-slate-50 dark:text-white text-slate-900 relative overflow-hidden">
   <!-- Animated Background -->
@@ -17,17 +16,18 @@
       <div class="text-center mb-16">
         <h1 class="text-5xl md:text-7xl font-bold mb-6">
           <span class="bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent">
-            Privacy Policy
+            Privacy & Cookies Policy
           </span>
         </h1>
         <p class="text-xl dark:text-slate-400 text-slate-600 max-w-2xl mx-auto">
-          Your privacy matters. Here's how I handle your data.
+          Your privacy matters. Here's how I handle your data and cookies.
         </p>
       </div>
 
       <div class="space-y-8">
         <div class="apple-glass p-8 hover:border-indigo-500/50 transition-all">
-          <h2 class="text-3xl font-bold dark:text-white text-slate-900 mb-4">Cookies</h2>
+          <div class="image-placeholder w-full h-48 mb-6"></div>
+          <h2 class="text-3xl font-bold dark:text-white text-slate-900 mb-4">Cookies and Local Storage</h2>
           <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg">
             This website uses a single essential cookie named <code class="dark:text-indigo-400 text-blue-600">theme</code> to store your theme preference (light or dark mode). This cookie is stored locally on your device and is used solely to remember your visual preference for future visits. It expires after 365 days and does not contain any personal information. It is not used for tracking or analytics purposes.
           </p>
@@ -35,11 +35,15 @@
             You can change your theme preference at any time using the theme switcher (sun/moon icon) located in the top right corner of the page (or bottom right on mobile devices). Changing your preference will update the cookie automatically.
           </p>
           <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg mt-4">
-            This website does not use any tracking scripts, analytics tools, or any other means of collecting or storing your personal information beyond the theme preference cookie mentioned above. Your visit to this site is otherwise completely private and anonymous.
+            Additionally, this website uses browser localStorage to store high scores for the easter egg game (Christmas Shooter). The localStorage key <code class="dark:text-indigo-400 text-blue-600">christmasShooterHighScores</code> stores only your game scores locally on your device. This data is stored entirely on your device and is never transmitted to any server. It is used solely to display your personal high scores within the game and does not contain any personal information or tracking data.
+          </p>
+          <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg mt-4">
+            This website does not use any tracking scripts, analytics tools, or any other means of collecting or storing your personal information beyond the theme preference cookie and game high scores mentioned above. Your visit to this site is otherwise completely private and anonymous.
           </p>
         </div>
 
         <div class="apple-glass p-8 hover:border-indigo-500/50 transition-all">
+          <div class="image-placeholder w-full h-48 mb-6"></div>
           <h2 class="text-3xl font-bold dark:text-white text-slate-900 mb-4">No Data Collection</h2>
           <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg">
             I do not collect, store, or process any personal data from visitors to this website. There are no forms that submit data to my servers, no user accounts, and no tracking mechanisms of any kind.
@@ -47,6 +51,7 @@
         </div>
 
         <div class="apple-glass p-8 hover:border-indigo-500/50 transition-all">
+          <div class="image-placeholder w-full h-48 mb-6"></div>
           <h2 class="text-3xl font-bold dark:text-white text-slate-900 mb-4">Server Logs</h2>
           <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg">
             Like most websites, my hosting provider may maintain standard server logs that include basic information such as IP addresses, browser types, and access times. These logs are used solely for technical purposes (such as debugging and security) and are not used for tracking or profiling visitors. I do not have access to or control over these logs.
@@ -71,7 +76,7 @@
         <div class="apple-glass p-8 hover:border-indigo-500/50 transition-all">
           <h2 class="text-3xl font-bold dark:text-white text-slate-900 mb-4">Last Updated</h2>
           <p class="dark:text-slate-400 text-slate-700 leading-relaxed text-lg">
-            This privacy policy was last updated on <%= Date.today.strftime('%B %d, %Y') %>.
+            This privacy & cookies policy was last updated on <%= Date.today.strftime('%B %d, %Y') %>.
           </p>
         </div>
       </div>
@@ -84,3 +89,4 @@
     </div>
   </section>
 </div>
+

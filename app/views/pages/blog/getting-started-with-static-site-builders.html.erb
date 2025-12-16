@@ -1,8 +1,8 @@
-<% @js_modules = ['application'] %>
 
 <%# Define blog post variables %>
 <% @blog_title = 'Getting Started with Static Site Builder' %>
 <% @blog_slug = 'getting-started-with-static-site-builders' %>
+<% @url = 'https://lukaszczapiewski.com/blog/getting-started-with-static-site-builders' %>
 <% @blog_tags = ['Ruby', 'Static Sites', 'Web Development', 'Tutorial'] %>
 <% @blog_date = Date.new(2025, 11, 22) %>
 <% @blog_external_links = [
@@ -13,8 +13,14 @@
 <%= render layout: 'shared/blog/layout' do %>
   <div class="space-y-8">
     <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/static-site-builder.webp"
+        alt="Getting Started with Static Site Builder"
+        loading="lazy"
+        class="w-full aspect-[16/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
       <p class="text-xl dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
-        The <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">static-site-builder</a> gem is a Ruby-powered static site generator that compiles ERB templates into static HTML. It's perfect when you want Rails-like templating without the overhead of a full Rails application. This guide will walk you through everything you need to know to build and deploy static sites with this gem.
+        The <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">static-site-builder</a> gem is a Ruby-powered static site generator that compiles ERB files into static HTML. It's perfect when you want Rails-like layouts, pages, and partials without a full Rails application, allowing you to host it for free directly on Cloudflare CDNs and other static hosting services. This guide will walk you through everything you need to know to build and deploy static sites with this gem.
       </p>
     </div>
 
@@ -39,20 +45,13 @@ static-site-builder new my-site
 # Or if using from repo
 ruby bin/generate my-site</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        You'll be prompted to choose your stack using an interactive menu with arrow key navigation. Select your preferred:
-      </p>
-      <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
-        <li><strong>Template Engine</strong>: ERB or Phlex</li>
-        <li><strong>JavaScript Bundler</strong>: Importmap, ESBuild, Webpack, Vite, or none</li>
-        <li><strong>CSS Framework</strong>: TailwindCSS, shadcn/ui, or plain CSS</li>
-        <li><strong>JavaScript Framework</strong>: Stimulus, React, Vue, Alpine.js, or vanilla JS</li>
-      </ul>
-      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
         Once generated, install dependencies:
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>cd my-site
-bundle install
-npm install  # Required for importmap projects and JS frameworks</code></pre>
+bundle install</code></pre>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        The generator creates a simple ERB-based structure. Add your own JavaScript bundling and CSS processing as needed. See the <a href="https://github.com/Ancez/static-site-builder" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">setup guides</a> for Tailwind CSS, ESBuild, and other tools.
+      </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
@@ -62,49 +61,35 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>my-site/
 ├── Gemfile              # Dependencies (static-site-builder, sitemap_generator, etc.)
-├── package.json         # JS dependencies (if needed)
 ├── Rakefile            # Build tasks (includes sitemap generation)
 ├── config/
-│   ├── importmap.rb    # Importmap config (if using importmap)
 │   └── sitemap.rb      # Sitemap generation config
 ├── app/
 │   ├── views/
 │   │   ├── layouts/    # ERB layout templates
 │   │   ├── pages/      # Page templates
-│   │   └── components/ # Reusable components/partials
+│   │   └── shared/     # Reusable partials
 │   ├── javascript/
-│   │   ├── application.js  # Main JavaScript entry point
-│   │   └── controllers/    # Stimulus controllers (if using Stimulus)
+│   │   └── application.js  # Main JavaScript entry point
 │   └── assets/
 │       └── stylesheets/     # CSS source files
 └── lib/
-    ├── site_builder.rb   # Compiles your site (auto-generated)
-    └── page_helpers.rb   # Page metadata (auto-generated)</code></pre>
+    └── site_builder.rb   # Compiles your site (auto-generated)</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">lib/site_builder.rb</code> file is automatically generated and configured based on your stack choices. It handles ERB/Phlex compilation and scans <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">app/views/pages/</code> for templates, compiling them to HTML in the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">dist/</code> directory.
+        The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">lib/site_builder.rb</code> file is automatically generated. It handles ERB compilation and scans <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">app/views/pages/</code> for ERB files, compiling them to HTML in the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-indigo-700 rounded">dist/</code> directory.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
       <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Creating Pages</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Pages are ERB templates in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/pages/</code>. The file structure determines the URL structure:
+        Pages are ERB files in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/pages/</code>. The file structure determines the URL structure:
       </p>
       <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">index.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/</code></li>
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">about.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/about</code></li>
         <li><code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">blog/post.html.erb</code> → <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">/blog/post</code></li>
       </ul>
-      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Example page:
-      </p>
-      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% @title = 'About Me' %&gt;
-&lt;% @description = 'Learn more about me' %&gt;
-
-&lt;div class="container mx-auto px-4 py-8"&gt;
-  &lt;h1&gt;&lt;%= @title %&gt;&lt;/h1&gt;
-  &lt;p&gt;Your content here&lt;/p&gt;
-&lt;/div&gt;</code></pre>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
@@ -116,66 +101,45 @@ npm install  # Required for importmap projects and JS frameworks</code></pre>
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;&lt;%= @title || 'My Site' %&gt;&lt;/title&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;%= display_meta_tags site: 'Site', title: 'Site' %&gt;
   &lt;link rel="stylesheet" href="/assets/stylesheets/application.css"&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;%= render 'shared/header' %&gt;
-  &lt;%= page_content %&gt;
-  &lt;%= render 'shared/footer' %&gt;
+  &lt;%= render partial: 'shared/header' %&gt;
+  &lt;main&gt;
+    &lt;%= page_content %&gt;
+  &lt;/main&gt;
+  &lt;%= render partial: 'shared/footer' %&gt;
   
-  &lt;% if importmap_json %&gt;
-    &lt;script type="importmap"&gt;
-      &lt;%= raw importmap_json %&gt;
-    &lt;/script&gt;
+  &lt;% if content_for?(:javascript) %&gt;
+    &lt;%= yield(:javascript) %&gt;
   &lt;% end %&gt;
-  
-  &lt;script type="module"&gt;import "application";&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render</code> for partials and nested layouts. The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">page_content</code> method yields the page content.
+        Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">render partial:</code> for partials. The <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">page_content</code> method yields the page content. Use <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for :javascript</code> to include JavaScript in pages.
       </p>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
-      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">JavaScript with Stimulus</h2>
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Adding JavaScript</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Configure JavaScript modules in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">config/importmap.rb</code>:
+        Include JavaScript files in your page templates using <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">content_for :javascript</code>:
       </p>
-      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>pin 'application', preload: true
-pin '@hotwired/stimulus', to: 'stimulus.min.js', preload: true
-pin_all_from 'app/javascript/controllers', under: 'controllers'</code></pre>
+      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% content_for :javascript do %&gt;
+  &lt;script src="/assets/javascripts/application.js"&gt;&lt;/script&gt;
+&lt;% end %&gt;</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        Create Stimulus controllers in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/javascript/controllers/</code>:
+        Set up your own bundler (ESBuild, Webpack, Vite) if needed and output to <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">dist/assets/javascripts/</code>. See the <a href="https://github.com/Ancez/static-site-builder/blob/main/guides/setup-esbuild.md" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">ESBuild setup guide</a> for an example.
       </p>
-      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>import { Controller } from '@hotwired/stimulus'
-
-export default class extends Controller {
-  connect() {
-    console.log('Controller connected')
-  }
-}</code></pre>
-      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        In your pages, specify which JavaScript modules to load:
-      </p>
-      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% @js_modules = ['application', 'my-controller'] %&gt;</code></pre>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
-      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Styling with Tailwind CSS</h2>
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Adding CSS</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        If you selected TailwindCSS during generation, the gem automatically creates <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">tailwind.config.js</code> and <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">package.json</code> with the necessary build scripts. Your source CSS goes in <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">app/assets/stylesheets/application.css</code>, and the Rake tasks handle building CSS automatically.
+        Write CSS in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/assets/stylesheets/application.css</code>. Use any CSS tool you prefer - Tailwind CSS, PostCSS, Sass, Less, or plain CSS. See the <a href="https://github.com/Ancez/static-site-builder/blob/main/guides/setup-tailwind.md" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">Tailwind CSS setup guide</a> for detailed instructions.
       </p>
-      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The generated <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">package.json</code> includes scripts like:
-      </p>
-      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>{
-  "scripts": {
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./dist/assets/stylesheets/application.css --minify",
-    "watch:css": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./dist/assets/stylesheets/application.css --watch"
-  }
-}</code></pre>
     </div>
 
     <div class="apple-glass p-8 md:p-10">
@@ -184,13 +148,12 @@ export default class extends Controller {
         The generator creates a <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">Rakefile</code> with all necessary build tasks. Use these commands:
       </p>
       <ul class="list-disc list-inside dark:text-slate-400 text-slate-700 mb-4 space-y-2">
-        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:all</code> - Build HTML and CSS</li>
+        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:all</code> - Build HTML and sitemap</li>
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:html</code> - Build HTML only</li>
-        <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:css</code> - Build CSS only</li>
         <li><code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:production</code> - Clean build for production</li>
       </ul>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The build process compiles your templates to static HTML in the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory, ready for deployment.
+        The build process compiles your ERB files to static HTML in the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/</code> directory, ready for deployment.
       </p>
     </div>
 
@@ -206,24 +169,13 @@ export default class extends Controller {
     </div>
 
     <div class="apple-glass p-8 md:p-10">
-      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Page Metadata and Helpers</h2>
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">SEO / Meta Tags</h2>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The generator creates <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">lib/page_helpers.rb</code> automatically. This file contains page metadata that's used for SEO and sitemap generation:
+        Set page metadata in your ERB files using the <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">meta-tags</code> gem:
       </p>
-      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>module PageHelpers
-  PAGES = {
-    '/' => {
-      title: 'My Page',
-      description: 'A great page',
-      url: 'https://example.com',
-      image: 'https://example.com/image.jpg',
-      priority: 1.0,
-      changefreq: 'weekly'
-    }
-  }.freeze
-end</code></pre>
+      <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>&lt;% set_meta_tags title: 'Page Title', description: 'Page description' %&gt;</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The builder automatically loads metadata from <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">PageHelpers::PAGES</code> and sets <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@title</code>, <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@description</code>, <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@url</code>, and <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">@image</code> instance variables for use in your templates. Simply add new pages to the <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">PAGES</code> hash.
+        The layout includes <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">&lt;%= display_meta_tags site: 'Site', title: 'Site' %&gt;</code> which sets app-wide defaults. You can also define a <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">default_meta_tags</code> helper method to minimize code duplication. See the <a href="https://github.com/kpumuk/meta-tags" target="_blank" class="dark:text-blue-400 text-blue-600 dark:hover:text-blue-300 hover:text-blue-700 transition-colors">meta-tags gem documentation</a> for all options.
       </p>
     </div>
 
@@ -234,7 +186,7 @@ end</code></pre>
       </p>
       <pre class="dark:bg-slate-900 bg-slate-100 dark:text-white text-slate-900 p-4 rounded-lg overflow-x-auto mb-4"><code>SitemapGenerator::Sitemap.default_host = 'https://yourdomain.com'</code></pre>
       <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
-        The sitemap is generated from your <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">PageHelpers::PAGES</code> metadata during <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">rake build:all</code>. It will be output to <code class="px-2 py-1 bg-slate-800 rounded text-indigo-300">dist/sitemaps/sitemap.xml.gz</code>.
+        The sitemap is automatically generated from all pages in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">app/views/pages/</code> during <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">rake build:all</code>. You can customize priority, changefreq, and lastmod in <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">config/sitemap.rb</code>. It will be output to <code class="px-2 py-1 dark:bg-slate-800 bg-slate-200 dark:text-indigo-300 text-blue-700 rounded">dist/sitemaps/sitemap.xml.gz</code>.
       </p>
     </div>
 
@@ -271,3 +223,4 @@ end</code></pre>
     </div>
   </div>
 <% end %>
+
