@@ -18,6 +18,7 @@ export class InputHandler {
     this.keyDownHandler = null
     this.keyUpHandler = null
     this.wheelHandler = null
+    this.resizeHandler = null
     this.lastTouchY = undefined
     this.isScrolling = false
     this.isDraggingSlider = false
@@ -551,11 +552,12 @@ export class InputHandler {
     window.addEventListener('keydown', this.keyDownHandler)
     window.addEventListener('keyup', this.keyUpHandler)
     
-    window.addEventListener('resize', () => {
+    this.resizeHandler = () => {
       if (this.onResize) {
         this.onResize()
       }
-    })
+    }
+    window.addEventListener('resize', this.resizeHandler)
   }
 
   updatePlayerMovement() {
@@ -628,6 +630,9 @@ export class InputHandler {
     }
     if (this.globalMouseMoveHandler) {
       window.removeEventListener('mousemove', this.globalMouseMoveHandler)
+    }
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler)
     }
   }
 }

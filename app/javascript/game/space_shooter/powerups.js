@@ -3,6 +3,7 @@ export class Powerups {
     this.activePowerups = {
       shotgun: 0,
       homingReindeers: 0,
+      laser: 0,
       explodeAround: 0,
       shield: 0,
       barrier: 0,
