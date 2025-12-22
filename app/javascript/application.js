@@ -1,6 +1,5 @@
 import { Application } from "@hotwired/stimulus"
 import SmoothScrollController from "./controllers/smooth_scroll_controller"
-import TypingController from "./controllers/typing_controller"
 import ParticlesController from "./controllers/particles_controller"
 import TooltipController from "./controllers/tooltip_controller"
 import MobileMenuController from "./controllers/mobile_menu_controller"
@@ -15,7 +14,6 @@ window.Stimulus = Application.start()
 
 // Register your controllers here
 Stimulus.register("smooth-scroll", SmoothScrollController)
-Stimulus.register("typing", TypingController)
 Stimulus.register("particles", ParticlesController)
 Stimulus.register("tooltip", TooltipController)
 Stimulus.register("mobile-menu", MobileMenuController)
