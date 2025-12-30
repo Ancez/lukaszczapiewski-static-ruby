@@ -34,7 +34,7 @@ module PageHelpers
     {
       slug: 'introducing-sprintflint',
       title: 'Introducing SprintFlint',
-      date: Date.new(2025, 12, 30),
+      date: Date.new(2025, 12, 31),
       description: 'Announcing SprintFlint—simple sprint ticketing software that helps agile teams understand their velocity and ship on time. Track story points, manage sprints, and hit more deadlines.',
       tags: ['Product Launch', 'Agile', 'Rails', 'SaaS']
     },
