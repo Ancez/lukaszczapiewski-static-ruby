@@ -32,6 +32,13 @@ module PageHelpers
   # Blog posts configuration
   BLOG_POSTS = [
     {
+      slug: 'introducing-sprintflint',
+      title: 'Introducing SprintFlint',
+      date: Date.new(2025, 12, 30),
+      description: 'Announcing SprintFlint—simple sprint ticketing software that helps agile teams understand their velocity and ship on time. Track story points, manage sprints, and hit more deadlines.',
+      tags: ['Product Launch', 'Agile', 'Rails', 'SaaS']
+    },
+    {
       slug: 'getting-started-with-static-site-builders',
       title: 'Getting Started with Static Site Builder',
       date: Date.new(2025, 11, 22),
