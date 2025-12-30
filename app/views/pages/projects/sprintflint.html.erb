@@ -1,0 +1,164 @@
+
+<%# Define project variables %>
+<% @url = 'https://lukaszczapiewski.com/projects/sprintflint' %>
+<% @project_title = 'SprintFlint' %>
+<% @project_description = 'Simple sprint ticketing software that helps agile teams understand their velocity and ship on time. Track story points, manage sprints, and hit more deadlines.' %>
+<% @project_tags = ['Ruby on Rails', 'Hotwire', 'PostgreSQL', 'SaaS', 'Agile'] %>
+<% @project_external_links = [
+  { url: 'https://sprintflint.com', text: 'Visit SprintFlint', icon: nil }
+] %>
+
+<%= render layout: 'shared/projects/layout' do %>
+  <div class="space-y-8">
+    <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/sprintflint-dashboard.png"
+        alt="SprintFlint Dashboard"
+        loading="lazy"
+        class="w-full aspect-[16/10] object-cover object-top rounded-2xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">About</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        SprintFlint is a sprint ticketing tool I built to answer one question clearly: <strong class="dark:text-white text-slate-900">"Will we finish this sprint on time?"</strong>
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Most ticketing tools are bloated with features that get in the way. They're slow, complex, and don't give you the metrics that actually matter. SprintFlint focuses on velocity analytics, progress tracking, and real-time collaboration—the things that help teams ship.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed">
+        The platform is purpose-built for agile teams with a clear hierarchy: Organisations → Projects → Sprints → Tickets. Each level provides analytics to understand where you stand.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/sprintflint-kanban.png"
+        alt="SprintFlint Kanban Board"
+        loading="lazy"
+        class="w-full aspect-[16/10] object-cover object-top rounded-2xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Kanban Board</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        The kanban board features click-and-drag horizontal scrolling that feels natural from the first use. Drag tickets between columns to update status instantly—changes sync in real-time across all team members.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed">
+        Every interaction is designed for speed. Less time in the tool means more time shipping.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/sprintflint-sprint-overview.png"
+        alt="SprintFlint Sprint Overview"
+        loading="lazy"
+        class="w-full aspect-[16/10] object-cover object-top rounded-2xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Velocity Analytics</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Track story points completed per sprint, see completion rates, and use historical data to plan realistic future sprints. Progress charts compare forecast against plan, with automatic alerts when you're ahead or behind schedule.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed">
+        Velocity trends show how many story points your team ships per sprint. Throughput charts track issues created vs completed. The clarity to make smart decisions mid-sprint, not just at the retro.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Tech Stack</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Built on Rails 8.1 with Hotwire (Turbo + Stimulus), delivering real-time updates without heavy JavaScript frameworks. The backend runs on Ruby 3.4 with PostgreSQL, Redis for caching, and Sidekiq for background jobs.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+        <div class="dark:text-slate-400 text-slate-700">
+          <span class="dark:text-white text-slate-900 font-semibold">Backend:</span><br>
+          Ruby 3.4, Rails 8.1, PostgreSQL
+        </div>
+        <div class="dark:text-slate-400 text-slate-700">
+          <span class="dark:text-white text-slate-900 font-semibold">Frontend:</span><br>
+          Hotwire, esbuild, Dart Sass
+        </div>
+        <div class="dark:text-slate-400 text-slate-700">
+          <span class="dark:text-white text-slate-900 font-semibold">Infrastructure:</span><br>
+          Redis, Sidekiq, AWS S3
+        </div>
+      </div>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Key Features</h2>
+      <ul class="space-y-3 dark:text-slate-400 text-slate-700">
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Velocity analytics with progress tracking</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Kanban and scrum board with drag-to-scroll</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Story point estimation and tracking</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Real-time collaboration across teams</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Global search with ⌘K</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Magic link authentication</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Personal and organisation dashboards</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Coming Soon</h2>
+      <ul class="space-y-3 dark:text-slate-400 text-slate-700">
+        <li class="flex items-start">
+          <span class="text-indigo-400 mr-3">→</span>
+          <span><strong class="dark:text-white text-slate-900">AI Ticket Writer</strong>—Generate well-structured user stories with AI assistance</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-indigo-400 mr-3">→</span>
+          <span><strong class="dark:text-white text-slate-900">AI Issue Investigation</strong>—Cross-reference similar issues from GitHub</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-indigo-400 mr-3">→</span>
+          <span><strong class="dark:text-white text-slate-900">GitHub Integration</strong>—Automatic PR and commit linking to tickets</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Try It Free</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
+        SprintFlint includes 300 tickets free with no credit card required. Setup takes about 2 minutes.
+      </p>
+      <a href="https://sprintflint.com" target="_blank" class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-colors">
+        Get Started with SprintFlint
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+<% end %>
