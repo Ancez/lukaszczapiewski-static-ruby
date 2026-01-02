@@ -35,7 +35,7 @@ module PageHelpers
       slug: 'introducing-sprintflint',
       title: 'Introducing SprintFlint',
       date: Date.new(2025, 12, 31),
-      description: 'Announcing SprintFlint—simple sprint ticketing software that helps agile teams understand their velocity and ship on time. Track story points, manage sprints, and hit more deadlines.',
+      description: 'Sprint management without the clutter. Clean, focused ticketing with velocity analytics, AI-powered imports, and GitHub integration. Built because Linear got complicated.',
       tags: ['Product Launch', 'Agile', 'Rails', 'SaaS']
     },
     {
