@@ -35,7 +35,7 @@ module PageHelpers
       slug: 'introducing-sprintflint',
       title: 'Introducing SprintFlint',
       date: Date.new(2025, 12, 31),
-      description: 'Sprint management without the clutter. Clean, focused ticketing with velocity analytics, AI-powered imports, and GitHub integration. Built because Linear got complicated.',
+      description: 'Sprint management for teams that ship. Clean ticketing with velocity analytics that turn deadlines from guesswork into certainty. Built because Linear got complicated.',
       tags: ['Product Launch', 'Agile', 'Rails', 'SaaS']
     },
     {
