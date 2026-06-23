@@ -1,0 +1,152 @@
+
+<%# Define blog post variables %>
+<% @blog_title = 'Introducing SprintFlint' %>
+<% @blog_slug = 'introducing-sprintflint' %>
+<% @url = 'https://lukaszczapiewski.com/blog/introducing-sprintflint' %>
+<% @blog_tags = ['Product Launch', 'Agile', 'Rails', 'SaaS'] %>
+<% @blog_date = Date.new(2025, 12, 31) %>
+<% @blog_external_links = [{ url: 'https://sprintflint.com', text: 'Visit SprintFlint', icon: nil }] %>
+
+<%= render layout: 'shared/blog/layout' do %>
+  <div class="space-y-8">
+    <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/blog/introducing-sprintflint.png"
+        alt="SprintFlint Dashboard"
+        loading="lazy"
+        class="w-full aspect-[21/9] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <p class="text-xl dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
+        I'm excited to announce <a href="https://sprintflint.com" target="_blank" class="text-indigo-400 hover:text-indigo-300 underline">SprintFlint</a>—sprint management that gets out of your way. No bloat, no maze of menus. Just your board, your velocity, your work.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed">
+        <strong class="dark:text-white text-slate-900">Open it. See your sprint. Ship your work. Done.</strong>
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Why I Built It</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Linear got bloated. What started clean became a maze—five clicks to see a kanban board, velocity insights buried or missing entirely. The tool was getting in the way of the work.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        I wanted the opposite. A board that loads instantly. Velocity charts that actually tell you something. Zero friction between opening the app and doing the work.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed">
+        SprintFlint is purpose-built for teams who ship: Organisations → Projects → Sprints → Tickets. Clean hierarchy, real analytics, no bullshit.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/sprintflint-analytics.png"
+        alt="SprintFlint Velocity Analytics"
+        loading="lazy"
+        class="w-full aspect-[16/10] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Velocity Analytics</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Track your team's true throughput with velocity trend analysis, sprint burndown charts, and forecast vs actual comparison. Everything you need for meaningful retrospectives—see what got done, what slipped, and where the blockers were.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <img
+        src="/images/projects/sprintflint-ai-import.png"
+        alt="SprintFlint AI Import"
+        loading="lazy"
+        class="w-full aspect-[16/10] object-cover object-top rounded-xl mb-6 border border-white/10 dark:border-white/10 border-slate-900/10"
+      >
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">AI Import: Paste. Parse. Done.</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        Paste user stories and let AI extract tickets with story points and auto-generated tags. Import from Notion or plain text. Set up a sprint in seconds.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Key Features</h2>
+      <ul class="space-y-4 dark:text-slate-400 text-slate-700">
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span><strong class="dark:text-white text-slate-900">Velocity Analytics</strong>—Sprint burndown charts, throughput tracking, and forecast vs actual comparison.</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span><strong class="dark:text-white text-slate-900">Kanban Board</strong>—Click and drag to scroll horizontally. Drag tickets between columns to update status instantly.</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span><strong class="dark:text-white text-slate-900">AI Import</strong>—Paste user stories, AI extracts tickets with story points and tags. Import from Notion.</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span><strong class="dark:text-white text-slate-900">GitHub Integration</strong>—Automatic PR and commit linking to tickets.</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span><strong class="dark:text-white text-slate-900">Global Search</strong>—Press ⌘K to search across your entire workspace. Keyboard-first navigation.</span>
+        </li>
+        <li class="flex items-start">
+          <svg class="w-5 h-5 text-indigo-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span><strong class="dark:text-white text-slate-900">Real-Time Collaboration</strong>—When someone moves an issue, the whole team sees it instantly.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Built With Rails and Hotwire</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        SprintFlint is built on Rails 8.1 with Hotwire (Turbo + Stimulus), delivering real-time updates without the complexity of heavy JavaScript frameworks. The backend runs on Ruby 3.4 with PostgreSQL, Redis, and Sidekiq for background jobs.
+      </p>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed">
+        Every interaction is designed for speed—from magic link authentication to drag-to-scroll kanban navigation. Less time in the tool means more time shipping.
+      </p>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">What's Coming Next</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-4">
+        The roadmap includes more AI-powered features to help teams write better tickets and resolve issues faster:
+      </p>
+      <ul class="space-y-2 dark:text-slate-400 text-slate-700">
+        <li class="flex items-start">
+          <span class="text-indigo-400 mr-2">→</span>
+          <span><strong class="dark:text-white text-slate-900">AI Ticket Writer</strong>—Generate well-structured user stories with AI assistance.</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-indigo-400 mr-2">→</span>
+          <span><strong class="dark:text-white text-slate-900">AI Issue Investigation</strong>—Cross-reference similar issues from GitHub, find past solutions.</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-indigo-400 mr-2">→</span>
+          <span><strong class="dark:text-white text-slate-900">Implementation Suggestions</strong>—AI-powered suggestions based on your codebase patterns.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="apple-glass p-8 md:p-10">
+      <h2 class="text-2xl font-bold dark:text-white text-slate-900 mb-4">Try It Free</h2>
+      <p class="dark:text-slate-400 text-slate-700 leading-relaxed mb-6">
+        SprintFlint includes 300 tickets free with no credit card required. Setup takes about 30 seconds. If you're running agile sprints and want clearer visibility into your team's velocity, give it a try.
+      </p>
+      <a href="https://sprintflint.com" target="_blank" class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition-colors">
+        Get Started with SprintFlint
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+<% end %>
